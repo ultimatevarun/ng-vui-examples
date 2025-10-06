@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NgVuiIcon Component - Complete Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .demo-container {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            background: #f9fafb;
+        }
+
+        /* Icon Styling */
+        .ng-vui-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .ng-vui-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Size variants */
+        .size-xs { width: 12px; height: 12px; }
+        .size-sm { width: 16px; height: 16px; }
+        .size-md { width: 20px; height: 20px; }
+        .size-lg { width: 24px; height: 24px; }
+        .size-xl { width: 32px; height: 32px; }
+
+        /* Color variants */
+        .color-primary { color: #3b82f6; }
+        .color-secondary { color: #6b7280; }
+        .color-success { color: #10b981; }
+        .color-warning { color: #f59e0b; }
+        .color-error { color: #ef4444; }
+        .color-info { color: #06b6d4; }
+        .color-muted { color: #9ca3af; }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .icon-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .icon-card:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .bullet-point {
+            width: 8px;
+            height: 8px;
+            background-color: #6b7280;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold text-gray-800 hover:text-gray-600 transition-colors">
+                            VUI
+                        </a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a href="index.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">Home</a>
+                            <a href="#getting-started" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">Documentation</a>
+                            <a href="#examples" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">Examples</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-sm fixed h-full overflow-y-auto">
+            <div class="p-6">
+                <div class="mb-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
+
+                    <a href="accordion.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Accordion</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="auto-complete.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Auto Complete</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Text Input</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Textarea</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Select Input</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="multi-select.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Multi Select</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="date-picker.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Date Picker</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="file-uploader.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>File Uploader</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Image Gallery</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="modal.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Modal</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="ng-vui-icon.html" class="sidebar-link block py-3 px-4 text-gray-700 bg-gray-50 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>SVG Icon</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Resources Section -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Resources</h3>
+                    <div class="space-y-1">
+                        <a href="https://github.com/ultimatevarun/ng-vui-examples" class="block text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center">
+                                <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                                <span>GitHub</span>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/varun-s-26247116b/" class="block text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center">
+                                <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                                <span>Contact</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Version Info -->
+                <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <div class="text-xs text-gray-500 mb-2">Latest Version</div>
+                    <div class="text-sm font-semibold text-gray-900">v1.0.0</div>
+                    <div class="text-xs text-gray-500 mt-1">Icon Component</div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 overflow-x-hidden">
+            <!-- Hero Section -->
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h1 class="text-4xl font-bold mb-4">NgVuiIcon Component</h1>
+                    <p class="text-xl opacity-90 mb-6">SVG icon library with 20+ built-in icons and extensible icon registry system</p>
+                    <div class="flex space-x-4">
+                        <a href="#getting-started" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                            Get Started
+                        </a>
+                        <a href="#examples" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                            View Examples
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <!-- Introduction -->
+                <section id="introduction" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Introduction</h2>
+                    <div class="prose max-w-none">
+                        <p class="text-lg text-gray-600 mb-4">
+                            The NgVuiIcon component is a comprehensive SVG icon system that provides a scalable,
+                            customizable solution for displaying icons in Angular applications. It includes a registry
+                            system for managing icons and comes with 20+ built-in icons for common use cases.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <span class="bullet-point" style="background-color: #3b82f6; margin-top: 2px;"></span>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-blue-700">
+                                        <strong>Key Features:</strong> SVG-based icons, Icon registry system, Color variants,
+                                        Size variants, File type detection, Status icon helpers, TypeScript support
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Getting Started -->
+                <section id="getting-started" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Getting Started</h2>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Installation</h3>
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <pre class="text-green-400"><code>npm install @ng-vui/icon</code></pre>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Import</h3>
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-typescript">import { NgVuiIconComponent } from '@ng-vui/icon';
+
+@Component({
+  standalone: true,
+  imports: [NgVuiIconComponent],
+  template: `
+    &lt;ng-vui-icon name="file" size="24px"&gt;&lt;/ng-vui-icon&gt;
+  `
+})
+export class MyComponent {}</code></pre>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Basic Usage</h3>
+                    <div class="demo-container">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="ng-vui-icon" style="width: 24px; height: 24px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Basic file icon</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-html">&lt;ng-vui-icon name="file"&gt;&lt;/ng-vui-icon&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Available Icons -->
+                <section id="available-icons" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Available Icons</h2>
+                    <p class="text-gray-600 mb-6">The component comes with 20+ built-in icons organized by category:</p>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">File Type Icons</h3>
+                    <div class="icon-grid mb-8">
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-secondary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">file</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-secondary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="10" cy="13" r="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">file-image</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-error" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 13h3a1.5 1.5 0 0 1 0 3H9v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">file-pdf</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-primary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">file-doc</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-success" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="9" y1="12" x2="15" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="15" y1="12" x2="9" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">file-excel</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-warning" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <rect x="10" y="12" width="4" height="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="10" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">file-zip</div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Status Icons</h3>
+                    <div class="icon-grid mb-8">
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-success" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12c0 5-4 9-9 9s-9-4-9-9 4-9 9-9c.5 0 1 0 1.5.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">check-circle</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-error" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">x-circle</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-warning" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">exclamation-circle</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-secondary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                    <polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">clock</div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">UI Icons</h3>
+                    <div class="icon-grid mb-8">
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-primary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="7,10 12,5 17,10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="12" y1="5" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">upload</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-secondary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">folder</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-secondary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">plus</div>
+                        </div>
+                        <div class="icon-card">
+                            <span class="ng-vui-icon color-secondary" style="width: 32px; height: 32px; margin: 0 auto 8px;">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <div class="text-sm font-medium">x</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples -->
+                <section id="examples" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Examples</h2>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Size Variants</h3>
+                    <div class="demo-container">
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-primary" style="width: 12px; height: 12px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">12px</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-primary" style="width: 16px; height: 16px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">16px</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-primary" style="width: 20px; height: 20px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">20px (default)</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-primary" style="width: 24px; height: 24px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">24px</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-primary" style="width: 32px; height: 32px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">32px</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-html">&lt;ng-vui-icon name="file" size="12px"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="file" size="16px"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="file" size="20px"&gt;&lt;/ng-vui-icon&gt; &lt;!-- default --&gt;
+&lt;ng-vui-icon name="file" size="24px"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="file" size="32px"&gt;&lt;/ng-vui-icon&gt;</code></pre>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Color Variants</h3>
+                    <div class="demo-container">
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-primary" style="width: 24px; height: 24px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 12c0 5-4 9-9 9s-9-4-9-9 4-9 9-9c.5 0 1 0 1.5.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">primary</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-success" style="width: 24px; height: 24px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 12c0 5-4 9-9 9s-9-4-9-9 4-9 9-9c.5 0 1 0 1.5.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">success</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-warning" style="width: 24px; height: 24px;">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">warning</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-error" style="width: 24px; height: 24px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">error</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="ng-vui-icon color-muted" style="width: 24px; height: 24px;">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <div class="text-xs mt-1">muted</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-html">&lt;ng-vui-icon name="check-circle" color="primary"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="check-circle" color="success"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="exclamation-circle" color="warning"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="x-circle" color="error"&gt;&lt;/ng-vui-icon&gt;
+&lt;ng-vui-icon name="file" color="muted"&gt;&lt;/ng-vui-icon&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- API Reference -->
+                <section id="api" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">API Reference</h2>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Component Inputs</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">name</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>string</code></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">required</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Name of the icon to display</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">size</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>string</code></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'20px'</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Size of the icon (CSS size value)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">color</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'muted'</code></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">undefined</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Predefined color variant</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">className</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>string</code></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">undefined</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Additional CSS classes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 mt-8">Utility Functions</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">getFileTypeIcon(fileName: string, mimeType?: string): string</h4>
+                            <p class="text-gray-600 mb-2">Returns appropriate icon name based on file extension or MIME type.</p>
+                            <div class="bg-gray-900 rounded p-2">
+                                <pre><code class="language-typescript">const iconName = getFileTypeIcon('document.pdf'); // returns 'file-pdf'</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">getStatusIcon(status: string): string</h4>
+                            <p class="text-gray-600 mb-2">Returns appropriate icon name for status indicators.</p>
+                            <div class="bg-gray-900 rounded p-2">
+                                <pre><code class="language-typescript">const iconName = getStatusIcon('success'); // returns 'check-circle'</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">registerIcon(name: string, svg: string): void</h4>
+                            <p class="text-gray-600 mb-2">Register a custom icon in the icon registry.</p>
+                            <div class="bg-gray-900 rounded p-2">
+                                <pre><code class="language-typescript">registerIcon('custom-icon', '&lt;svg&gt;...&lt;/svg&gt;');</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Usage -->
+                <section id="advanced" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Advanced Usage</h2>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Custom Icons</h3>
+                    <p class="text-gray-600 mb-4">You can register custom icons using the icon registry:</p>
+
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-typescript">import { registerIcon } from '@ng-vui/icon';
+
+// Register a custom icon
+registerIcon('my-custom-icon', `
+  &lt;svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" stroke="currentColor" stroke-width="2"/&gt;
+  &lt;/svg&gt;
+`);
+
+// Use in template
+// &lt;ng-vui-icon name="my-custom-icon"&gt;&lt;/ng-vui-icon&gt;</code></pre>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Dynamic File Type Icons</h3>
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-typescript">import { getFileTypeIcon } from '@ng-vui/icon';
+
+@Component({
+  template: `
+    &lt;ng-vui-icon
+      [name]="getFileIcon(file.name, file.type)"
+      size="24px"&gt;
+    &lt;/ng-vui-icon&gt;
+  `
+})
+export class FileDisplayComponent {
+  getFileIcon = getFileTypeIcon;
+
+  file = { name: 'document.pdf', type: 'application/pdf' };
+}</code></pre>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Status Indicators</h3>
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-typescript">import { getStatusIcon } from '@ng-vui/icon';
+
+@Component({
+  template: `
+    &lt;ng-vui-icon
+      [name]="getStatusIcon(uploadStatus)"
+      [color]="getStatusColor(uploadStatus)"
+      size="20px"&gt;
+    &lt;/ng-vui-icon&gt;
+  `
+})
+export class UploadStatusComponent {
+  uploadStatus = 'uploading';
+
+  getStatusIcon = getStatusIcon;
+
+  getStatusColor(status: string) {
+    switch(status) {
+      case 'success': return 'success';
+      case 'error': return 'error';
+      case 'pending': return 'warning';
+      default: return 'secondary';
+    }
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Styling -->
+                <section id="styling" class="mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Styling</h2>
+                    <p class="text-gray-600 mb-4">The component uses CSS custom properties and can be styled with standard CSS:</p>
+
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6 code-block">
+                        <pre><code class="language-css">/* Custom icon styling */
+.ng-vui-icon {
+  color: #ff6b6b;
+  transition: color 0.2s ease;
+}
+
+.ng-vui-icon:hover {
+  color: #ff5252;
+}
+
+/* Custom size */
+.large-icon {
+  width: 48px !important;
+  height: 48px !important;
+}</code></pre>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
