@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Select Component - Complete Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .multi-select-demo {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+                            VUI
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="index.html#components" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Components</a>
+                        <a href="index.html#getting-started" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Getting Started</a>
+                        <a href="index.html#examples" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Examples</a>
+                        <a href="index.html#documentation" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Documentation</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://www.npmjs.com/package/@vui/multi-select"
+                       class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+                        <i class="fab fa-npm mr-2"></i>NPM
+                    </a>
+                    <a href="https://github.com/ultimatevarun/vui"
+                       class="text-gray-700 hover:text-gray-900">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto z-40" style="top: 64px; height: calc(100vh - 64px);">
+            <div class="p-4">
+                <div class="space-y-2">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
+
+                    <a href="accordion-tutorial.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-chevron-down mr-3 text-gray-400"></i>
+                        Accordion
+                    </a>
+
+                    <a href="auto-complete.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-search mr-3 text-gray-400"></i>
+                        Auto Complete
+                    </a>
+
+                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-keyboard mr-3 text-gray-400"></i>
+                        Text Input
+                    </a>
+
+                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-align-left mr-3 text-gray-400"></i>
+                        Textarea
+                    </a>
+
+                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-chevron-down mr-3 text-gray-400"></i>
+                        Select Input
+                    </a>
+
+                    <a href="#multi-select" class="sidebar-link block py-3 px-4 text-blue-600 bg-blue-50 rounded-lg font-medium">
+                        <i class="fas fa-list-ul mr-3 text-blue-500"></i>
+                        Multi Select
+                        <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Current</span>
+                    </a>
+
+                    <a href="date-picker.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-calendar-alt mr-3 text-gray-400"></i>
+                        Date Picker
+                    </a>
+
+                    <a href="file-uploader.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-cloud-upload-alt mr-3 text-gray-400"></i>
+                        File Uploader
+                    </a>
+
+                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-images mr-3 text-gray-400"></i>
+                        Image Gallery
+                    </a>
+
+                    <a href="modal.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-window-restore mr-3 text-gray-400"></i>
+                        Modal
+                    </a>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Resources</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="index.html#getting-started" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-rocket mr-2"></i>Getting Started
+                        </a>
+                        <a href="index.html#examples" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-code mr-2"></i>Examples
+                        </a>
+                        <a href="https://github.com/ultimatevarun/vui" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <i class="fab fa-github mr-2"></i>GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">VUI Multi Select</h1>
+                    <p class="text-xl text-gray-600 mb-6">
+                        A powerful, feature-rich multi-select dropdown component with search, filtering, and extensive customization options.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Angular 20+</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Reactive Forms</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">TypeScript</span>
+                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm font-medium">Searchable</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">Filterable</span>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">✨ Key Features</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">🔍</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Advanced Search</h3>
+                            <p class="text-gray-600">Built-in search functionality with real-time filtering and remote data support.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">✅</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Select All/None</h3>
+                            <p class="text-gray-600">Convenient select all and deselect all functionality for bulk operations.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">🎨</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Highly Customizable</h3>
+                            <p class="text-gray-600">Extensive configuration options for appearance, behavior, and functionality.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Installation Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📦 Installation</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Install via npm</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-bash">npm install @vui/multi-select</code></pre>
+                        
+                        <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-4">Import in your module</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">import { VuiMultiselect } from '@vui/multi-select';
+
+@Component({
+  standalone: true,
+  imports: [VuiMultiselect],
+  // ...
+})</code></pre>
+                    </div>
+                </section>
+
+                <!-- Quick Start -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">⚡ Quick Start</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Small Dataset (< 100 options)</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const basicSettings = {
+  singleSelection: false,
+  idField: 'id',
+  textField: 'name',
+  selectAllText: 'Select All',
+  unSelectAllText: 'Clear All',
+  itemsShowLimit: 3,
+  allowSearchFilter: false
+};</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Medium Dataset (100-1000 options)</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const mediumSettings = {
+  singleSelection: false,
+  idField: 'id',
+  textField: 'name',
+  allowSearchFilter: true,
+  searchPlaceholderText: 'Search...',
+  itemsShowLimit: 5,
+  enableCheckAll: true
+};</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Large Dataset (1000+ options)</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const largeSettings = {
+  singleSelection: false,
+  idField: 'id',
+  textField: 'name',
+  allowSearchFilter: true,
+  lazyLoading: true,
+  virtualScrolling: true,
+  itemHeight: 35,
+  limitSelection: 20
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Use Cases -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🎯 Use Cases & Examples</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Basic Multi-Selection</h3>
+                            <p class="text-gray-600 mb-4">Perfect for simple multi-select dropdowns with basic validation.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;ng-multiselect-dropdown [data]="fruits" [(ngModel)]="selectedFruits"&gt;&lt;/ng-multiselect-dropdown&gt;</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Form Integration</h3>
+                            <p class="text-gray-600 mb-4">Seamless integration with Angular reactive forms and validation.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;ng-multiselect-dropdown [formControl]="categoriesControl" [data]="categories"&gt;&lt;/ng-multiselect-dropdown&gt;</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Search & Filter</h3>
+                            <p class="text-gray-600 mb-4">Built-in search functionality for large datasets.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;ng-multiselect-dropdown [data]="cities" [settings]="{allowSearchFilter: true}"&gt;&lt;/ng-multiselect-dropdown&gt;</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Grouped Options</h3>
+                            <p class="text-gray-600 mb-4">Organize options into logical groups with validation.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;ng-multiselect-dropdown [data]="employees" [settings]="{groupBy: 'department'}"&gt;&lt;/ng-multiselect-dropdown&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Basic Usage -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🚀 Basic Usage</h2>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Simple Multi Select</h3>
+                        
+                        <!-- Demo -->
+                        <div class="multi-select-demo">
+                            <h4 class="text-lg font-medium mb-4">Live Demo</h4>
+                            <div class="space-y-4">
+                                <div class="w-full max-w-md">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Technologies</label>
+                                    <div class="relative">
+                                        <button id="multiSelectButton" 
+                                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-left bg-white"
+                                                onclick="toggleMultiSelect()">
+                                            <span id="selectedValues" class="text-gray-500">Choose technologies...</span>
+                                            <span class="absolute right-3 top-1/2 transform -translate-y-1/2">▼</span>
+                                        </button>
+                                        <div id="multiSelectDropdown" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                                            <div class="p-2">
+                                                <input type="text" 
+                                                       id="searchInput"
+                                                       placeholder="Search technologies..." 
+                                                       class="w-full p-2 border border-gray-200 rounded text-sm"
+                                                       oninput="filterOptions()">
+                                            </div>
+                                            <div id="optionsList" class="max-h-48 overflow-y-auto">
+                                                <label class="flex items-center p-2 hover:bg-gray-50 cursor-pointer option-item" data-value="angular">
+                                                    <input type="checkbox" class="mr-2 option-checkbox" onchange="updateSelection()"> 
+                                                    <span>Angular</span>
+                                                </label>
+                                                <label class="flex items-center p-2 hover:bg-gray-50 cursor-pointer option-item" data-value="react">
+                                                    <input type="checkbox" class="mr-2 option-checkbox" onchange="updateSelection()"> 
+                                                    <span>React</span>
+                                                </label>
+                                                <label class="flex items-center p-2 hover:bg-gray-50 cursor-pointer option-item" data-value="vue">
+                                                    <input type="checkbox" class="mr-2 option-checkbox" onchange="updateSelection()"> 
+                                                    <span>Vue.js</span>
+                                                </label>
+                                                <label class="flex items-center p-2 hover:bg-gray-50 cursor-pointer option-item" data-value="svelte">
+                                                    <input type="checkbox" class="mr-2 option-checkbox" onchange="updateSelection()"> 
+                                                    <span>Svelte</span>
+                                                </label>
+                                                <label class="flex items-center p-2 hover:bg-gray-50 cursor-pointer option-item" data-value="node">
+                                                    <input type="checkbox" class="mr-2 option-checkbox" onchange="updateSelection()"> 
+                                                    <span>Node.js</span>
+                                                </label>
+                                                <label class="flex items-center p-2 hover:bg-gray-50 cursor-pointer option-item" data-value="typescript">
+                                                    <input type="checkbox" class="mr-2 option-checkbox" onchange="updateSelection()"> 
+                                                    <span>TypeScript</span>
+                                                </label>
+                                            </div>
+                                            <div class="border-t p-2">
+                                                <button onclick="selectAll()" class="text-sm text-blue-600 hover:text-blue-800">Select All</button>
+                                                <span class="text-gray-400 mx-2">|</span>
+                                                <button onclick="clearAll()" class="text-sm text-blue-600 hover:text-blue-800">Clear All</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="selectedTags" class="mt-2 flex flex-wrap gap-2"></div>
+                                </div>
+                                <p class="text-sm text-gray-600">Click the dropdown to see the interactive multi-select in action.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Code -->
+                        <div class="mt-6">
+                            <h4 class="text-lg font-medium mb-2">Implementation</h4>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, VuiMultiselect],
+  template: `
+    &lt;form [formGroup]="myForm"&gt;
+      &lt;ng-vui-multiselect
+        formControlName="selectedTech"
+        [data]="technologies"
+        [MultiSelectSettings]="dropdownSettings"
+        [placeholderText]="'Select technologies...'"
+        (onFilterChange)="onSearchChange($event)"&gt;
+      &lt;/ng-vui-multiselect&gt;
+    &lt;/form&gt;
+  `
+})
+export class MyComponent {
+  myForm = this.fb.group({
+    selectedTech: [[]]
+  });
+
+  technologies = [
+    { id: 1, name: 'Angular' },
+    { id: 2, name: 'React' },
+    { id: 3, name: 'Vue.js' },
+    { id: 4, name: 'Svelte' }
+  ];
+
+  dropdownSettings: MultiSelectSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    selectAllText: 'Select All',
+    unSelectAllText: 'Clear All',
+    allowSearchFilter: true,
+    closeDropDownOnSelection: false
+  };
+
+  constructor(private fb: FormBuilder) {}
+
+  onSearchChange(searchText: string): void {
+    // Handle search/filter logic
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Examples -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">⚡ Advanced Examples</h2>
+
+                    <!-- Remote Data -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Remote Data Search</h3>
+                        
+                        <div class="multi-select-demo">
+                            <h4 class="text-lg font-medium mb-4">Server-Side Search Demo</h4>
+                            <div class="w-full max-w-md">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Search Cities</label>
+                                <div class="relative">
+                                    <button class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-left bg-white"
+                                            onclick="toggleDemo('demo2')">
+                                        <span class="text-gray-500">Start typing to search cities...</span>
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2">▼</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block mt-6"><code class="language-typescript">export class RemoteSearchComponent {
+  cities$ = new BehaviorSubject&lt;any[]&gt;([]);
+  searchTerm$ = new Subject&lt;string&gt;();
+
+  remoteSettings: MultiSelectSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    allowSearchFilter: true,
+    allowRemoteDataSearch: true,
+    closeDropDownOnSelection: false,
+    searchPlaceholderText: 'Search cities...',
+    noDataAvailablePlaceholderText: 'No cities found'
+  };
+
+  ngOnInit(): void {
+    // Debounced search with remote API
+    this.searchTerm$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(term =&gt; this.searchCities(term))
+    ).subscribe(cities =&gt; {
+      this.cities$.next(cities);
+    });
+  }
+
+  onSearchChange(searchText: string): void {
+    this.searchTerm$.next(searchText);
+  }
+
+  private searchCities(term: string): Observable&lt;any[]&gt; {
+    return this.httpClient.get&lt;any[]&gt;(`/api/cities?search=${term}`);
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Custom Styling -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Custom Styling & Validation</h3>
+                        
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">export class StyledMultiSelectComponent {
+  form = this.fb.group({
+    requiredField: [[], Validators.required],
+    limitedField: [[], [this.maxSelectionValidator(3)]]
+  });
+
+  customSettings: MultiSelectSettings = {
+    singleSelection: false,
+    idField: 'value',
+    textField: 'label',
+    selectAllText: '✓ Select All Items',
+    unSelectAllText: '✗ Clear Selection',
+    allowSearchFilter: true,
+    searchPlaceholderText: '🔍 Type to search...',
+    
+    // Limit selections
+    limitSelection: 3,
+    
+    // Custom display
+    primaryKey: 'value',
+    labelKey: 'label',
+    
+    // Behavior
+    enableCheckAll: true,
+    showSelectedItemsAtTop: true,
+    groupByKey: 'category',
+    
+    // Appearance
+    itemsShowLimit: 2,
+    allowRemoteDataSearch: false,
+    closeDropDownOnSelection: false,
+    disabled: false,
+    
+    // Badge styling
+    badgeShowLimit: 5,
+    classes: 'custom-dropdown-class'
+  };
+
+  // Custom validator for maximum selections
+  maxSelectionValidator(max: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null =&gt; {
+      if (control.value && control.value.length &gt; max) {
+        return { maxSelection: { max, actual: control.value.length } };
+      }
+      return null;
+    };
+  }
+
+  // Get error message for display
+  getErrorMessage(fieldName: string): string {
+    const field = this.form.get(fieldName);
+    if (field?.errors?.['required']) {
+      return 'This field is required';
+    }
+    if (field?.errors?.['maxSelection']) {
+      const error = field.errors['maxSelection'];
+      return `Maximum ${error.max} selections allowed`;
+    }
+    return '';
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- API Reference -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 API Reference</h2>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">MultiSelectSettings Interface</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Property</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Default</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">singleSelection</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">false</td>
+                                        <td class="border border-gray-300 px-4 py-2">Enable single selection mode</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">idField</td>
+                                        <td class="border border-gray-300 px-4 py-2">string</td>
+                                        <td class="border border-gray-300 px-4 py-2">'id'</td>
+                                        <td class="border border-gray-300 px-4 py-2">Field name for unique identifier</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">textField</td>
+                                        <td class="border border-gray-300 px-4 py-2">string</td>
+                                        <td class="border border-gray-300 px-4 py-2">'text'</td>
+                                        <td class="border border-gray-300 px-4 py-2">Field name for display text</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">allowSearchFilter</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">false</td>
+                                        <td class="border border-gray-300 px-4 py-2">Enable search functionality</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">limitSelection</td>
+                                        <td class="border border-gray-300 px-4 py-2">number</td>
+                                        <td class="border border-gray-300 px-4 py-2">-1</td>
+                                        <td class="border border-gray-300 px-4 py-2">Limit maximum selections (-1 for unlimited)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">selectAllText</td>
+                                        <td class="border border-gray-300 px-4 py-2">string</td>
+                                        <td class="border border-gray-300 px-4 py-2">'Select All'</td>
+                                        <td class="border border-gray-300 px-4 py-2">Text for select all option</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">allowRemoteDataSearch</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">false</td>
+                                        <td class="border border-gray-300 px-4 py-2">Enable remote data search</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4 mt-8">Component Events</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Event</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">onFilterChange</td>
+                                        <td class="border border-gray-300 px-4 py-2">string</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when search filter changes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">onDropDownClose</td>
+                                        <td class="border border-gray-300 px-4 py-2">void</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when dropdown closes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">onSelect</td>
+                                        <td class="border border-gray-300 px-4 py-2">any</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when item is selected</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="border-t pt-8 mt-12">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0">
+                            <p class="text-gray-600">© 2024 VUI - Vue UI Component Library</p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/ultimatevarun/vui" class="text-gray-600 hover:text-blue-600">GitHub</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600">NPM</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600">Docs</a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let selectedOptions = [];
+        let isDropdownOpen = false;
+        
+        const technologies = [
+            { value: 'angular', label: 'Angular' },
+            { value: 'react', label: 'React' },
+            { value: 'vue', label: 'Vue.js' },
+            { value: 'svelte', label: 'Svelte' },
+            { value: 'node', label: 'Node.js' },
+            { value: 'typescript', label: 'TypeScript' }
+        ];
+
+        function toggleMultiSelect() {
+            const dropdown = document.getElementById('multiSelectDropdown');
+            isDropdownOpen = !isDropdownOpen;
+            
+            if (isDropdownOpen) {
+                dropdown.classList.remove('hidden');
+                document.getElementById('searchInput').focus();
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        }
+
+        function updateSelection() {
+            const checkboxes = document.querySelectorAll('.option-checkbox');
+            selectedOptions = [];
+            
+            checkboxes.forEach((checkbox, index) => {
+                if (checkbox.checked) {
+                    selectedOptions.push(technologies[index]);
+                }
+            });
+            
+            updateSelectedDisplay();
+            updateTags();
+        }
+
+        function updateSelectedDisplay() {
+            const selectedValuesSpan = document.getElementById('selectedValues');
+            
+            if (selectedOptions.length === 0) {
+                selectedValuesSpan.textContent = 'Choose technologies...';
+                selectedValuesSpan.className = 'text-gray-500';
+            } else if (selectedOptions.length === 1) {
+                selectedValuesSpan.textContent = selectedOptions[0].label;
+                selectedValuesSpan.className = 'text-gray-900';
+            } else {
+                selectedValuesSpan.textContent = `${selectedOptions.length} technologies selected`;
+                selectedValuesSpan.className = 'text-gray-900';
+            }
+        }
+
+        function updateTags() {
+            const tagsContainer = document.getElementById('selectedTags');
+            tagsContainer.innerHTML = '';
+            
+            selectedOptions.forEach(option => {
+                const tag = document.createElement('span');
+                tag.className = 'bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm flex items-center';
+                tag.innerHTML = `
+                    ${option.label}
+                    <button onclick="removeTag('${option.value}')" class="ml-1 text-blue-600 hover:text-blue-800">×</button>
+                `;
+                tagsContainer.appendChild(tag);
+            });
+        }
+
+        function removeTag(value) {
+            // Find and uncheck the corresponding checkbox
+            const optionItems = document.querySelectorAll('.option-item');
+            optionItems.forEach(item => {
+                if (item.dataset.value === value) {
+                    const checkbox = item.querySelector('.option-checkbox');
+                    checkbox.checked = false;
+                }
+            });
+            updateSelection();
+        }
+
+        function filterOptions() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const optionItems = document.querySelectorAll('.option-item');
+            
+            optionItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function selectAll() {
+            const checkboxes = document.querySelectorAll('.option-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            updateSelection();
+        }
+
+        function clearAll() {
+            const checkboxes = document.querySelectorAll('.option-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateSelection();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#multiSelectButton') && 
+                !event.target.closest('#multiSelectDropdown') && 
+                isDropdownOpen) {
+                document.getElementById('multiSelectDropdown').classList.add('hidden');
+                isDropdownOpen = false;
+            }
+        });
+
+        // Initialize with some default selections for demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pre-select Angular and Vue for demo purposes
+            setTimeout(() => {
+                document.querySelector('[data-value="angular"] .option-checkbox').checked = true;
+                document.querySelector('[data-value="vue"] .option-checkbox').checked = true;
+                updateSelection();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

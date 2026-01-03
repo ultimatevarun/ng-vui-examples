@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NgVuiGrid Documentation - VUI Component Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .component-card {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        .component-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .code-block {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+        pre[class*="language-"] {
+            background: #1e293b;
+            border-radius: 0.5rem;
+        }
+        code[class*="language-"] {
+            color: #e2e8f0;
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">V</span>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">VUI Components</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#overview" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Overview</a>
+                    <a href="#examples" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Examples</a>
+                    <a href="#api" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">API</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="sticky-nav">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Navigation</h3>
+                        <nav class="space-y-2">
+                            <a href="#overview" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Overview</a>
+                            <a href="#main-component" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Main Component</a>
+                            <a href="#column-definition" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Column Definition</a>
+                            <a href="#grid-options" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Grid Options</a>
+                            <a href="#pagination" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Pagination</a>
+                            <a href="#header-footer" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Header & Footer</a>
+                            <a href="#export-menu" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Export Menu</a>
+                            <a href="#column-selector" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Column Selector</a>
+                            <a href="#templates" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Templates</a>
+                            <a href="#virtual-scroll" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Virtual Scroll</a>
+                            <a href="#cell-editors" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Cell Editors</a>
+                            <a href="#examples" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Examples</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3 mt-8 lg:mt-0">
+                <!-- Hero Section -->
+                <div class="hero-gradient rounded-xl p-8 text-white mb-8">
+                    <h1 class="text-4xl font-bold mb-4">NgVuiGrid</h1>
+                    <p class="text-xl text-blue-100 mb-6">
+                        A comprehensive, feature-rich Angular data grid component designed for enterprise applications
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">🚀</div>
+                            <div class="text-sm">High Performance</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">📊</div>
+                            <div class="text-sm">Server-Side Ops</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">🎨</div>
+                            <div class="text-sm">Customizable</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">📱</div>
+                            <div class="text-sm">Responsive</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
+                        <div class="prose max-w-none">
+                            <p class="text-lg text-gray-600 mb-6">
+                                NgVuiGrid is a powerful, feature-rich Angular 20+ data grid component with advanced template support,
+                                action columns, sorting, filtering, pagination, virtual scrolling, and export capabilities.
+                                Built with standalone components and modern Angular architecture.
+                            </p>
+                            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                                <div class="flex">
+                                    <div class="ml-3">
+                                        <p class="text-sm text-blue-700">
+                                            <strong>Recent Updates:</strong> Now supports Angular 17-20+, standalone components,
+                                            signal-based state management, and improved build architecture.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">🏗️ Modern Architecture</h3>
+                            <ul class="list-disc pl-6 text-gray-600 space-y-1 mb-6">
+                                <li><strong>Standalone Components</strong> - No NgModules required</li>
+                                <li><strong>Signal-based State</strong> - Reactive state management</li>
+                                <li><strong>Feature Modules</strong> - Modular filtering, editing, export capabilities</li>
+                                <li><strong>Service Architecture</strong> - Dedicated services for different concerns</li>
+                                <li><strong>Type Safety</strong> - Full TypeScript interfaces and types</li>
+                            </ul>
+                        </div>
+
+                        <!-- Key Features -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">🚀</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">High Performance</h3>
+                                    <p class="text-sm text-gray-600">Virtual scrolling for large datasets</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">📊</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Server-Side Operations</h3>
+                                    <p class="text-sm text-gray-600">Sorting, filtering, and pagination</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">🎨</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Customizable</h3>
+                                    <p class="text-sm text-gray-600">Template support for cells and headers</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">📱</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Responsive</h3>
+                                    <p class="text-sm text-gray-600">Mobile-friendly design</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">🔐</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Secure</h3>
+                                    <p class="text-sm text-gray-600">Built-in XSS protection and input validation</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">💾</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Export</h3>
+                                    <p class="text-sm text-gray-600">CSV, Excel, and PDF export capabilities</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">📡</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">Data Streaming</h3>
+                                    <p class="text-sm text-gray-600">Real-time data streaming support</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="feature-icon text-2xl font-bold">💽</div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">State Management</h3>
+                                    <p class="text-sm text-gray-600">Grid state persistence and restoration</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Installation Section -->
+                        <div class="mt-8 bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">📦 Installation</h3>
+                            <div class="code-block">
+                                <pre><code class="language-bash">npm install @ng-vui/ng-vui-grid</code></pre>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="font-semibold text-gray-900 mb-2">Peer Dependencies:</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Angular 17+ (<code>@angular/core</code>, <code>@angular/common</code>, <code>@angular/forms</code>)</li>
+                                    <li>• RxJS 6.5+ or 7+</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Component Section -->
+                <section id="main-component" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Main Grid Component</h2>
+
+                        <!-- Basic Usage -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Usage</h3>
+                            <p class="text-gray-600 mb-4">HTML Template:</p>
+                            <div class="code-block">
+                                <pre><code class="language-html">&lt;!-- Basic Grid Implementation --&gt;
+&lt;div class="container mx-auto p-6"&gt;
+  &lt;div class="mb-4"&gt;
+    &lt;h1 class="text-2xl font-bold text-gray-900"&gt;Employee Directory&lt;/h1&gt;
+    &lt;p class="text-gray-600"&gt;Manage your employee information&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Basic Grid --&gt;
+  &lt;ng-vui-grid
+    [rowData]="data"
+    [columns]="columnDefs"
+    [options]="gridOptions"
+    [loading]="loading"
+    (gridReady)="onGridReady($event)"
+    (cellClicked)="onCellClicked($event)"
+    (cellValueChanged)="onCellValueChanged($event)"
+    (rowSelected)="onRowSelected($event)"
+    (exportRequested)="onExport($event)"
+    class="shadow-lg rounded-lg"&gt;
+  &lt;/ng-vui-grid&gt;
+
+  &lt;!-- Selection Info --&gt;
+  &lt;div class="mt-4 p-4 bg-blue-50 rounded-lg" *ngIf="selectedRows.length &gt; 0"&gt;
+    &lt;p class="text-blue-800"&gt;
+      {{ selectedRows.length }} row(s) selected
+    &lt;/p&gt;
+    &lt;div class="mt-2 space-x-2"&gt;
+      &lt;button class="btn btn-sm btn-primary" (click)="bulkEdit()"&gt;
+        Edit Selected
+      &lt;/button&gt;
+      &lt;button class="btn btn-sm btn-danger" (click)="bulkDelete()"&gt;
+        Delete Selected
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- TypeScript Implementation -->
+                        <div class="mb-8">
+                            <p class="text-gray-600 mb-4">TypeScript Component:</p>
+                            <div class="code-block">
+                                <pre><code class="language-typescript">@Component({
+  selector: 'app-employee-grid',
+  templateUrl: './employee-grid.component.html',
+  styleUrls: ['./employee-grid.component.css']
+})
+export class EmployeeGridComponent {
+  loading = false;
+  selectedRows: any[] = [];
+
+  data = [
+    { id: 1, name: 'John Doe', age: 30, email: 'john@example.com', department: 'Engineering' },
+    { id: 2, name: 'Jane Smith', age: 25, email: 'jane@example.com', department: 'Marketing' },
+    { id: 3, name: 'Bob Johnson', age: 35, email: 'bob@example.com', department: 'Sales' }
+  ];
+
+  columnDefs: ColumnDefinition[] = [
+    { field: 'name', headerName: 'Full Name', sortable: true, filterable: true },
+    { field: 'age', headerName: 'Age', type: 'number', width: 80 },
+    { field: 'email', headerName: 'Email', type: 'email', width: 200 },
+    { field: 'department', headerName: 'Department', sortable: true, filterable: true }
+  ];
+
+  gridOptions: GridOptions = {
+    pagination: true,
+    paginationPageSize: 10,
+    enableSorting: true,
+    enableFiltering: true,
+    enableSelection: true,
+    header: {
+      title: 'Employee Directory',
+      showRefresh: true,
+      showExport: true,
+      showColumnSelector: true
+    },
+    footer: {
+      showPagination: true,
+      showRowCount: true,
+      showPageSize: true,
+      pageSizes: [5, 10, 25, 50]
+    }
+  };
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Input Properties Table -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Input Properties</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>rowData</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>T[]</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Array of data objects to display</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>[]</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>columns</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>ColumnDefinition[]</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Column configuration array</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>[]</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>options</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>GridOptions</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Grid configuration options</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>{}</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>loading</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>boolean</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Shows loading indicator</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>false</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Output Events Table -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Output Events</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>gridReady</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>GridReadyEvent</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when grid is initialized</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>cellClicked</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>CellClickedEvent</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when cell is clicked</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>cellValueChanged</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>CellValueChangedEvent</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when cell value changes</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>rowSelected</code></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>RowSelectedEvent</code></td>
+                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when row selection changes</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Column Definition Section -->
+                <section id="column-definition" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Column Definition</h2>
+                        <p class="text-gray-600 mb-6">
+                            The <code class="bg-gray-100 px-2 py-1 rounded">ColumnDefinition</code> interface defines the structure and behavior of grid columns.
+                        </p>
+
+                        <!-- Basic Column Properties -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Column Properties</h3>
+                            <div class="code-block">
+                                <pre><code class="language-typescript">interface ColumnDefinition {
+  field: string;                    // Data field name (required)
+  headerName?: string;              // Display name in header
+  headerTooltip?: string;           // Tooltip for header
+  visible?: boolean;                // Column visibility
+  width?: number;                   // Column width in pixels
+  minWidth?: number;                // Minimum width
+  maxWidth?: number;                // Maximum width
+  resizable?: boolean;              // Allow column resizing
+  sortable?: boolean;               // Enable sorting
+  filterable?: boolean;             // Enable filtering
+  editable?: boolean | Function;    // Enable cell editing
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Data Type Configuration -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Data Type Configuration</h3>
+                            <div class="code-block">
+                                <pre><code class="language-typescript">interface ColumnDefinition {
+  type?: 'text' | 'number' | 'currency' | 'percentage' | 'date' |
+         'datetime' | 'time' | 'boolean' | 'email' | 'url' | 'phone' |
+         'array' | 'object';
+
+  // Number formatting
+  numberFormat?: {
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
+    useGrouping?: boolean;
+  };
+
+  // Date formatting
+  dateFormat?: string;
+
+  // Currency formatting
+  currencyCode?: string;
+  currencySymbol?: string;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Templates Section -->
+                <section id="templates" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Custom Templates</h2>
+                        <p class="text-gray-600 mb-6">
+                            NgVuiGrid supports custom cell and header templates for complete customization of your grid display.
+                        </p>
+
+                        <!-- HTML Template Examples -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">HTML Template Examples</h3>
+                            <div class="code-block">
+                                <pre><code class="language-html">&lt;!-- Status Badge Template --&gt;
+&lt;ng-template #statusTemplate let-value="value" let-row="row"&gt;
+  &lt;span [ngClass]="getStatusBadgeClass(value)"
+        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"&gt;
+    &lt;span [ngClass]="getStatusDotClass(value)"
+          class="w-1.5 h-1.5 rounded-full mr-1.5"&gt;&lt;/span&gt;
+    {{ value }}
+  &lt;/span&gt;
+&lt;/ng-template&gt;
+
+&lt;!-- Action Buttons Template --&gt;
+&lt;ng-template #actionsTemplate let-row="row" let-rowIndex="rowIndex"&gt;
+  &lt;div class="flex items-center space-x-2"&gt;
+    &lt;button
+      class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
+      (click)="editItem(row, rowIndex)"&gt;
+      Edit
+    &lt;/button&gt;
+    &lt;button
+      class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200"
+      (click)="deleteItem(row, rowIndex)"&gt;
+      Delete
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cell Editors Section -->
+                <section id="cell-editors" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Cell Editor Components</h2>
+                        <p class="text-gray-600 mb-6">
+                            NgVuiGrid provides comprehensive inline editing capabilities with various built-in editor types and support for custom editors.
+                        </p>
+
+                        <!-- Built-in Editors -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="component-card bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2">Text Editor</h4>
+                                <p class="text-sm text-gray-600 mb-3">Basic text input with validation and character limits</p>
+                                <div class="code-block">
+                                    <pre><code class="language-typescript">{
+  field: 'name',
+  editable: true,
+  cellEditor: 'text',
+  cellEditorParams: {
+    maxLength: 50,
+    placeholder: 'Enter name'
+  }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2">Number Editor</h4>
+                                <p class="text-sm text-gray-600 mb-3">Numeric input with min/max validation and step control</p>
+                                <div class="code-block">
+                                    <pre><code class="language-typescript">{
+  field: 'age',
+  editable: true,
+  cellEditor: 'number',
+  cellEditorParams: {
+    min: 0,
+    max: 120,
+    step: 1
+  }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-purple-50 to-violet-100 p-6 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2">Select Editor</h4>
+                                <p class="text-sm text-gray-600 mb-3">Dropdown selection with predefined options</p>
+                                <div class="code-block">
+                                    <pre><code class="language-typescript">{
+  field: 'department',
+  editable: true,
+  cellEditor: 'select',
+  cellEditorParams: {
+    selectOptions: [
+      { label: 'Engineering', value: 'eng' },
+      { label: 'Sales', value: 'sales' }
+    ]
+  }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-orange-50 to-amber-100 p-6 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2">Date Editor</h4>
+                                <p class="text-sm text-gray-600 mb-3">Date picker with range validation and formatting</p>
+                                <div class="code-block">
+                                    <pre><code class="language-typescript">{
+  field: 'birthDate',
+  editable: true,
+  cellEditor: 'date',
+  cellEditorParams: {
+    format: 'yyyy-MM-dd',
+    min: '1900-01-01',
+    max: '2023-12-31'
+  }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section id="examples" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Complete Examples</h2>
+
+                        <!-- Basic Data Grid Example -->
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Data Grid</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <div class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                                    <div class="text-4xl mb-4">📊</div>
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Employee Grid Demo</h4>
+                                    <p class="text-gray-600 mb-4">Interactive employee data with sorting, filtering, and pagination</p>
+                                    <div class="grid grid-cols-3 gap-4 text-sm text-gray-600">
+                                        <div>✓ Column Sorting</div>
+                                        <div>✓ Row Selection</div>
+                                        <div>✓ Export Options</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Grid Example -->
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Advanced Grid with Templates</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <div class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                                    <div class="text-4xl mb-4">🎨</div>
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Product Catalog Grid</h4>
+                                    <p class="text-gray-600 mb-4">Rich product display with custom templates, status badges, and actions</p>
+                                    <div class="grid grid-cols-3 gap-4 text-sm text-gray-600">
+                                        <div>✓ Custom Templates</div>
+                                        <div>✓ Status Badges</div>
+                                        <div>✓ Action Buttons</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Server-Side Grid Example -->
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Server-Side Operations</h3>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <div class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                                    <div class="text-4xl mb-4">⚡</div>
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Large Dataset Grid</h4>
+                                    <p class="text-gray-600 mb-4">Efficient handling of large datasets with server-side operations</p>
+                                    <div class="grid grid-cols-3 gap-4 text-sm text-gray-600">
+                                        <div>✓ Server-Side Sorting</div>
+                                        <div>✓ Server-Side Filtering</div>
+                                        <div>✓ Virtual Scrolling</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Best Practices Section -->
+                <section id="best-practices" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Best Practices</h2>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Performance Tips -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-green-600">⚡ Performance</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use virtual scrolling for large datasets (1000+ rows)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Implement server-side operations for very large datasets</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use trackBy functions for optimal change detection</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Minimize template complexity</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Security Tips -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-blue-600">🔐 Security</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Enable XSS protection for user-generated content</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Validate all input data</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Sanitize exported data</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Implement proper error handling</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Accessibility Tips -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-purple-600">♿ Accessibility</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Ensure keyboard navigation works properly</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Provide appropriate ARIA labels</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Support screen readers</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Maintain focus management</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Styling Tips -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-orange-600">🎨 Styling</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use CSS custom properties for theming</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Follow consistent design patterns</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Ensure responsive design</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Test across different screen sizes</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-600">NgVuiGrid Documentation - VUI Component Library</p>
+                <p class="text-sm text-gray-500 mt-2">Built with Angular and TypeScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scrolling script -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-blue-50', 'text-blue-600');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('bg-blue-50', 'text-blue-600');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

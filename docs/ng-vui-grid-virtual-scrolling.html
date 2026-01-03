@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Scrolling Implementation Decision - ng-vui-grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .nav {
+            background: #34495e;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            min-width: max-content;
+        }
+
+        .nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .content {
+            padding: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section h4 {
+            color: #7f8c8d;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .architecture-update {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border-left: 5px solid #3498db;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .architecture-update h3 {
+            color: #1976d2;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .architecture-update::before {
+            content: "🏗️";
+            font-size: 1.5rem;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: #34495e;
+            color: #bdc3c7;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.5;
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+            border-left: 5px solid #e74c3c;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .problem-box h4 {
+            color: #c0392b;
+            margin-top: 0;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+            border-left: 5px solid #27ae60;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .solution-box h4 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+            transition: background 0.3s ease;
+        }
+
+        .check-positive {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .check-negative {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .check-warning {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #fdeaa7 100%);
+            border-left: 5px solid #f39c12;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box strong {
+            color: #e67e22;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer .links a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer .links a:hover {
+            color: #5dade2;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .toc h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #495057;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .footer .links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-to-top:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .scroll-to-top.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Virtual Scrolling Implementation Decision</h1>
+            <div class="subtitle">Architectural Analysis for ng-vui-grid Component</div>
+        </div>
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#directive-analysis">Directive Analysis</a></li>
+                <li><a href="#implementation-reasons">Implementation Reasons</a></li>
+                <li><a href="#comparison">Comparison</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+                <li><a href="ng-vui-grid.html">Main Documentation</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#architecture-update">Architecture Update</a></li>
+                    <li><a href="#directive-what">The VirtualScrollDirective</a></li>
+                    <li><a href="#implementation-reasons">Why We Didn't Use VirtualScrollDirective</a></li>
+                    <li><a href="#comparison">Feature Comparison</a></li>
+                    <li><a href="#alternative-approach">Alternative Approach</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                    <li><a href="#usage-recommendations">Usage Recommendations</a></li>
+                </ul>
+            </div>
+
+            <!-- Overview Section -->
+            <section class="section" id="overview">
+                <h2>Overview</h2>
+                <p>This document explains why we chose to implement manual virtual scrolling instead of using the existing <code>VirtualScrollDirective</code> in the ng-vui-grid component. Updated for Angular 20+ standalone architecture.</p>
+
+                <div class="architecture-update" id="architecture-update">
+                    <h3>Architecture Update</h3>
+                    <p>With the migration to standalone components and signal-based state management, our virtual scrolling implementation has been further optimized for:</p>
+                    <ul class="feature-list">
+                        <li>Better change detection performance</li>
+                        <li>Reduced memory footprint</li>
+                        <li>Improved TypeScript type safety</li>
+                        <li>Enhanced compatibility with Angular 20+ features</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- VirtualScrollDirective Section -->
+            <section class="section" id="directive-what">
+                <h2>The VirtualScrollDirective</h2>
+
+                <h3>What It Is</h3>
+                <p>The <code>VirtualScrollDirective</code> is a custom directive located at:</p>
+                <div class="code-block" data-language="path">
+                    <pre>/lib/common-lib/src/ng-vui-grid/directives/virtual-scroll.directive.ts</pre>
+                </div>
+
+                <h3>How It's Designed to Work</h3>
+                <div class="code-block" data-language="typescript">
+                    <pre>@Directive({
+  selector: '[ngVirtualScroll]',
+  standalone: true
+})
+export class VirtualScrollDirective {
+  @Input() items: any[] = [];
+  @Input() itemHeight: number | ((item: any, index: number) => number) = 40;
+  @Input() bufferSize = 5;
+  @Input() enableSmoothScrolling = true;
+  @Output() viewportChange = new EventEmitter&lt;VirtualScrollViewport&gt;();
+}</pre>
+                </div>
+
+                <h3>Intended Usage</h3>
+                <div class="code-block" data-language="html">
+                    <pre>&lt;div ngVirtualScroll
+     [items]="dataArray"
+     [itemHeight]="48"
+     [bufferSize]="5"
+     (viewportChange)="onViewportChange($event)"&gt;
+&lt;/div&gt;</pre>
+                </div>
+            </section>
+
+            <!-- Implementation Reasons Section -->
+            <section class="section" id="implementation-reasons">
+                <h2>Why We Didn't Use VirtualScrollDirective</h2>
+
+                <h3>1. Grid-Specific Requirements</h3>
+                <div class="problem-box">
+                    <h4>Problem</h4>
+                    <p>The directive was designed for generic virtualization, but grids have unique needs.</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>Our Requirements</h4>
+                    <ul class="feature-list">
+                        <li><strong>Column-based rendering</strong> - Grids render rows with multiple columns</li>
+                        <li><strong>Header synchronization</strong> - Headers must stay aligned with data columns</li>
+                        <li><strong>Row selection</strong> - Complex selection state management</li>
+                        <li><strong>Cell templates</strong> - Custom cell rendering with templates</li>
+                        <li><strong>Horizontal scrolling</strong> - Both vertical AND horizontal virtualization</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>VirtualScrollDirective Limitation:</strong>
+                    <div class="code-block" data-language="typescript">
+                        <pre>// The directive assumes simple item rendering
+// It doesn't handle complex grid structures like:
+&lt;div class="grid-row"&gt;
+  &lt;div class="grid-cell" *ngFor="let column of columns"&gt;
+    &lt;!-- Complex cell content with templates --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+
+                <h3>2. Integration with Data Streaming</h3>
+                <div class="problem-box">
+                    <h4>Problem</h4>
+                    <p>The directive doesn't integrate with our data streaming service.</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>Our Streaming Integration</h4>
+                    <div class="code-block" data-language="typescript">
+                        <pre>onVirtualScroll(event: Event): void {
+  const target = event.target as HTMLElement;
+  const scrollTop = target.scrollTop;
+  const rowHeight = this.getRowHeight();
+
+  // Calculate visible range
+  const startIndex = Math.floor(scrollTop / rowHeight);
+  const endIndex = Math.ceil((scrollTop + viewportHeight) / rowHeight);
+
+  // 🎯 Critical: Update streaming service
+  if (this._isStreamingEnabled()) {
+    this.streamingService.updateViewport(startIndex, endIndex);
+  }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>VirtualScrollDirective Missing:</strong>
+                    <ul>
+                        <li>No hooks for streaming integration</li>
+                        <li>Can't trigger chunk loading based on scroll position</li>
+                        <li>No coordination with server-side operations</li>
+                    </ul>
+                </div>
+
+                <h3>3. Performance Control</h3>
+                <div class="problem-box">
+                    <h4>Problem</h4>
+                    <p>The directive abstracts away performance-critical details.</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>What We Need to Control</h4>
+                    <ul class="feature-list">
+                        <li><strong>Exact DOM element count</strong> - Limit to 15-20 elements max for 10M records</li>
+                        <li><strong>Transform calculations</strong> - Hardware acceleration with <code>translate3d</code></li>
+                        <li><strong>Render cycle timing</strong> - When to trigger re-renders</li>
+                        <li><strong>Memory management</strong> - Coordinate with chunk cleanup</li>
+                    </ul>
+                </div>
+
+                <div class="code-block" data-language="typescript">
+                    <pre>getVirtualVisibleItems(): VirtualScrollItem[] {
+  const scrollTop = this._virtualScrollTop();
+  const viewportHeight = this._virtualViewportHeight();
+  const rowHeight = this.getRowHeight();
+  const bufferSize = this.getVirtualBufferSize();
+
+  // 🎯 Precise control over what gets rendered
+  const startIndex = Math.max(0, Math.floor(scrollTop / rowHeight) - bufferSize);
+  const endIndex = Math.min(
+    this._rowData().length - 1,
+    Math.ceil((scrollTop + viewportHeight) / rowHeight) + bufferSize
+  );
+
+  // Return only exactly what we need
+  return this.createVirtualItems(startIndex, endIndex);
+}</pre>
+                </div>
+
+                <h3>4. Template Flexibility</h3>
+                <div class="problem-box">
+                    <h4>Problem</h4>
+                    <p>The directive controls the rendering internally.</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>Our Grid Template Needs</h4>
+                    <div class="code-block" data-language="html">
+                        <pre>&lt;!-- ✅ Our flexible approach --&gt;
+@for (virtualItem of getVirtualVisibleItems(); track virtualItem.index) {
+  &lt;div class="grid-row" [style.transform]="getTransform(virtualItem.index)"&gt;
+
+    &lt;!-- Selection column --&gt;
+    &lt;div class="grid-cell" *ngIf="enableSelection"&gt;
+      &lt;input type="checkbox" [checked]="isRowSelected(virtualItem.data)"&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Dynamic columns --&gt;
+    &lt;div class="grid-cell"
+         *ngFor="let column of visibleColumns(); trackBy: trackByField"&gt;
+
+      &lt;!-- Custom templates --&gt;
+      @if (column.cellTemplate) {
+        &lt;ng-container [ngTemplateOutlet]="column.cellTemplate"
+                      [ngTemplateOutletContext]="getContext(virtualItem, column)"&gt;
+        &lt;/ng-container&gt;
+      } @else {
+        {{ formatCellValue(virtualItem.data, column) }}
+      }
+    &lt;/div&gt;
+  &lt;/div&gt;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>VirtualScrollDirective Limitation:</strong>
+                    <div class="code-block" data-language="html">
+                        <pre>&lt;!-- ❌ Limited template control --&gt;
+&lt;div ngVirtualScroll [items]="data"&gt;
+  &lt;!-- Directive controls rendering - can't customize grid structure --&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+
+                <h3>5. Server-Side Integration</h3>
+                <div class="problem-box">
+                    <h4>Problem</h4>
+                    <p>The directive doesn't understand server-side operations.</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>Our Integration</h4>
+                    <div class="code-block" data-language="typescript">
+                        <pre>// Manual implementation allows deep integration
+private setupVirtualScrolling(): void {
+  if (this._isVirtualScrollEnabled()) {
+    // 🎯 Coordinate with multiple services
+
+    // 1. Server-side operations
+    if (this._isServerSideEnabled()) {
+      this.serverSideService.configure({...});
+    }
+
+    // 2. Data streaming
+    if (this._isStreamingEnabled()) {
+      this.streamingService.configure({...});
+    }
+
+    // 3. Memory management
+    this.setupMemoryMonitoring();
+  }
+}</pre>
+                    </div>
+                </div>
+
+                <h3>6. Debugging and Maintenance</h3>
+                <div class="problem-box">
+                    <h4>Problem</h4>
+                    <p>Directive abstracts away implementation details.</p>
+                </div>
+
+                <div class="solution-box">
+                    <h4>Benefits of Manual Implementation</h4>
+                    <ul class="feature-list">
+                        <li><strong>Full visibility</strong> into render cycles</li>
+                        <li><strong>Performance profiling</strong> at each step</li>
+                        <li><strong>Custom optimizations</strong> for specific use cases</li>
+                        <li><strong>Easier debugging</strong> when issues occur</li>
+                    </ul>
+                </div>
+
+                <div class="code-block" data-language="typescript">
+                    <pre>// 🎯 Detailed performance monitoring
+getVirtualScrollStats() {
+  return {
+    visibleItems: this.getVirtualVisibleItems().length,
+    scrollTop: this._virtualScrollTop(),
+    renderTime: this.lastRenderTime,
+    memoryUsage: this.getMemoryUsage(),
+    fps: this.getCurrentFPS()
+  };
+}</pre>
+                </div>
+            </section>
+
+            <!-- Comparison Section -->
+            <section class="section" id="comparison">
+                <h2>Feature Comparison</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>VirtualScrollDirective</th>
+                            <th>Manual Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ease of Use</strong></td>
+                            <td class="check-positive">✅ Simple to implement</td>
+                            <td class="check-warning">⚠️ More complex setup</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grid Integration</strong></td>
+                            <td class="check-negative">❌ Generic, limited</td>
+                            <td class="check-positive">✅ Perfect for grids</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance Control</strong></td>
+                            <td class="check-negative">❌ Abstracted away</td>
+                            <td class="check-positive">✅ Full control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Streaming Integration</strong></td>
+                            <td class="check-negative">❌ No support</td>
+                            <td class="check-positive">✅ Native integration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Template Flexibility</strong></td>
+                            <td class="check-negative">❌ Limited</td>
+                            <td class="check-positive">✅ Complete freedom</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Debugging</strong></td>
+                            <td class="check-negative">❌ Black box</td>
+                            <td class="check-positive">✅ Full visibility</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory Management</strong></td>
+                            <td class="check-negative">❌ Basic</td>
+                            <td class="check-positive">✅ Advanced coordination</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Server-Side Ops</strong></td>
+                            <td class="check-negative">❌ No integration</td>
+                            <td class="check-positive">✅ Seamless integration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enterprise Features</strong></td>
+                            <td class="check-negative">❌ Limited</td>
+                            <td class="check-positive">✅ All features supported</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Alternative Approach Section -->
+            <section class="section" id="alternative-approach">
+                <h2>Alternative Approach: Enhanced Directive</h2>
+                <p>If we wanted to use the directive approach, we would need to significantly enhance it:</p>
+
+                <div class="code-block" data-language="typescript">
+                    <pre>@Directive({
+  selector: '[ngGridVirtualScroll]', // Grid-specific
+  standalone: true
+})
+export class GridVirtualScrollDirective {
+  // Grid-specific inputs
+  @Input() columns: ColumnDefinition[] = [];
+  @Input() enableSelection = false;
+  @Input() streamingService?: DataStreamingService;
+  @Input() serverSideService?: ServerSideOperationsService;
+
+  // Enhanced outputs
+  @Output() rowClick = new EventEmitter&lt;any&gt;();
+  @Output() cellClick = new EventEmitter&lt;any&gt;();
+  @Output() streamingUpdate = new EventEmitter&lt;any&gt;();
+
+  // Grid-specific methods
+  renderGridRow(item: any, columns: ColumnDefinition[]): HTMLElement {
+    // Complex grid row rendering
+  }
+
+  integrateWithStreaming(): void {
+    // Streaming service integration
+  }
+
+  handleServerSideOperations(): void {
+    // Server-side coordination
+  }
+}</pre>
+                </div>
+
+                <p>But this would essentially recreate what we built manually, with added abstraction overhead.</p>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="section" id="conclusion">
+                <h2>Conclusion</h2>
+                <p>We chose manual virtual scrolling implementation because:</p>
+
+                <ol>
+                    <li><strong>Grid-Specific Optimization</strong> - Designed specifically for data grid needs</li>
+                    <li><strong>Performance Control</strong> - Direct control over every aspect of rendering</li>
+                    <li><strong>Integration Capabilities</strong> - Seamless integration with streaming and server-side services</li>
+                    <li><strong>Enterprise Requirements</strong> - Supports all advanced features needed for 10M+ records</li>
+                    <li><strong>Debugging & Maintenance</strong> - Full visibility for troubleshooting and optimization</li>
+                </ol>
+
+                <p>The VirtualScrollDirective is a good general-purpose solution, but for enterprise-grade data grids handling massive datasets, manual implementation provides the control and integration capabilities we need.</p>
+            </section>
+
+            <!-- Usage Recommendations Section -->
+            <section class="section" id="usage-recommendations">
+                <h2>Usage Recommendations</h2>
+
+                <div class="solution-box">
+                    <h4>Use VirtualScrollDirective for:</h4>
+                    <ul>
+                        <li>Simple lists</li>
+                        <li>Basic virtualization needs</li>
+                        <li>Rapid prototyping</li>
+                        <li>Non-grid components</li>
+                    </ul>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Use Manual Implementation for:</h4>
+                    <ul>
+                        <li>Data grids</li>
+                        <li>Complex rendering</li>
+                        <li>Streaming integration</li>
+                        <li>Enterprise applications</li>
+                        <li>Performance-critical scenarios</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Success Metric:</strong> Our manual implementation successfully handles 10+ million records with smooth performance, which validates this architectural decision.
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <div class="links">
+                <a href="ng-vui-grid.html">Main Documentation</a>
+                <a href="date-picker.html">Date Picker Component</a>
+                <a href="multi-select.html">Multi-Select Component</a>
+                <a href="https://angular.io/">Angular Documentation</a>
+            </div>
+            <p>&copy; 2024 ng-vui-grid. Enterprise-grade Angular components for modern web applications.</p>
+        </div>
+    </div>
+
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button functionality
+        const scrollToTopButton = document.querySelector('.scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopButton.classList.add('visible');
+            } else {
+                scrollToTopButton.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Highlight current section in navigation
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+
+        function highlightNavigation() {
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.background = '';
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.style.background = 'rgba(52, 152, 219, 0.3)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightNavigation);
+
+        // Initialize highlighting
+        highlightNavigation();
+    </script>
+</body>
+</html>

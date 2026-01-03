@@ -176,22 +176,33 @@
                 <!-- Installation Section -->
                 <section id="installation" class="mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">📦 Installation</h2>
-                    
+
                     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-4">Install the Package</h3>
-                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-typescript">import { NgVuiTextInputComponent } from 'path/to/ng-vui-text-input';</code></pre>
+                        <h3 class="text-xl font-semibold mb-4">Install Required Dependencies</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-bash">npm install @angular/core @angular/common @angular/forms @ng-vui/icon</code></pre>
+
+                        <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">📋 Required Dependencies</h4>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• <code class="bg-blue-100 px-1 rounded">@angular/core</code> (^20.0.0)</li>
+                                <li>• <code class="bg-blue-100 px-1 rounded">@angular/common</code> (^20.0.0)</li>
+                                <li>• <code class="bg-blue-100 px-1 rounded">@angular/forms</code> (^20.0.0)</li>
+                                <li>• <code class="bg-blue-100 px-1 rounded">@ng-vui/icon</code> (^1.0.0) - For error icons and visual indicators</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
                         <h3 class="text-xl font-semibold mb-4">Import in Your Component</h3>
                         <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">import { Component } from '@angular/core';
 import { NgVuiTextInputComponent } from 'path/to/ng-vui-text-input';
+import { NgVuiIconComponent } from '@ng-vui/icon';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-component',
   standalone: true,
-  imports: [NgVuiTextInputComponent, ReactiveFormsModule],
+  imports: [NgVuiTextInputComponent, NgVuiIconComponent, ReactiveFormsModule],
   // ... rest of component
 })</code></pre>
                     </div>
@@ -237,9 +248,17 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
                     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
                         <h3 class="text-xl font-semibold mb-4">Enhanced with NgVuiIcon Component</h3>
                         <p class="text-gray-600 mb-4">
-                            The text input component now uses the ng-vui icon library for better visual consistency and scalability.
+                            The text input component now uses the <strong>@ng-vui/icon</strong> library for better visual consistency and scalability.
                             Error states display professional SVG icons instead of emoji characters.
                         </p>
+
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-4">
+                            <h4 class="font-semibold text-orange-800 mb-2">⚠️ Important Dependency</h4>
+                            <p class="text-sm text-orange-700">
+                                This component requires <code class="bg-orange-100 px-1 rounded">@ng-vui/icon</code> to be installed and imported.
+                                Make sure to include <code class="bg-orange-100 px-1 rounded">NgVuiIconComponent</code> in your component's imports array.
+                            </p>
+                        </div>
 
                         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                             <h4 class="font-semibold text-blue-800 mb-2">✨ Icon Features</h4>

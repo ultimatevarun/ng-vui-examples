@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Picker Component - Complete Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .date-picker-demo {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+                            VUI
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="index.html#components" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Components</a>
+                        <a href="index.html#getting-started" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Getting Started</a>
+                        <a href="index.html#examples" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Examples</a>
+                        <a href="index.html#documentation" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Documentation</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://www.npmjs.com/package/@vui/date-picker"
+                       class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+                        <i class="fab fa-npm mr-2"></i>NPM
+                    </a>
+                    <a href="https://github.com/ultimatevarun/vui"
+                       class="text-gray-700 hover:text-gray-900">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto z-40" style="top: 64px; height: calc(100vh - 64px);">
+            <div class="p-4">
+                <div class="space-y-2">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
+
+                    <a href="accordion-tutorial.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-chevron-down mr-3 text-gray-400"></i>
+                        Accordion
+                    </a>
+
+                    <a href="auto-complete.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-search mr-3 text-gray-400"></i>
+                        Auto Complete
+                    </a>
+
+                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-keyboard mr-3 text-gray-400"></i>
+                        Text Input
+                    </a>
+
+                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-align-left mr-3 text-gray-400"></i>
+                        Textarea
+                    </a>
+
+                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-chevron-down mr-3 text-gray-400"></i>
+                        Select Input
+                    </a>
+
+                    <a href="multi-select.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-list-ul mr-3 text-gray-400"></i>
+                        Multi Select
+                    </a>
+
+                    <a href="#date-picker" class="sidebar-link block py-3 px-4 text-blue-600 bg-blue-50 rounded-lg font-medium">
+                        <i class="fas fa-calendar-alt mr-3 text-blue-500"></i>
+                        Date Picker
+                        <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Current</span>
+                    </a>
+
+                    <a href="file-uploader.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-cloud-upload-alt mr-3 text-gray-400"></i>
+                        File Uploader
+                    </a>
+
+                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-images mr-3 text-gray-400"></i>
+                        Image Gallery
+                    </a>
+
+                    <a href="modal.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <i class="fas fa-window-restore mr-3 text-gray-400"></i>
+                        Modal
+                    </a>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Resources</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="index.html#getting-started" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-rocket mr-2"></i>Getting Started
+                        </a>
+                        <a href="index.html#examples" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <i class="fas fa-code mr-2"></i>Examples
+                        </a>
+                        <a href="https://github.com/ultimatevarun/vui" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <i class="fab fa-github mr-2"></i>GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">VUI Date Picker</h1>
+                    <p class="text-xl text-gray-600 mb-6">
+                        A fully-featured, customizable Angular date picker component with rich options, validation, and accessibility support.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Angular 20+</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Reactive Forms</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">TypeScript</span>
+                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm font-medium">Tailwind CSS</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">Accessible</span>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">✨ Key Features</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">📅</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Rich Date Options</h3>
+                            <p class="text-gray-600">Custom date formats, disable ranges, highlight dates, and more configuration options.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">🎯</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Form Integration</h3>
+                            <p class="text-gray-600">Seamless integration with Angular reactive forms and template-driven forms.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">♿</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Accessibility First</h3>
+                            <p class="text-gray-600">Full keyboard navigation, ARIA support, and screen reader compatibility.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Installation Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📦 Installation</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Install via npm</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-bash">npm install @vui/date-picker</code></pre>
+                        
+                        <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-4">Import in your module</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">import { VuiDatePicker } from '@vui/date-picker';
+
+@Component({
+  standalone: true,
+  imports: [VuiDatePicker],
+  // ...
+})</code></pre>
+                    </div>
+                </section>
+
+                <!-- Quick Start -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">⚡ Quick Start</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Date Picker</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const basicOptions: IMyDpOptions = {
+  dateFormat: 'dd/mm/yyyy',
+  markCurrentDay: true,
+  todayBtnTxt: 'Today',
+  clearBtnTxt: 'Clear'
+};</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Date Range Picker</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const rangeOptions: IMyDpOptions = {
+  dateRange: true,
+  rangeSeparator: ' - ',
+  dateFormat: 'dd/mm/yyyy',
+  markCurrentDay: true,
+  showWeekNumbers: true
+};</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Localized Date Picker</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const localizedOptions: IMyDpOptions = {
+  dateFormat: 'dd.mm.yyyy',
+  firstDayOfWeek: 'mo',
+  monthLabels: {
+    1: 'Januar', 2: 'Februar', 3: 'März',
+    4: 'April', 5: 'Mai', 6: 'Juni'
+  },
+  dayLabels: { su: 'So', mo: 'Mo', tu: 'Di' }
+};</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Validated Date Picker</h3>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code class="language-typescript">const validatedOptions: IMyDpOptions = {
+  dateFormat: 'yyyy-mm-dd',
+  minYear: 1900,
+  maxYear: 2030,
+  disableUntil: { year: 2020, month: 1, day: 1 },
+  disableSince: { year: 2025, month: 12, day: 31 }
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Use Cases -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🎯 Use Cases & Examples</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Single Date Selection</h3>
+                            <p class="text-gray-600 mb-4">Perfect for birthdays, deadlines, and appointment scheduling.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;my-date-picker [(ngModel)]="birthday" [options]="{dateFormat: 'dd/mm/yyyy'}"&gt;&lt;/my-date-picker&gt;</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Date Range Selection</h3>
+                            <p class="text-gray-600 mb-4">Ideal for booking systems, reporting periods, and date filters.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;my-date-picker [(ngModel)]="dateRange" [options]="{dateRange: true, rangeSeparator: ' - '}"&gt;&lt;/my-date-picker&gt;</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Form Integration</h3>
+                            <p class="text-gray-600 mb-4">Seamless integration with Angular reactive forms and validation.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;my-date-picker [formControl]="dateControl" [options]="formDateOptions"&gt;&lt;/my-date-picker&gt;</code></pre>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Validation & Restrictions</h3>
+                            <p class="text-gray-600 mb-4">Min/max dates, disabled dates, and custom validation rules.</p>
+                            <pre class="bg-gray-100 p-3 rounded text-sm"><code>&lt;my-date-picker [options]="{disableDates: weekends, minYear: 2020, maxYear: 2025}"&gt;&lt;/my-date-picker&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Basic Usage -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🚀 Basic Usage</h2>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Simple Date Picker</h3>
+                        
+                        <!-- Demo -->
+                        <div class="date-picker-demo">
+                            <h4 class="text-lg font-medium mb-4">Live Demo</h4>
+                            <div class="space-y-4">
+                                <div class="w-full max-w-sm relative">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
+                                    <input type="text" 
+                                           id="singleDateInput"
+                                           placeholder="Choose a date..." 
+                                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+                                           readonly
+                                           onclick="toggleDatePicker('singleDatePicker')">
+                                    
+                                    <!-- Custom Date Picker -->
+                                    <div id="singleDatePicker" class="hidden absolute top-full left-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 p-4 w-80">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <button onclick="changeMonth(-1)" class="p-1 hover:bg-gray-100 rounded">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"></path>
+                                                </svg>
+                                            </button>
+                                            <span id="currentMonth" class="font-semibold"></span>
+                                            <button onclick="changeMonth(1)" class="p-1 hover:bg-gray-100 rounded">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="grid grid-cols-7 gap-1 text-center text-sm">
+                                            <div class="font-medium text-gray-500 p-2">Sun</div>
+                                            <div class="font-medium text-gray-500 p-2">Mon</div>
+                                            <div class="font-medium text-gray-500 p-2">Tue</div>
+                                            <div class="font-medium text-gray-500 p-2">Wed</div>
+                                            <div class="font-medium text-gray-500 p-2">Thu</div>
+                                            <div class="font-medium text-gray-500 p-2">Fri</div>
+                                            <div class="font-medium text-gray-500 p-2">Sat</div>
+                                        </div>
+                                        <div id="calendarDays" class="grid grid-cols-7 gap-1 text-center text-sm">
+                                        </div>
+                                        <div class="flex justify-between mt-4">
+                                            <button onclick="selectToday()" class="px-3 py-1 text-blue-600 hover:bg-blue-50 rounded text-sm">Today</button>
+                                            <button onclick="clearDate()" class="px-3 py-1 text-gray-600 hover:bg-gray-50 rounded text-sm">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600">Click the input above to open the interactive date picker.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Code -->
+                        <div class="mt-6">
+                            <h4 class="text-lg font-medium mb-2">Implementation</h4>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, VuiDatePicker],
+  template: `
+    &lt;form [formGroup]="myForm"&gt;
+      &lt;ng-vui-date-picker
+        formControlName="selectedDate"
+        [placeholder]="'Select date...'"
+        [options]="datePickerOptions"&gt;
+      &lt;/ng-vui-date-picker&gt;
+    &lt;/form&gt;
+  `
+})
+export class MyComponent {
+  myForm = this.fb.group({
+    selectedDate: ['']
+  });
+
+  datePickerOptions: VuiOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    todayBtnTxt: 'Today',
+    sunHighlight: true
+  };
+
+  constructor(private fb: FormBuilder) {}
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Examples -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">⚡ Advanced Examples</h2>
+
+                    <!-- Date Range -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Date Range Selection</h3>
+                        
+                        <div class="date-picker-demo">
+                            <h4 class="text-lg font-medium mb-4">Date Range Demo</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">From Date</label>
+                                    <input type="text" 
+                                           id="fromDateInput"
+                                           placeholder="Start date..." 
+                                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+                                           readonly
+                                           onclick="openDatePicker(this, 'from')">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">To Date</label>
+                                    <input type="text" 
+                                           id="toDateInput"
+                                           placeholder="End date..." 
+                                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+                                           readonly
+                                           onclick="openDatePicker(this, 'to')">
+                                </div>
+                            </div>
+                        </div>
+
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block mt-6"><code class="language-typescript">export class DateRangeComponent {
+  rangeForm = this.fb.group({
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required]
+  });
+
+  startDateOptions: VuiOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    todayBtnTxt: 'Today',
+    sunHighlight: true
+  };
+
+  endDateOptions: VuiOptions = {
+    dateFormat: 'dd-mm-yyyy',
+    todayBtnTxt: 'Today',
+    sunHighlight: true,
+    disableUntil: { year: 2024, month: 1, day: 1 } // Dynamic based on start date
+  };
+
+  onStartDateChanged(event: VuiDateModel): void {
+    // Update end date options to disable dates before start date
+    this.endDateOptions = {
+      ...this.endDateOptions,
+      disableUntil: event.date
+    };
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Custom Options -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Custom Options & Validation</h3>
+                        
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">export class CustomDatePickerComponent {
+  customOptions: VuiOptions = {
+    dateFormat: 'yyyy-mm-dd',
+    todayBtnTxt: 'Select Today',
+    firstDayOfWeek: 'mo', // Monday as first day
+    sunHighlight: true,
+    satHighlight: true,
+    showTodayBtn: true,
+    
+    // Disable past dates
+    disableUntil: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate() - 1
+    },
+    
+    // Highlight special dates
+    highlightDates: [
+      { year: 2024, month: 12, day: 25 }, // Christmas
+      { year: 2024, month: 1, day: 1 }    // New Year
+    ],
+    
+    // Disable weekends
+    disableWeekends: true,
+    
+    // Custom styling
+    selectionTxtFontSize: '14px',
+    height: '34px',
+    width: '100%',
+    
+    // Accessibility
+    ariaLabelInputField: 'Date picker input',
+    ariaLabelOpenCalendar: 'Open calendar'
+  };
+
+  // Event handlers
+  onDateChanged(event: VuiDateModel): void {
+    console.log('Selected date:', event);
+    // Handle date change
+  }
+
+  onInputFieldChanged(event: VuiInputFieldChanged): void {
+    console.log('Input changed:', event);
+    // Handle manual input
+  }
+
+  onCalendarViewChanged(event: VuiCalendarViewChanged): void {
+    console.log('Calendar view changed:', event);
+    // Handle month/year navigation
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- API Reference -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 API Reference</h2>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Component Inputs</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Property</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Default</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">options</td>
+                                        <td class="border border-gray-300 px-4 py-2">VuiOptions</td>
+                                        <td class="border border-gray-300 px-4 py-2">-</td>
+                                        <td class="border border-gray-300 px-4 py-2">Configuration options for the date picker</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">placeholder</td>
+                                        <td class="border border-gray-300 px-4 py-2">string</td>
+                                        <td class="border border-gray-300 px-4 py-2">''</td>
+                                        <td class="border border-gray-300 px-4 py-2">Placeholder text for the input field</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">disabled</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">false</td>
+                                        <td class="border border-gray-300 px-4 py-2">Whether the date picker is disabled</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4 mt-8">Component Outputs</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Event</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">dateChanged</td>
+                                        <td class="border border-gray-300 px-4 py-2">VuiDateModel</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when a date is selected</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">inputFieldChanged</td>
+                                        <td class="border border-gray-300 px-4 py-2">VuiInputFieldChanged</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when input field value changes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">calendarViewChanged</td>
+                                        <td class="border border-gray-300 px-4 py-2">VuiCalendarViewChanged</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when calendar view changes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="border-t pt-8 mt-12">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0">
+                            <p class="text-gray-600">© 2024 VUI - Vue UI Component Library</p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/ultimatevarun/vui" class="text-gray-600 hover:text-blue-600">GitHub</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600">NPM</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600">Docs</a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        let selectedDate = null;
+        let isDatePickerOpen = false;
+
+        function toggleDatePicker(pickerId) {
+            const picker = document.getElementById(pickerId);
+            if (picker.classList.contains('hidden')) {
+                picker.classList.remove('hidden');
+                isDatePickerOpen = true;
+                renderCalendar();
+            } else {
+                picker.classList.add('hidden');
+                isDatePickerOpen = false;
+            }
+        }
+
+        function renderCalendar() {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const daysContainer = document.getElementById('calendarDays');
+            
+            daysContainer.innerHTML = '';
+
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'p-2';
+                daysContainer.appendChild(emptyCell);
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const dayCell = document.createElement('button');
+                dayCell.textContent = day;
+                dayCell.className = 'p-2 hover:bg-blue-100 rounded cursor-pointer transition-colors';
+                
+                // Highlight today
+                const today = new Date();
+                if (currentDate.getFullYear() === today.getFullYear() &&
+                    currentDate.getMonth() === today.getMonth() &&
+                    day === today.getDate()) {
+                    dayCell.classList.add('bg-blue-500', 'text-white');
+                }
+
+                // Highlight selected date
+                if (selectedDate &&
+                    currentDate.getFullYear() === selectedDate.getFullYear() &&
+                    currentDate.getMonth() === selectedDate.getMonth() &&
+                    day === selectedDate.getDate()) {
+                    dayCell.classList.add('bg-green-500', 'text-white');
+                }
+
+                dayCell.onclick = () => selectDate(day);
+                daysContainer.appendChild(dayCell);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        function selectDate(day) {
+            selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+            const formattedDate = selectedDate.toLocaleDateString('en-GB'); // DD/MM/YYYY format
+            document.getElementById('singleDateInput').value = formattedDate;
+            document.getElementById('singleDatePicker').classList.add('hidden');
+            isDatePickerOpen = false;
+        }
+
+        function selectToday() {
+            const today = new Date();
+            selectedDate = today;
+            currentDate = new Date(today);
+            const formattedDate = today.toLocaleDateString('en-GB');
+            document.getElementById('singleDateInput').value = formattedDate;
+            document.getElementById('singleDatePicker').classList.add('hidden');
+            isDatePickerOpen = false;
+        }
+
+        function clearDate() {
+            selectedDate = null;
+            document.getElementById('singleDateInput').value = '';
+            document.getElementById('singleDatePicker').classList.add('hidden');
+            isDatePickerOpen = false;
+        }
+
+        function openDatePicker(input, type) {
+            // Simple demo for range picker
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-GB');
+            
+            if (type === 'from') {
+                input.value = formattedDate;
+            } else {
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 7);
+                input.value = tomorrow.toLocaleDateString('en-GB');
+            }
+        }
+
+        // Close date picker when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isDatePickerOpen && !e.target.closest('#singleDatePicker') && !e.target.closest('#singleDateInput')) {
+                document.getElementById('singleDatePicker').classList.add('hidden');
+                isDatePickerOpen = false;
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            currentDate = new Date();
+        });
+    </script>
+</body>
+</html>

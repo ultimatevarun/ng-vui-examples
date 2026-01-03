@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NgVuiGrid Templates & Action Columns - VUI Component Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .component-card {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        .component-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+        pre[class*="language-"] {
+            background: #1e293b;
+            border-radius: 0.5rem;
+        }
+        code[class*="language-"] {
+            color: #e2e8f0;
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .feature-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .example-card {
+            border: 2px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #8b5cf6, #3b82f6) border-box;
+        }
+        .section-divider {
+            border-top: 3px solid;
+            border-image: linear-gradient(to right, #8b5cf6, #3b82f6) 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">V</span>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">VUI Components</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="ng-vui-grid.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Main Grid Docs</a>
+                    <a href="#template-examples" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Examples</a>
+                    <a href="#action-columns" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Actions</a>
+                    <a href="#best-practices" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Best Practices</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="sticky-nav">
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Grid Documentation</h3>
+                        <nav class="space-y-2">
+                            <a href="ng-vui-grid.html" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Main Documentation</a>
+                            <a href="#overview" class="sidebar-link block px-3 py-2 text-sm text-purple-600 bg-purple-50 rounded-md font-medium">Templates Overview</a>
+                            <a href="#features" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Features</a>
+                            <a href="#template-approaches" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Template Approaches</a>
+                            <a href="#template-context" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Template Context</a>
+                            <a href="#action-columns" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Action Columns</a>
+                            <a href="#custom-renderers" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Custom Cell Renderers</a>
+                            <a href="#component-methods" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Component Methods</a>
+                            <a href="#benefits" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Benefits</a>
+                            <a href="#migration" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Migration Guide</a>
+                        </nav>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Other Docs</h3>
+                        <nav class="space-y-2">
+                            <a href="date-picker.html" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Date Picker</a>
+                            <a href="multi-select.html" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">Multi Select</a>
+                            <a href="index.html" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-md">All Components</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3 mt-8 lg:mt-0">
+                <!-- Hero Section -->
+                <div class="hero-gradient rounded-xl p-8 text-white mb-8">
+                    <h1 class="text-4xl font-bold mb-4">NgVuiGrid Templates & Actions</h1>
+                    <p class="text-xl text-purple-100 mb-6">
+                        Comprehensive guide to custom templates and action columns with full Angular template syntax support
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">🎨</div>
+                            <div class="text-sm">Custom Templates</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">⚡</div>
+                            <div class="text-sm">Action Columns</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">🔧</div>
+                            <div class="text-sm">Type Safety</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-3">
+                            <div class="text-2xl font-bold">🚀</div>
+                            <div class="text-sm">High Performance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Templates Overview</h2>
+                        <div class="prose max-w-none">
+                            <p class="text-lg text-gray-600 mb-6">
+                                The <code class="bg-gray-100 px-2 py-1 rounded text-sm">ng-vui-grid</code> component supports
+                                custom column templates with full Angular template syntax. You can create action columns, custom
+                                cell renderers, and header templates with complete control over the presentation and behavior.
+                            </p>
+
+                            <div class="bg-gradient-to-r from-purple-50 to-blue-50 border-l-4 border-purple-400 p-6 rounded-lg mb-6">
+                                <div class="flex items-start">
+                                    <div class="feature-icon text-2xl mr-3">🎯</div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900 mb-2">Template Power</h3>
+                                        <p class="text-gray-700">
+                                            Create rich, interactive grid experiences with action buttons, status badges,
+                                            progress indicators, and complex UI components directly in your grid cells.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Template Features</h2>
+
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="component-card bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
+                                <div class="flex items-center mb-3">
+                                    <span class="feature-badge">✅</span>
+                                    <h3 class="font-semibold text-gray-900 ml-3">Custom Cell Templates</h3>
+                                </div>
+                                <p class="text-sm text-gray-600">Full Angular template syntax with row data, column info, and row index</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-blue-50 to-sky-100 p-6 rounded-lg">
+                                <div class="flex items-center mb-3">
+                                    <span class="feature-badge">✅</span>
+                                    <h3 class="font-semibold text-gray-900 ml-3">Action Columns</h3>
+                                </div>
+                                <p class="text-sm text-gray-600">Buttons, dropdowns, and custom UI components with event handling</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-purple-50 to-violet-100 p-6 rounded-lg">
+                                <div class="flex items-center mb-3">
+                                    <span class="feature-badge">✅</span>
+                                    <h3 class="font-semibold text-gray-900 ml-3">Header Templates</h3>
+                                </div>
+                                <p class="text-sm text-gray-600">Custom column headers with sorting indicators and filters</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-orange-50 to-amber-100 p-6 rounded-lg">
+                                <div class="flex items-center mb-3">
+                                    <span class="feature-badge">✅</span>
+                                    <h3 class="font-semibold text-gray-900 ml-3">Template Context</h3>
+                                </div>
+                                <p class="text-sm text-gray-600">Rich context with value, row data, column definition, and index</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-pink-50 to-rose-100 p-6 rounded-lg">
+                                <div class="flex items-center mb-3">
+                                    <span class="feature-badge">✅</span>
+                                    <h3 class="font-semibold text-gray-900 ml-3">Programmatic Columns</h3>
+                                </div>
+                                <p class="text-sm text-gray-600">Define columns programmatically with custom renderers</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-indigo-50 to-blue-100 p-6 rounded-lg">
+                                <div class="flex items-center mb-3">
+                                    <span class="feature-badge">✅</span>
+                                    <h3 class="font-semibold text-gray-900 ml-3">Dual Approaches</h3>
+                                </div>
+                                <p class="text-sm text-gray-600">Both declarative (template-based) and programmatic approaches</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Template Approaches Section -->
+                <section id="template-approaches" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Template Approaches</h2>
+
+                        <!-- Declarative Approach -->
+                        <div class="mb-10">
+                            <div class="section-divider mb-6"></div>
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                                <span class="feature-icon text-3xl mr-2">🔧</span>
+                                1. Template-Based Approach (Declarative)
+                            </h3>
+                            <p class="text-gray-600 mb-6">
+                                Define templates directly in your component template using Angular directive syntax.
+                            </p>
+
+                            <div class="example-card rounded-lg p-6 mb-6">
+                                <h4 class="font-semibold text-gray-900 mb-3">Complete Example with Multiple Column Types</h4>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-vui-grid
+  [rowData]="data"
+  [gridOptions]="gridOptions"
+&gt;
+  &lt;!-- Regular column with custom avatar template --&gt;
+  &lt;ng-template ngVuiGridColumn="name" headerName="Full Name" [width]="200"&gt;
+    &lt;ng-template let-value let-row="row" let-rowIndex="rowIndex"&gt;
+      &lt;div class="flex items-center space-x-3"&gt;
+        &lt;div class="w-8 h-8 bg-violet-100 rounded-full flex items-center justify-center"&gt;
+          &lt;span class="text-sm font-medium text-violet-600"&gt;
+            {{ row.name.charAt(0).toUpperCase() }}
+          &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span class="font-medium text-gray-900"&gt;{{ value }}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+  &lt;/ng-template&gt;
+
+  &lt;!-- Action column with edit and delete buttons --&gt;
+  &lt;ng-template ngVuiGridColumn="actions" headerName="Actions" [width]="200" [sortable]="false"&gt;
+    &lt;ng-template let-row="row" let-rowIndex="rowIndex"&gt;
+      &lt;div class="flex items-center space-x-2"&gt;
+        &lt;button
+          (click)="editRow(row, rowIndex)"
+          class="btn btn-sm btn-violet"
+          title="Edit"
+        &gt;
+          &lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+
+        &lt;button
+          (click)="deleteRow(row, rowIndex)"
+          class="btn btn-sm btn-red"
+          title="Delete"
+        &gt;
+          &lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+  &lt;/ng-template&gt;
+
+  &lt;!-- Status column with colored badges --&gt;
+  &lt;ng-template ngVuiGridColumn="status" headerName="Status" [width]="120"&gt;
+    &lt;ng-template let-value let-row="row"&gt;
+      &lt;span
+        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+        [class]="getStatusClass(value)"
+      &gt;
+        {{ value }}
+      &lt;/span&gt;
+    &lt;/ng-template&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-vui-grid&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Programmatic Approach -->
+                        <div class="mb-10">
+                            <div class="section-divider mb-6"></div>
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+                                <span class="feature-icon text-3xl mr-2">⚙️</span>
+                                2. Programmatic Approach
+                            </h3>
+                            <p class="text-gray-600 mb-6">
+                                Define columns programmatically in your TypeScript component for dynamic configurations.
+                            </p>
+
+                            <div class="example-card rounded-lg p-6 mb-6">
+                                <h4 class="font-semibold text-gray-900 mb-3">Component Setup</h4>
+                                <div class="code-block">
+                                    <pre><code class="language-typescript">export class MyComponent {
+  columnDefs: ColumnDefinition[] = [
+    {
+      field: 'name',
+      headerName: 'Full Name',
+      width: 200,
+      cellTemplate: this.nameTemplate // TemplateRef
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 250,
+      valueFormatter: ({ value }) => value.toLowerCase()
+    },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 200,
+      sortable: false,
+      filterable: false,
+      cellTemplate: this.actionsTemplate // TemplateRef
+    }
+  ];
+
+  // Get template references in component
+  @ViewChild('nameTemplate') nameTemplate!: TemplateRef&lt;any&gt;;
+  @ViewChild('actionsTemplate') actionsTemplate!: TemplateRef&lt;any&gt;;
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Template Context Section -->
+                <section id="template-context" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Template Context</h2>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg mb-6">
+                            <h3 class="font-semibold text-gray-900 mb-2">Context Variables Available</h3>
+                            <p class="text-gray-700">
+                                Templates receive a rich context object with access to the cell value, row data,
+                                column definition, and row index for complete customization control.
+                            </p>
+                        </div>
+
+                        <div class="code-block mb-6">
+                            <pre><code class="language-typescript">interface TemplateContext {
+  $implicit: any;           // The cell value (default template variable)
+  value: any;               // The cell value (explicit access)
+  row: RowData;             // The entire row data object
+  column: ColumnDefinition; // Column configuration
+  rowIndex: number;         // Zero-based row index
+}</code></pre>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="font-semibold text-gray-900 mb-3">Template Usage Examples</h4>
+                                <div class="space-y-3 text-sm">
+                                    <div>
+                                        <code class="bg-white px-2 py-1 rounded">let-value</code> - Gets the cell value
+                                    </div>
+                                    <div>
+                                        <code class="bg-white px-2 py-1 rounded">let-row="row"</code> - Gets the entire row
+                                    </div>
+                                    <div>
+                                        <code class="bg-white px-2 py-1 rounded">let-index="rowIndex"</code> - Gets row index
+                                    </div>
+                                    <div>
+                                        <code class="bg-white px-2 py-1 rounded">let-col="column"</code> - Gets column config
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="font-semibold text-gray-900 mb-3">Context Usage</h4>
+                                <div class="text-sm text-gray-700 space-y-2">
+                                    <div>• Access any property from the row data</div>
+                                    <div>• Use row index for alternating styles</div>
+                                    <div>• Check column configuration for conditional logic</div>
+                                    <div>• Format values based on cell content</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Action Columns Section -->
+                <section id="action-columns" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Action Column Examples</h2>
+
+                        <!-- Simple Action Buttons -->
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Simple Action Buttons</h3>
+                            <div class="example-card rounded-lg p-6 mb-4">
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="actions" headerName="Actions" [sortable]="false"&gt;
+  &lt;ng-template let-row="row" let-rowIndex="rowIndex"&gt;
+    &lt;div class="flex items-center space-x-2"&gt;
+      &lt;button (click)="edit(row)" class="btn btn-sm btn-violet"&gt;Edit&lt;/button&gt;
+      &lt;button (click)="delete(row)" class="btn btn-sm btn-red"&gt;Delete&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Menu Actions -->
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Dropdown Menu Actions</h3>
+                            <div class="example-card rounded-lg p-6 mb-4">
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="actions" headerName="Actions" [sortable]="false"&gt;
+  &lt;ng-template let-row="row" let-rowIndex="rowIndex"&gt;
+    &lt;div class="relative"&gt;
+      &lt;button (click)="toggleMenu(rowIndex)" class="btn btn-sm"&gt;
+        &lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+          &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 5v.01M12 12v.01M12 19v.01"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+
+      @if (openMenuIndex === rowIndex) {
+        &lt;div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10"&gt;
+          &lt;button (click)="edit(row)"
+                  class="block w-full text-left px-4 py-2 hover:bg-gray-100"&gt;
+            Edit
+          &lt;/button&gt;
+          &lt;button (click)="duplicate(row)"
+                  class="block w-full text-left px-4 py-2 hover:bg-gray-100"&gt;
+            Duplicate
+          &lt;/button&gt;
+          &lt;button (click)="delete(row)"
+                  class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"&gt;
+            Delete
+          &lt;/button&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Icon-Only Actions -->
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Icon-Only Actions</h3>
+                            <div class="example-card rounded-lg p-6 mb-4">
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="actions" headerName="" [width]="120" [sortable]="false"&gt;
+  &lt;ng-template let-row="row"&gt;
+    &lt;div class="flex items-center justify-center space-x-1"&gt;
+      &lt;button (click)="edit(row)"
+              class="p-2 hover:bg-gray-100 rounded"
+              title="Edit"&gt;
+        &lt;svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+          &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;button (click)="view(row)"
+              class="p-2 hover:bg-gray-100 rounded"
+              title="View"&gt;
+        &lt;svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+          &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/&gt;
+          &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;button (click)="delete(row)"
+              class="p-2 hover:bg-gray-100 rounded"
+              title="Delete"&gt;
+        &lt;svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+          &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Custom Cell Renderers Section -->
+                <section id="custom-renderers" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Custom Cell Renderers</h2>
+
+                        <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Avatar with Name -->
+                            <div class="example-card rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Avatar with Name & Email</h3>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="user" headerName="User" [width]="250"&gt;
+  &lt;ng-template let-row="row"&gt;
+    &lt;div class="flex items-center space-x-3"&gt;
+      &lt;img
+        [src]="row.avatar || '/default-avatar.png'"
+        [alt]="row.name"
+        class="w-8 h-8 rounded-full"
+      /&gt;
+      &lt;div&gt;
+        &lt;div class="font-medium text-gray-900"&gt;{{ row.name }}&lt;/div&gt;
+        &lt;div class="text-sm text-gray-500"&gt;{{ row.email }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div class="example-card rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Progress Bar</h3>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="progress" headerName="Progress" [width]="150"&gt;
+  &lt;ng-template let-value="value"&gt;
+    &lt;div class="flex items-center space-x-2"&gt;
+      &lt;div class="flex-1 bg-gray-200 rounded-full h-2"&gt;
+        &lt;div
+          class="bg-violet-600 h-2 rounded-full transition-all duration-300"
+          [style.width.%]="value"
+        &gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;span class="text-sm text-gray-600"&gt;{{ value }}%&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Tags/Chips -->
+                            <div class="example-card rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Tags & Chips</h3>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="tags" headerName="Tags" [width]="200"&gt;
+  &lt;ng-template let-value="value"&gt;
+    &lt;div class="flex flex-wrap gap-1"&gt;
+      @for (tag of value; track tag) {
+        &lt;span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"&gt;
+          {{ tag }}
+        &lt;/span&gt;
+      }
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div class="example-card rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Status Badge</h3>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;ng-template ngVuiGridColumn="status" headerName="Status" [width]="120"&gt;
+  &lt;ng-template let-value="value"&gt;
+    &lt;span
+      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+      [ngClass]="{
+        'bg-green-100 text-green-800': value === 'Active',
+        'bg-red-100 text-red-800': value === 'Inactive',
+        'bg-yellow-100 text-yellow-800': value === 'Pending'
+      }"
+    &gt;
+      {{ value }}
+    &lt;/span&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Component Methods Section -->
+                <section id="component-methods" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Component Methods</h2>
+
+                        <p class="text-gray-600 mb-6">
+                            Implement these methods in your component to handle action column interactions:
+                        </p>
+
+                        <div class="code-block">
+                            <pre><code class="language-typescript">export class MyComponent {
+  openMenuIndex: number | null = null;
+
+  editRow(row: RowData, index: number): void {
+    console.log('Edit:', row);
+    // Implement edit logic
+    // Example: Open edit dialog or navigate to edit page
+  }
+
+  deleteRow(row: RowData, index: number): void {
+    if (confirm('Are you sure you want to delete this item?')) {
+      this.rowData = this.rowData.filter(r => r.id !== row.id);
+      // Or call your delete service
+      this.dataService.delete(row.id).subscribe(() => {
+        this.loadData();
+      });
+    }
+  }
+
+  viewRow(row: RowData, index: number): void {
+    console.log('View:', row);
+    // Implement view logic
+    // Example: Open view dialog or navigate to detail page
+  }
+
+  duplicateRow(row: RowData, index: number): void {
+    const newRow = {
+      ...row,
+      id: this.generateId(),
+      name: `${row.name} (Copy)`
+    };
+    this.rowData = [...this.rowData, newRow];
+  }
+
+  toggleMenu(index: number): void {
+    this.openMenuIndex = this.openMenuIndex === index ? null : index;
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Active': return 'bg-green-100 text-green-800';
+      case 'Inactive': return 'bg-red-100 text-red-800';
+      case 'Pending': return 'bg-yellow-100 text-yellow-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  }
+
+  private generateId(): string {
+    return Math.random().toString(36).substr(2, 9);
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Benefits Section -->
+                <section id="benefits" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Benefits of Template System</h2>
+
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="component-card bg-gradient-to-br from-purple-50 to-violet-100 p-6 rounded-lg">
+                                <div class="feature-icon text-3xl mb-3">🔧</div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Flexible</h3>
+                                <p class="text-sm text-gray-600">Full Angular template syntax support with all directives and pipes</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-blue-50 to-sky-100 p-6 rounded-lg">
+                                <div class="feature-icon text-3xl mb-3">🛡️</div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Type-safe</h3>
+                                <p class="text-sm text-gray-600">Strong typing with TypeScript interfaces and compile-time checks</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
+                                <div class="feature-icon text-3xl mb-3">⚡</div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Performant</h3>
+                                <p class="text-sm text-gray-600">Templates are compiled and cached for optimal performance</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-orange-50 to-amber-100 p-6 rounded-lg">
+                                <div class="feature-icon text-3xl mb-3">♿</div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Accessible</h3>
+                                <p class="text-sm text-gray-600">Full control over DOM structure and ARIA attributes</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-pink-50 to-rose-100 p-6 rounded-lg">
+                                <div class="feature-icon text-3xl mb-3">🎨</div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Styled</h3>
+                                <p class="text-sm text-gray-600">Easy integration with Tailwind CSS or any CSS framework</p>
+                            </div>
+
+                            <div class="component-card bg-gradient-to-br from-indigo-50 to-blue-100 p-6 rounded-lg">
+                                <div class="feature-icon text-3xl mb-3">🔄</div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Reusable</h3>
+                                <p class="text-sm text-gray-600">Templates can be shared across components and applications</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Migration Section -->
+                <section id="migration" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Migration from Other Grids</h2>
+
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 p-6 rounded-lg mb-6">
+                            <h3 class="font-semibold text-gray-900 mb-2">Easy Migration</h3>
+                            <p class="text-gray-700">
+                                The NgVuiGrid template syntax is designed to be intuitive and similar to other popular
+                                Angular grid libraries, making migration straightforward.
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Other Grid Libraries -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4 text-red-600">❌ Other Grid Libraries</h3>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;!-- ngx-datatable example --&gt;
+&lt;ngx-datatable&gt;
+  &lt;ngx-datatable-column name="actions"&gt;
+    &lt;ng-template let-value="value" let-row="row" ngx-datatable-cell-template&gt;
+      &lt;!-- template content --&gt;
+    &lt;/ng-template&gt;
+  &lt;/ngx-datatable-column&gt;
+&lt;/ngx-datatable&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- NgVuiGrid -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4 text-green-600">✅ NgVuiGrid</h3>
+                                <div class="code-block">
+                                    <pre><code class="language-html">&lt;!-- NgVuiGrid equivalent --&gt;
+&lt;ng-vui-grid&gt;
+  &lt;ng-template ngVuiGridColumn="actions"&gt;
+    &lt;ng-template let-value="value" let-row="row"&gt;
+      &lt;!-- template content --&gt;
+    &lt;/ng-template&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-vui-grid&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-gray-50 rounded-lg p-6">
+                            <h4 class="font-semibold text-gray-900 mb-3">Migration Checklist</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                    <span>Update template directive from library-specific to <code>ngVuiGridColumn</code></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                    <span>Keep existing template variables (value, row, etc.) - they work the same</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                    <span>Update column configuration to use NgVuiGrid's <code>ColumnDefinition</code></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                    <span>Replace grid options with NgVuiGrid's <code>GridOptions</code> interface</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Best Practices Section -->
+                <section id="best-practices" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Template Best Practices</h2>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Performance Best Practices -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-green-600">⚡ Performance Tips</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Keep templates simple and avoid complex calculations</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use OnPush change detection for template components</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Implement trackBy functions for better performance</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Cache computed values in component methods</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Template Design Tips -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-blue-600">🎨 Template Design</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use consistent spacing and alignment</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Provide clear visual feedback for interactive elements</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use tooltips for icon-only actions</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Follow your application's design system</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Accessibility Best Practices -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-purple-600">♿ Accessibility</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Add proper ARIA labels to action buttons</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Ensure keyboard navigation works correctly</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Use semantic HTML elements where possible</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Provide alternative text for images and icons</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Error Handling -->
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-orange-600">🛡️ Error Handling</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Handle null and undefined values gracefully</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Validate data before performing actions</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Provide user feedback for long-running operations</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                        <span class="text-gray-700">Implement proper error boundaries</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-600">NgVuiGrid Templates Documentation - VUI Component Library</p>
+                <p class="text-sm text-gray-500 mt-2">Built with Angular and TypeScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth scrolling and navigation highlighting script -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-purple-50', 'text-purple-600', 'font-medium');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('bg-purple-50', 'text-purple-600', 'font-medium');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

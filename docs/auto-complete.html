@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Complete Component - Complete Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .bullet-point {
+            width: 8px;
+            height: 8px;
+            background-color: #6b7280;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold text-gray-800 hover:text-gray-600 transition-colors">
+                            VUI
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="index.html#components" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Components</a>
+                        <a href="index.html#getting-started" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Getting Started</a>
+                        <a href="index.html#examples" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Examples</a>
+                        <a href="index.html#documentation" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Documentation</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://www.npmjs.com/package/@vui/auto-complete"
+                       class="bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">
+                        NPM
+                    </a>
+                    <a href="https://github.com/ultimatevarun/vui"
+                       class="text-gray-700 hover:text-gray-900 px-4 py-2 text-sm font-medium">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto z-40" style="top: 64px; height: calc(100vh - 64px);">
+            <div class="p-4">
+                <div class="space-y-2">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
+
+                    <a href="accordion.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Accordion</span>
+                        </div>
+                    </a>
+
+                    <a href="#auto-complete" class="sidebar-link block py-3 px-4 text-gray-700 bg-gray-50 rounded-lg font-medium">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Auto Complete</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Current</span>
+                        </div>
+                    </a>
+
+                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Text Input</span>
+                        </div>
+                    </a>
+
+                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Textarea</span>
+                        </div>
+                    </a>
+
+                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Select Input</span>
+                        </div>
+                    </a>
+
+                    <a href="multi-select.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Multi Select</span>
+                        </div>
+                    </a>
+
+                    <a href="date-picker.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Date Picker</span>
+                        </div>
+                    </a>
+
+                    <a href="file-uploader.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>File Uploader</span>
+                        </div>
+                    </a>
+
+                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Image Gallery</span>
+                        </div>
+                    </a>
+
+                    <a href="modal.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Modal</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Quick Links</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="#installation" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>Installation
+                        </a>
+                        <a href="#basic-usage" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>Basic Usage
+                        </a>
+                        <a href="#api-reference" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>API Reference
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Auto Complete Component</h1>
+                    <p class="text-xl text-gray-600">
+                        A smart autocomplete component with real-time search, highlighting, and customizable suggestions.
+                    </p>
+                </div>
+
+                <!-- Installation Section -->
+                <section id="installation" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Installation</h2>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Install the Package</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-bash">npm install @vui/auto-complete</code></pre>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4">Import in Your Component</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">import { VuiAutocompleteComponent } from '@vui/auto-complete';
+
+@Component({
+  standalone: true,
+  imports: [VuiAutocompleteComponent],
+  template: `
+    &lt;ng-vui-autocomplete
+      [data]="suggestions"
+      [searchKeywords]="searchFields"
+      (selectedItem)="onItemSelected($event)"
+      placeholder="Search..."&gt;
+    &lt;/ng-vui-autocomplete&gt;
+  `
+})</code></pre>
+                    </div>
+                </section>
+
+                <!-- Basic Usage -->
+                <section id="basic-usage" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Basic Usage</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="border-2 border-gray-200 rounded-lg p-6 bg-gray-50 mb-6">
+                            <h4 class="text-lg font-medium mb-4">Live Demo</h4>
+                            <div class="relative max-w-md">
+                                <input type="text" 
+                                       placeholder="Search cities..." 
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                       oninput="showSuggestions(this.value)">
+                                <div id="suggestions" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                    <div class="p-2 hover:bg-blue-50 cursor-pointer border-b">New York</div>
+                                    <div class="p-2 hover:bg-blue-50 cursor-pointer border-b">Los Angeles</div>
+                                    <div class="p-2 hover:bg-blue-50 cursor-pointer">Chicago</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-typescript">export class AutoCompleteExample {
+  cities = [
+    { id: 1, name: 'New York', country: 'USA' },
+    { id: 2, name: 'Los Angeles', country: 'USA' },
+    { id: 3, name: 'Chicago', country: 'USA' }
+  ];
+
+  searchFields = ['name', 'country'];
+
+  onItemSelected(item: any): void {
+    console.log('Selected:', item);
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- API Reference -->
+                <section id="api-reference" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">API Reference</h2>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="px-6 py-4 bg-gray-50 border-b">
+                            <h3 class="text-xl font-semibold">Component Properties</h3>
+                        </div>
+
+                        <div class="p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-blue-600">Inputs</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left font-semibold">Property</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Type</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Default</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">data</td>
+                                            <td class="px-4 py-3">any[]</td>
+                                            <td class="px-4 py-3">[]</td>
+                                            <td class="px-4 py-3">Array of suggestions data</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">searchKeywords</td>
+                                            <td class="px-4 py-3">string[]</td>
+                                            <td class="px-4 py-3">['name']</td>
+                                            <td class="px-4 py-3">Fields to search in</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">placeholder</td>
+                                            <td class="px-4 py-3">string</td>
+                                            <td class="px-4 py-3">'Search...'</td>
+                                            <td class="px-4 py-3">Input placeholder text</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">disabled</td>
+                                            <td class="px-4 py-3">boolean</td>
+                                            <td class="px-4 py-3">false</td>
+                                            <td class="px-4 py-3">Disable the component</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">maxSuggestions</td>
+                                            <td class="px-4 py-3">number</td>
+                                            <td class="px-4 py-3">10</td>
+                                            <td class="px-4 py-3">Maximum number of suggestions to show</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="px-6 pb-6">
+                            <h4 class="text-lg font-semibold mb-4 text-green-600">Outputs</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left font-semibold">Event</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Type</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">selectedItem</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;any&gt;</td>
+                                            <td class="px-4 py-3">Emitted when an item is selected</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">searchChanged</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;string&gt;</td>
+                                            <td class="px-4 py-3">Emitted when search text changes</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">suggestionsOpened</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;void&gt;</td>
+                                            <td class="px-4 py-3">Emitted when suggestions dropdown opens</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">suggestionsClosed</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;void&gt;</td>
+                                            <td class="px-4 py-3">Emitted when suggestions dropdown closes</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="border-t pt-8 mt-12 text-center text-gray-600">
+                    <p class="mb-4">VUI Auto Complete Component Documentation</p>
+                    <p class="text-sm">
+                        Created with ❤️ by
+                        <a href="https://www.linkedin.com/in/varun-s-26247116b/" class="text-gray-800 hover:underline">Varun Singh</a>
+                    </p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll to top button -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="fixed bottom-6 right-6 bg-gray-600 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-colors z-50">
+        ↑
+    </button>
+
+    <script>
+        let suggestionsVisible = false;
+        
+        function showSuggestions(value) {
+            const suggestions = document.getElementById('suggestions');
+            if (value.length > 0) {
+                suggestions.classList.remove('hidden');
+                suggestionsVisible = true;
+            } else {
+                suggestions.classList.add('hidden');
+                suggestionsVisible = false;
+            }
+        }
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.relative') && suggestionsVisible) {
+                document.getElementById('suggestions').classList.add('hidden');
+                suggestionsVisible = false;
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

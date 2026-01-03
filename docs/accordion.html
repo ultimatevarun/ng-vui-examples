@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Component - Complete Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .bullet-point {
+            width: 8px;
+            height: 8px;
+            background-color: #6b7280;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+        .accordion-demo {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-2xl font-bold text-gray-800 hover:text-gray-600 transition-colors">
+                            VUI
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="index.html#components" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Components</a>
+                        <a href="index.html#getting-started" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Getting Started</a>
+                        <a href="index.html#examples" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Examples</a>
+                        <a href="index.html#documentation" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">Documentation</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://www.npmjs.com/package/@vui/accordion"
+                       class="bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">
+                        NPM
+                    </a>
+                    <a href="https://github.com/ultimatevarun/vui"
+                       class="text-gray-700 hover:text-gray-900 px-4 py-2 text-sm font-medium">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto z-40" style="top: 64px; height: calc(100vh - 64px);">
+            <div class="p-4">
+                <div class="space-y-2">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
+
+                    <a href="#accordion" class="sidebar-link block py-3 px-4 text-gray-700 bg-gray-50 rounded-lg font-medium">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Accordion</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Current</span>
+                        </div>
+                    </a>
+
+                    <a href="auto-complete.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Auto Complete</span>
+                        </div>
+                    </a>
+
+                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Text Input</span>
+                        </div>
+                    </a>
+
+                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Textarea</span>
+                        </div>
+                    </a>
+
+                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Select Input</span>
+                        </div>
+                    </a>
+
+                    <a href="multi-select.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Multi Select</span>
+                        </div>
+                    </a>
+
+                    <a href="date-picker.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Date Picker</span>
+                        </div>
+                    </a>
+
+                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Image Gallery</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Data Grid</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>WYSIWYG Editor</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Quick Links</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="#installation" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>Installation
+                        </a>
+                        <a href="#basic-usage" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>Basic Usage
+                        </a>
+                        <a href="#advanced-examples" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>Advanced Examples
+                        </a>
+                        <a href="#api-reference" class="block text-gray-600 hover:text-gray-800 py-1">
+                            <span class="bullet-point" style="background-color: #9ca3af; margin-right: 8px;"></span>API Reference
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="mb-12">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Accordion Component Tutorial</h1>
+                    <p class="text-xl text-gray-600">A comprehensive guide to building complex forms with the ERTPL-UI Accordion component, featuring real-world examples from inventory management systems.</p>
+                </div>
+
+                <!-- Installation Section -->
+                <section id="installation" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📦 Installation</h2>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Install the Package</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-bash">npm install @vui/accordion</code></pre>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Import in Your Component</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">import { Component } from '@angular/core';
+import { VuiAccordion } from '@vui/accordion';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-my-component',
+  standalone: true,
+  imports: [VuiAccordion, ReactiveFormsModule],
+  // ... rest of component
+})</code></pre>
+                    </div>
+
+                    <!-- CSS Setup Section -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-yellow-800 mb-4">⚠️ Important: CSS Setup for Proper Styling</h3>
+                        <p class="text-yellow-700 mb-4">If the accordion's look and feel is not appearing correctly when used as an npm module, you need to import the component's CSS styles.</p>
+
+                        <div class="bg-white rounded-lg p-4 mb-4">
+                            <h4 class="font-semibold mb-2">Method 1: Import CSS in your styles.css</h4>
+                            <pre class="bg-gray-900 text-green-400 p-3 rounded text-sm overflow-x-auto"><code class="language-css">/* Add to your src/styles.css file */
+@import 'node_modules/@vui/accordion/accordion.tailwind.css';</code></pre>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-4">
+                            <h4 class="font-semibold mb-2">Method 2: Copy Required CSS</h4>
+                            <ol class="list-decimal list-inside text-sm text-yellow-700 space-y-1">
+                                <li>Open <code class="bg-yellow-100 px-1 rounded">node_modules/@vui/accordion/accordion.tailwind.css</code></li>
+                                <li>Copy lines 1-166 (all CSS before the utilities section)</li>
+                                <li>Paste into your project's <code class="bg-yellow-100 px-1 rounded">src/styles.css</code> file</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-yellow-100 rounded-lg">
+                            <h5 class="font-semibold text-yellow-800 mb-1">Visual Features You'll Get:</h5>
+                            <ul class="text-sm text-yellow-700 space-y-1">
+                                <li>✨ Rounded corners with proper border management</li>
+                                <li>🎯 Focus states with violet ring highlighting</li>
+                                <li>🌈 Header highlighting when expanded (light violet background)</li>
+                                <li>🎨 Smooth transitions for all state changes</li>
+                                <li>📱 Responsive design for mobile and desktop</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Basic Usage -->
+                <section id="basic-usage" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🚀 Basic Usage</h2>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Simple Accordion Example</h3>
+
+                        <div class="accordion-demo">
+                            <div class="border rounded-lg bg-white">
+                                <button class="w-full px-4 py-3 text-left flex items-center justify-between bg-white hover:bg-gray-50 rounded-lg border-b">
+                                    <span class="font-medium text-gray-900">Getting Started</span>
+                                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                <div class="px-4 py-3 bg-gray-50">
+                                    <p class="text-gray-700">This is the basic accordion content. Click the header to expand/collapse.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-html">&lt;ertpl-accordion
+  title="Getting Started"
+  [initiallyExpanded]="false"
+  variant="default"&gt;
+
+  &lt;ng-template #content&gt;
+    &lt;p&gt;This is the basic accordion content. Click the header to expand/collapse.&lt;/p&gt;
+  &lt;/ng-template&gt;
+&lt;/ertpl-accordion&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Real-World Example: Search Form -->
+                <section id="advanced-examples" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🔧 Real-World Example: Search Form</h2>
+
+                    <p class="text-gray-600 mb-6">This example shows how to build a complex search form using the accordion component with working expand/collapse functionality.</p>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-semibold mb-4">Working Accordion Demo</h3>
+
+                        <div class="accordion-demo">
+                            <div class="border rounded-lg bg-white shadow-sm overflow-hidden" id="demo-accordion">
+                                <button onclick="toggleDemo()" class="w-full px-4 py-3 text-left flex items-center justify-between bg-white hover:bg-violet-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition-all duration-200" id="demo-header">
+                                    <div class="flex-1">
+                                        <span class="font-medium text-gray-900">Search Filters</span>
+                                        <div class="text-xs text-gray-500 mt-1" id="demo-summary">Click to expand and try the form</div>
+                                    </div>
+                                    <svg class="w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="demo-chevron">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                <div class="border-t border-gray-200 p-4 bg-gray-50 rounded-b-lg" id="demo-content" style="display: none;">
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between mb-6">
+                                            <h3 class="text-lg font-medium text-gray-900">Search Form</h3>
+                                            <div class="flex items-center space-x-3">
+                                                <button type="button" onclick="clearForm()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                                                    Clear
+                                                </button>
+                                                <button type="button" onclick="submitForm()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                                <input type="text" id="search-name" placeholder="Search by name..." oninput="updateSummary()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                                <select id="search-category" onchange="updateSummary()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                    <option value="">Select category</option>
+                                                    <option value="electronics">Electronics</option>
+                                                    <option value="clothing">Clothing</option>
+                                                    <option value="books">Books</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                                <select id="search-status" onchange="updateSummary()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                    <option value="">Any status</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
+                                                <input type="date" id="search-date" onchange="updateSummary()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            let isExpanded = false;
+
+                            function toggleDemo() {
+                                isExpanded = !isExpanded;
+                                const content = document.getElementById('demo-content');
+                                const chevron = document.getElementById('demo-chevron');
+                                const header = document.getElementById('demo-header');
+
+                                if (isExpanded) {
+                                    content.style.display = 'block';
+                                    chevron.style.transform = 'rotate(180deg)';
+                                    header.style.backgroundColor = 'rgb(245, 243, 255)'; // bg-violet-50
+                                    header.classList.remove('rounded-lg');
+                                    header.classList.add('rounded-t-lg');
+                                    header.style.borderBottomLeftRadius = '0';
+                                    header.style.borderBottomRightRadius = '0';
+                                } else {
+                                    content.style.display = 'none';
+                                    chevron.style.transform = 'rotate(0deg)';
+                                    header.style.backgroundColor = '';
+                                    header.classList.add('rounded-lg');
+                                    header.classList.remove('rounded-t-lg');
+                                    header.style.borderBottomLeftRadius = '';
+                                    header.style.borderBottomRightRadius = '';
+                                }
+                            }
+
+                            function updateSummary() {
+                                const name = document.getElementById('search-name') ? document.getElementById('search-name').value : '';
+                                const category = document.getElementById('search-category') ? document.getElementById('search-category').value : '';
+                                const status = document.getElementById('search-status') ? document.getElementById('search-status').value : '';
+                                const date = document.getElementById('search-date') ? document.getElementById('search-date').value : '';
+
+                                const filters = [];
+                                if (name) filters.push(`name: ${name}`);
+                                if (category) filters.push(`category: ${category}`);
+                                if (status) filters.push(`status: ${status}`);
+                                if (date) filters.push(`date: ${date}`);
+
+                                const summary = document.getElementById('demo-summary');
+                                if (summary) {
+                                    summary.textContent = filters.length > 0 ? filters.join(', ') : 'No filters applied';
+                                }
+                            }
+
+                            function clearForm() {
+                                const inputs = ['search-name', 'search-category', 'search-status', 'search-date'];
+                                inputs.forEach(id => {
+                                    const element = document.getElementById(id);
+                                    if (element) element.value = '';
+                                });
+                                updateSummary();
+                            }
+
+                            function submitForm() {
+                                alert('Search form submitted! Check the summary when you collapse the accordion.');
+                                updateSummary();
+                            }
+                        </script>
+
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-html">&lt;ertpl-accordion
+  title="Search Filters"
+  [initiallyExpanded]="false"
+  variant="default"
+  (accordionToggled)="onSearchToggled($event)"&gt;
+
+  &lt;!-- Summary Template --&gt;
+  &lt;ng-template #summary&gt;
+    &lt;div class="text-xs text-gray-500"&gt;
+      {{ getSearchSummary() }}
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+
+  &lt;ng-template #content&gt;
+    &lt;form [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()" class="space-y-4"&gt;
+
+      &lt;!-- Header with Actions --&gt;
+      &lt;div class="flex items-center justify-between mb-6"&gt;
+        &lt;h3 class="text-lg font-medium text-gray-900"&gt;Search Form&lt;/h3&gt;
+        &lt;div class="flex items-center space-x-3"&gt;
+          &lt;button type="button" (click)="onClearSearch()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"&gt;
+            Clear
+          &lt;/button&gt;
+          &lt;button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"&gt;
+            Search
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Form Fields Grid --&gt;
+      &lt;div class="grid grid-cols-1 md:grid-cols-2 gap-4"&gt;
+        &lt;div&gt;
+          &lt;label class="block text-sm font-medium text-gray-700 mb-1"&gt;Name&lt;/label&gt;
+          &lt;input type="text" formControlName="name" placeholder="Search by name..."
+                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+          &lt;label class="block text-sm font-medium text-gray-700 mb-1"&gt;Category&lt;/label&gt;
+          &lt;select formControlName="category" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"&gt;
+            &lt;option value=""&gt;Select category&lt;/option&gt;
+            &lt;option value="electronics"&gt;Electronics&lt;/option&gt;
+            &lt;option value="clothing"&gt;Clothing&lt;/option&gt;
+            &lt;option value="books"&gt;Books&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+          &lt;label class="block text-sm font-medium text-gray-700 mb-1"&gt;Status&lt;/label&gt;
+          &lt;select formControlName="status" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"&gt;
+            &lt;option value=""&gt;Any status&lt;/option&gt;
+            &lt;option value="active"&gt;Active&lt;/option&gt;
+            &lt;option value="inactive"&gt;Inactive&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+
+        &lt;div&gt;
+          &lt;label class="block text-sm font-medium text-gray-700 mb-1"&gt;Date Range&lt;/label&gt;
+          &lt;input type="date" formControlName="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/ng-template&gt;
+&lt;/ertpl-accordion&gt;</code></pre>
+                    </div>
+
+                    <!-- TypeScript Component Code -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <h3 class="text-xl font-semibold mb-4">Component TypeScript Code</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">@Component({
+  selector: 'app-search-form',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    VuiAccordion
+  ],
+  // template shown above
+})
+export class SearchFormComponent implements OnInit {
+  @Output() searchApplied = new EventEmitter&lt;any&gt;();
+  @Output() searchCleared = new EventEmitter&lt;boolean&gt;();
+  @Output() searchToggled = new EventEmitter&lt;boolean&gt;();
+
+  searchForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
+    this.searchForm = this.fb.group({
+      name: [''],
+      category: [''],
+      status: [''],
+      date: ['']
+    });
+  }
+
+  onSearchToggled(isExpanded: boolean): void {
+    console.log('Accordion toggled:', isExpanded);
+    this.searchToggled.emit(isExpanded);
+  }
+
+  onSearchSubmit(): void {
+    const formValue = this.searchForm.value;
+    console.log('Search submitted:', formValue);
+    this.searchApplied.emit(formValue);
+  }
+
+  onClearSearch(): void {
+    this.searchForm.reset();
+    this.searchCleared.emit(true);
+  }
+
+  getSearchSummary(): string {
+    const values = this.searchForm.value;
+    const filters = Object.entries(values)
+      .filter(([_, value]) => value && value !== '')
+      .map(([key, value]) => `${key}: ${value}`);
+
+    return filters.length > 0 ? filters.join(', ') : 'No filters applied';
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Key Features Demo -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">✨ Key Features Demonstrated</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Summary Template -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-blue-600 mb-3">📝 Summary Template</h3>
+                            <p class="text-gray-600 mb-4">Shows dynamic filter summary when collapsed</p>
+                            <div class="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+                                <code class="text-sm">{{ getSearchSummary() }}</code>
+                            </div>
+                        </div>
+
+                        <!-- Event Handling -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-green-600 mb-3">🎯 Event Handling</h3>
+                            <p class="text-gray-600 mb-4">Track accordion state and form submissions</p>
+                            <div class="bg-gray-50 p-3 rounded border-l-4 border-green-500">
+                                <code class="text-sm">(accordionToggled)="onSearchToggled($event)"</code>
+                            </div>
+                        </div>
+
+                        <!-- Complex Forms -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-purple-600 mb-3">🏗️ Complex Forms</h3>
+                            <p class="text-gray-600 mb-4">Multiple form controls with validation</p>
+                            <div class="bg-gray-50 p-3 rounded border-l-4 border-purple-500">
+                                <code class="text-sm">ReactiveFormsModule integration</code>
+                            </div>
+                        </div>
+
+                        <!-- Responsive Design -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-lg font-semibold text-red-600 mb-3">📱 Responsive Design</h3>
+                            <p class="text-gray-600 mb-4">Grid layout adapts to screen size</p>
+                            <div class="bg-gray-50 p-3 rounded border-l-4 border-red-500">
+                                <code class="text-sm">grid-cols-1 md:grid-cols-4</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- API Reference -->
+                <section id="api-reference" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📖 API Reference</h2>
+
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="px-6 py-4 bg-gray-50 border-b">
+                            <h3 class="text-xl font-semibold">Component Properties</h3>
+                        </div>
+
+                        <!-- Inputs Table -->
+                        <div class="p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-blue-600">Inputs</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left font-semibold">Property</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Type</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Default</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">title</td>
+                                            <td class="px-4 py-3">string</td>
+                                            <td class="px-4 py-3">'Accordion'</td>
+                                            <td class="px-4 py-3">Header title text</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">initiallyExpanded</td>
+                                            <td class="px-4 py-3">boolean</td>
+                                            <td class="px-4 py-3">false</td>
+                                            <td class="px-4 py-3">Whether accordion starts expanded</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">disabled</td>
+                                            <td class="px-4 py-3">boolean</td>
+                                            <td class="px-4 py-3">false</td>
+                                            <td class="px-4 py-3">Disable accordion interaction</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">showIcon</td>
+                                            <td class="px-4 py-3">boolean</td>
+                                            <td class="px-4 py-3">true</td>
+                                            <td class="px-4 py-3">Show/hide chevron icon</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-purple-600">variant</td>
+                                            <td class="px-4 py-3">'default' | 'bordered' | 'filled'</td>
+                                            <td class="px-4 py-3">'default'</td>
+                                            <td class="px-4 py-3">Visual styling variant</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Outputs Table -->
+                        <div class="px-6 pb-6">
+                            <h4 class="text-lg font-semibold mb-4 text-green-600">Outputs</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-2 text-left font-semibold">Event</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Type</th>
+                                            <th class="px-4 py-2 text-left font-semibold">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">accordionToggled</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;boolean&gt;</td>
+                                            <td class="px-4 py-3">Emitted when accordion expands/collapses</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">expanded</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;void&gt;</td>
+                                            <td class="px-4 py-3">Emitted when accordion expands</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-mono text-green-600">collapsed</td>
+                                            <td class="px-4 py-3">EventEmitter&lt;void&gt;</td>
+                                            <td class="px-4 py-3">Emitted when accordion collapses</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Best Practices -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">💡 Best Practices</h2>
+
+                    <div class="grid gap-6">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-green-800 mb-3">✅ Do</h3>
+                            <ul class="space-y-2 text-green-700">
+                                <li>• Use summary templates for complex forms to show filter status</li>
+                                <li>• Handle accordion toggle events for analytics or state management</li>
+                                <li>• Use overflow-visible class for dropdowns inside accordions</li>
+                                <li>• Implement clear/reset functionality for form accordions</li>
+                                <li>• Use debouncing for API calls triggered by form changes</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-red-800 mb-3">❌ Don't</h3>
+                            <ul class="space-y-2 text-red-700">
+                                <li>• Put too many form fields in a single accordion (split into multiple)</li>
+                                <li>• Forget to handle form validation and submission errors</li>
+                                <li>• Use accordions for critical actions that should always be visible</li>
+                                <li>• Nest accordions inside other accordions (use tabs instead)</li>
+                                <li>• Make accordion headers too vague - be descriptive</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="border-t pt-8 mt-12 text-center text-gray-600">
+                    <p class="mb-4">ERTPL-UI Accordion Component Tutorial</p>
+                    <p class="text-sm">
+                        Created with ❤️ by
+                        <a href="https://www.linkedin.com/in/varun-s-26247116b/" class="text-blue-600 hover:underline">Varun Singh</a>
+                    </p>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll to top button -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+</body>
+</html>

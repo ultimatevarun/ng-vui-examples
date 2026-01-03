@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader Component - Complete Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .file-uploader-demo {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            background: #f9fafb;
+        }
+        .drag-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        .drag-area.drag-over {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold text-gray-800 mb-8">VUI</h1>
+
+                <div class="space-y-2">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
+
+                    <a href="accordion.html" class="sidebar-link block py-2 px-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                        📋 Accordion
+                    </a>
+
+                    <a href="text-input.html" class="sidebar-link block py-2 px-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                        📝 Text Input
+                    </a>
+
+                    <a href="date-picker.html" class="sidebar-link block py-2 px-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                        📅 Date Picker
+                    </a>
+
+                    <a href="multi-select.html" class="sidebar-link block py-2 px-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                        🔽 Multi Select
+                    </a>
+
+                    <a href="#file-uploader" class="sidebar-link block py-2 px-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+                        📤 File Upload
+                    </a>
+
+                    <a href="#" class="sidebar-link block py-2 px-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                        🖼️ Image Gallery
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">VUI File Uploader</h1>
+                    <p class="text-xl text-gray-600 mb-6">
+                        A powerful, feature-rich file upload component with drag & drop, progress tracking, file validation, and multiple upload options.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Angular 20+</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Drag & Drop</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">Progress Tracking</span>
+                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm font-medium">File Validation</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">Multiple Files</span>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">✨ Key Features</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">🗂️</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Drag & Drop</h3>
+                            <p class="text-gray-600">Intuitive drag and drop interface with visual feedback and hover states.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">📊</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Progress Tracking</h3>
+                            <p class="text-gray-600">Real-time upload progress with detailed status information and error handling.</p>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                <span class="text-2xl">🛡️</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">File Validation</h3>
+                            <p class="text-gray-600">Comprehensive file validation including size limits, type restrictions, and custom rules.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Installation Section -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📦 Installation</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Install via npm</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto"><code class="language-bash">npm install @vui/file-uploader</code></pre>
+                        
+                        <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-4">Import in your module</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">import { VuiUploaderComponent } from '@vui/file-uploader';
+
+@Component({
+  standalone: true,
+  imports: [VuiUploaderComponent],
+  // ...
+})</code></pre>
+                    </div>
+                </section>
+
+                <!-- Basic Usage -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🚀 Basic Usage</h2>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Simple File Upload</h3>
+                        
+                        <!-- Demo -->
+                        <div class="file-uploader-demo">
+                            <h4 class="text-lg font-medium mb-4">Live Demo</h4>
+                            <div class="drag-area" id="dragArea">
+                                <div class="mb-4">
+                                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                    </svg>
+                                    <p class="text-gray-600 text-center">
+                                        <span class="font-medium">Click to upload</span> or drag and drop files here
+                                    </p>
+                                    <p class="text-sm text-gray-500 text-center mt-2">PNG, JPG, GIF up to 10MB</p>
+                                </div>
+                                <input type="file" class="hidden" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx">
+                                <button onclick="document.getElementById('fileInput').click()" 
+                                        class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                    Select Files
+                                </button>
+                            </div>
+                            <div id="fileList" class="mt-4 space-y-2 hidden">
+                                <h5 class="font-medium text-gray-900">Selected Files:</h5>
+                            </div>
+                        </div>
+                        
+                        <!-- Code -->
+                        <div class="mt-6">
+                            <h4 class="text-lg font-medium mb-2">Implementation</h4>
+                            <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">@Component({
+  standalone: true,
+  imports: [VuiUploaderComponent],
+  template: `
+    &lt;ng-vui-file-uploader
+      [multiple]="true"
+      [maxSize]="10485760"
+      [acceptedTypes]="acceptedTypes"
+      [uploadUrl]="'/api/upload'"
+      (filesSelected)="onFilesSelected($event)"
+      (uploadProgress)="onUploadProgress($event)"
+      (uploadComplete)="onUploadComplete($event)"
+      (uploadError)="onUploadError($event)"&gt;
+    &lt;/ng-vui-file-uploader&gt;
+  `
+})
+export class MyComponent {
+  acceptedTypes = ['image/*', '.pdf', '.doc', '.docx'];
+
+  onFilesSelected(files: FileUploadMetadata[]): void {
+    console.log('Files selected:', files);
+  }
+
+  onUploadProgress(event: UploadProgressEvent): void {
+    console.log(`Upload progress: ${event.progress}%`);
+  }
+
+  onUploadComplete(response: any): void {
+    console.log('Upload completed:', response);
+  }
+
+  onUploadError(error: any): void {
+    console.error('Upload error:', error);
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Examples -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">⚡ Advanced Examples</h2>
+
+                    <!-- Custom Upload -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Custom Upload Configuration</h3>
+                        
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block"><code class="language-typescript">export class CustomUploaderComponent {
+  uploadConfig: UploadConfig = {
+    uploadUrl: '/api/files/upload',
+    maxFileSize: 5 * 1024 * 1024, // 5MB
+    allowedTypes: [
+      'image/jpeg', 'image/png', 'image/gif',
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    ],
+    maxFiles: 5,
+    autoUpload: false, // Manual upload control
+    headers: {
+      'Authorization': 'Bearer ' + this.authToken,
+      'X-Custom-Header': 'custom-value'
+    },
+    additionalData: {
+      userId: this.currentUser.id,
+      category: 'documents'
+    }
+  };
+
+  // Custom validation rules
+  customValidation = (file: File): ValidationResult => {
+    // Custom file name validation
+    if (file.name.includes(' ')) {
+      return {
+        valid: false,
+        error: 'File names cannot contain spaces'
+      };
+    }
+
+    // Custom content validation
+    if (file.type === 'image/jpeg' && file.size > 2 * 1024 * 1024) {
+      return {
+        valid: false,
+        error: 'JPEG images must be under 2MB'
+      };
+    }
+
+    return { valid: true };
+  };
+
+  onFileValidation(file: File): boolean {
+    const result = this.customValidation(file);
+    if (!result.valid) {
+      this.showError(result.error);
+      return false;
+    }
+    return true;
+  }
+
+  // Manual upload control
+  startUpload(): void {
+    this.uploaderComponent.startUpload();
+  }
+
+  pauseUpload(): void {
+    this.uploaderComponent.pauseUpload();
+  }
+
+  cancelUpload(): void {
+    this.uploaderComponent.cancelUpload();
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Image Preview & Thumbnail Generation</h3>
+                        
+                        <div class="file-uploader-demo">
+                            <h4 class="text-lg font-medium mb-4">Image Upload with Preview</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="imagePreview">
+                                <div class="aspect-square bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                                    <div class="text-center">
+                                        <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                        </svg>
+                                        <p class="text-xs text-gray-500">Add Image</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto code-block mt-6"><code class="language-typescript">export class ImageUploaderComponent {
+  selectedImages: FileWithPreview[] = [];
+
+  imageConfig: UploadConfig = {
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+    maxFileSize: 5 * 1024 * 1024,
+    generateThumbnails: true,
+    thumbnailSize: { width: 200, height: 200 },
+    compressionQuality: 0.8
+  };
+
+  onImagesSelected(files: FileUploadMetadata[]): void {
+    files.forEach(fileData => {
+      if (fileData.file.type.startsWith('image/')) {
+        this.generatePreview(fileData);
+      }
+    });
+  }
+
+  private generatePreview(fileData: FileUploadMetadata): void {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const preview: FileWithPreview = {
+        ...fileData,
+        preview: e.target?.result as string,
+        thumbnail: this.generateThumbnail(e.target?.result as string)
+      };
+      this.selectedImages.push(preview);
+    };
+    reader.readAsDataURL(fileData.file);
+  }
+
+  private generateThumbnail(imageSrc: string): string {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    
+    img.onload = () => {
+      canvas.width = 200;
+      canvas.height = 200;
+      ctx?.drawImage(img, 0, 0, 200, 200);
+    };
+    
+    img.src = imageSrc;
+    return canvas.toDataURL('image/jpeg', 0.8);
+  }
+
+  removeImage(index: number): void {
+    this.selectedImages.splice(index, 1);
+  }
+}
+
+interface FileWithPreview extends FileUploadMetadata {
+  preview: string;
+  thumbnail: string;
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- API Reference -->
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 API Reference</h2>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Component Inputs</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Property</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Default</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">multiple</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">false</td>
+                                        <td class="border border-gray-300 px-4 py-2">Allow multiple file selection</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">maxSize</td>
+                                        <td class="border border-gray-300 px-4 py-2">number</td>
+                                        <td class="border border-gray-300 px-4 py-2">-1</td>
+                                        <td class="border border-gray-300 px-4 py-2">Maximum file size in bytes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">acceptedTypes</td>
+                                        <td class="border border-gray-300 px-4 py-2">string[]</td>
+                                        <td class="border border-gray-300 px-4 py-2">[]</td>
+                                        <td class="border border-gray-300 px-4 py-2">Array of accepted file types</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">uploadUrl</td>
+                                        <td class="border border-gray-300 px-4 py-2">string</td>
+                                        <td class="border border-gray-300 px-4 py-2">''</td>
+                                        <td class="border border-gray-300 px-4 py-2">Upload endpoint URL</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">autoUpload</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">true</td>
+                                        <td class="border border-gray-300 px-4 py-2">Automatically start upload on file selection</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4 mt-8">Component Events</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Event</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">filesSelected</td>
+                                        <td class="border border-gray-300 px-4 py-2">FileUploadMetadata[]</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when files are selected</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">uploadProgress</td>
+                                        <td class="border border-gray-300 px-4 py-2">UploadProgressEvent</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted during upload progress</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">uploadComplete</td>
+                                        <td class="border border-gray-300 px-4 py-2">any</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when upload completes successfully</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">uploadError</td>
+                                        <td class="border border-gray-300 px-4 py-2">any</td>
+                                        <td class="border border-gray-300 px-4 py-2">Emitted when upload fails</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="border-t pt-8 mt-12">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0">
+                            <p class="text-gray-600">© 2024 VUI - Vue UI Component Library</p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/ultimatevarun/vui" class="text-gray-600 hover:text-blue-600">GitHub</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600">NPM</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600">Docs</a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // File uploader demo functionality
+        const dragArea = document.getElementById('dragArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+
+        // Drag and drop handlers
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dragArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dragArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dragArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dragArea.classList.add('drag-over');
+        }
+
+        function unhighlight(e) {
+            dragArea.classList.remove('drag-over');
+        }
+
+        dragArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        fileInput.addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+
+        function handleFiles(files) {
+            fileList.innerHTML = '<h5 class="font-medium text-gray-900">Selected Files:</h5>';
+            fileList.classList.remove('hidden');
+            
+            Array.from(files).forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-blue-100 rounded flex items-center justify-center mr-3">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">${file.name}</p>
+                            <p class="text-xs text-gray-500">${formatFileSize(file.size)}</p>
+                        </div>
+                    </div>
+                    <button class="text-red-600 hover:text-red-800">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>

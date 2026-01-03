@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NgVuiGrid - Comprehensive Documentation</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Navigation Styles */
+        .nav-bar {
+            background: #2d3748;
+            padding: 1rem 2rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-links a.primary {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Content Styles */
+        .content {
+            padding: 3rem 2rem;
+            line-height: 1.8;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 2.5rem; color: #2d3748; }
+        h2 { font-size: 2rem; color: #4a5568; border-bottom: 3px solid #667eea; padding-bottom: 0.5rem; }
+        h3 { font-size: 1.5rem; color: #2d3748; }
+        h4 { font-size: 1.25rem; color: #4a5568; }
+
+        /* Emoji Headings */
+        .emoji-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .emoji-heading .emoji {
+            font-size: 1.5em;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #f7fafc;
+            transform: translateX(4px);
+            transition: all 0.3s ease;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        pre::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        code {
+            background: #f7fafc;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: #667eea;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+            font-weight: normal;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin: 0.75rem 0;
+        }
+
+        /* Special Sections */
+        .section {
+            margin: 3rem 0;
+            padding: 2.5rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-left: 6px solid #667eea;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .quick-links {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            border-left-color: #38b2ac;
+        }
+
+        .performance {
+            background: linear-gradient(135deg, #fef5e7 0%, #fed7aa 100%);
+            border-left-color: #f6ad55;
+        }
+
+        .security {
+            background: linear-gradient(135deg, #fef2f2 0%, #fca5a5 100%);
+            border-left-color: #f56565;
+        }
+
+        /* Badges and Status */
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.success { background: #c6f6d5; color: #22543d; }
+        .badge.warning { background: #fed7aa; color: #9c4221; }
+        .badge.info { background: #bee3f8; color: #2a69ac; }
+        .badge.primary { background: #ddd6fe; color: #553c9a; }
+
+        /* Feature Matrix Enhancements */
+        .feature-matrix {
+            margin: 2rem 0;
+        }
+
+        .feature-matrix table {
+            width: 100%;
+        }
+
+        .feature-matrix .status-icon {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .status-recommended { color: #38a169; }
+        .status-optional { color: #d69e2e; }
+        .status-not-needed { color: #e53e3e; }
+
+        /* Performance Metrics */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .metric:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: #4a5568;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.75rem;
+            }
+
+            pre {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #5a67d8;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Syntax Highlighting */
+        .language-typescript { color: #e2e8f0; }
+        .keyword { color: #f56565; }
+        .string { color: #68d391; }
+        .comment { color: #a0aec0; font-style: italic; }
+        .number { color: #fbb6ce; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>📚 NgVuiGrid</h1>
+                <div class="subtitle">Comprehensive Documentation Hub</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <div class="nav-links">
+                <a href="ng-vui-grid.html" class="primary">Main Documentation</a>
+                <a href="date-picker.html">Date Picker</a>
+                <a href="multi-select.html">Multi Select</a>
+                <a href="#quick-links">Quick Links</a>
+                <a href="#performance">Performance</a>
+                <a href="#security">Security</a>
+                <a href="#feature-matrix">Features</a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Introduction -->
+            <section class="section">
+                <div class="emoji-heading">
+                    <span class="emoji">📚</span>
+                    <h2>Complete Documentation Index</h2>
+                </div>
+                <p>This document consolidates all ng-vui-grid documentation files and provides quick access to every aspect of the component.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <section>
+                <div class="emoji-heading">
+                    <span class="emoji">📋</span>
+                    <h2>Table of Contents</h2>
+                </div>
+                <ol>
+                    <li><a href="#quick-links">Quick Links</a></li>
+                    <li><a href="#main-documentation">Main Documentation</a></li>
+                    <li><a href="#specialized-guides">Specialized Guides</a></li>
+                    <li><a href="#performance--security">Performance & Security</a></li>
+                    <li><a href="#architecture-decisions">Architecture Decisions</a></li>
+                    <li><a href="#quick-start-guide">Quick Start Guide</a></li>
+                    <li><a href="#documentation-links">Documentation Links</a></li>
+                </ol>
+            </section>
+
+            <!-- Quick Links -->
+            <section id="quick-links" class="section quick-links">
+                <div class="emoji-heading">
+                    <span class="emoji">🔗</span>
+                    <h2>Quick Links</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Purpose</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="#readme">README.md</a></td>
+                            <td>Basic usage and API reference</td>
+                            <td>Getting started, basic implementation</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#templates">TEMPLATES.md</a></td>
+                            <td>Custom templates and action columns</td>
+                            <td>Advanced UI customization</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#performance">PERFORMANCE.md</a></td>
+                            <td>Handling 10M+ records</td>
+                            <td>Large datasets, optimization</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#security">SECURITY.md</a></td>
+                            <td>Enterprise security features</td>
+                            <td>Production deployment</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#virtual-scrolling">VIRTUAL_SCROLLING.md</a></td>
+                            <td>Architecture decisions</td>
+                            <td>Understanding implementation choices</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#comprehensive">NG-VUI-GRID.md</a></td>
+                            <td>Complete HTML/TypeScript examples</td>
+                            <td>Comprehensive reference</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Main Documentation -->
+            <section id="main-documentation">
+                <div class="emoji-heading">
+                    <span class="emoji">📖</span>
+                    <h2>Main Documentation</h2>
+                </div>
+
+                <div id="readme" class="section">
+                    <h3>1. README.md - Core Component Guide</h3>
+                    <p><strong>🎯 Purpose</strong>: Primary documentation for basic usage, installation, and API reference</p>
+
+                    <h4>Key Sections:</h4>
+                    <ul>
+                        <li>✅ <strong>Installation</strong> - <code>npm install @ng-vui/ng-vui-grid</code></li>
+                        <li>✅ <strong>Basic Usage</strong> - Template-based and programmatic approaches</li>
+                        <li>✅ <strong>API Reference</strong> - Complete interfaces and options</li>
+                        <li>✅ <strong>Integration Examples</strong> - Reactive forms, HTTP services</li>
+                        <li>✅ <strong>Testing</strong> - Unit test examples</li>
+                        <li>✅ <strong>Styling & Theming</strong> - Tailwind CSS customization</li>
+                    </ul>
+
+                    <h4>Quick Start Example:</h4>
+                    <pre data-lang="typescript"><code>// Template-Based Approach
+&lt;ng-vui-grid [rowData]="data" [gridOptions]="gridOptions"&gt;
+  &lt;ng-template ngVuiGridColumn="name" headerName="Full Name" [width]="200" let-value&gt;
+    &lt;span class="font-medium"&gt;{{ value }}&lt;/span&gt;
+  &lt;/ng-template&gt;
+  &lt;ng-template ngVuiGridColumn="actions" headerName="Actions" let-row="row"&gt;
+    &lt;button (click)="edit(row)" class="btn btn-primary"&gt;Edit&lt;/button&gt;
+    &lt;button (click)="delete(row)" class="btn btn-danger"&gt;Delete&lt;/button&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-grid&gt;</code></pre>
+
+                    <h4>Perfect For:</h4>
+                    <div>
+                        <span class="badge success">🆕 First-time users</span>
+                        <span class="badge info">📋 API reference lookup</span>
+                        <span class="badge primary">🔧 Basic customization</span>
+                        <span class="badge warning">🧪 Testing setup</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specialized Guides -->
+            <section id="specialized-guides">
+                <div class="emoji-heading">
+                    <span class="emoji">🎨</span>
+                    <h2>Specialized Guides</h2>
+                </div>
+
+                <div id="templates" class="section">
+                    <h3>2. TEMPLATES.md - Advanced Templates & Actions</h3>
+                    <p><strong>🎯 Purpose</strong>: Complete guide to custom cell templates, action columns, and advanced UI</p>
+
+                    <h4>Key Features Covered:</h4>
+                    <ul>
+                        <li>✅ <strong>Custom Cell Templates</strong> - Full Angular template syntax</li>
+                        <li>✅ <strong>Action Columns</strong> - Buttons, dropdowns, complex interactions</li>
+                        <li>✅ <strong>Template Context</strong> - Row data, column info, row index access</li>
+                        <li>✅ <strong>Visual Examples</strong> - Status badges, progress bars, avatars, tags</li>
+                    </ul>
+
+                    <h4>Advanced Examples:</h4>
+
+                    <h5>Status Badge Template:</h5>
+                    <pre data-lang="html"><code>&lt;ng-template ngVuiGridColumn="status" headerName="Status"&gt;
+  &lt;ng-template let-value let-row="row"&gt;
+    &lt;span [class]="getStatusClass(value)"
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"&gt;
+      {{ value }}
+    &lt;/span&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+
+                    <h5>Dropdown Actions:</h5>
+                    <pre data-lang="html"><code>&lt;ng-template ngVuiGridColumn="actions" headerName="Actions" [sortable]="false"&gt;
+  &lt;ng-template let-row="row" let-rowIndex="rowIndex"&gt;
+    &lt;div class="relative"&gt;
+      &lt;button (click)="toggleMenu(rowIndex)" class="btn btn-sm"&gt;⋮&lt;/button&gt;
+      @if (openMenuIndex === rowIndex) {
+        &lt;div class="dropdown-menu"&gt;
+          &lt;button (click)="edit(row)"&gt;Edit&lt;/button&gt;
+          &lt;button (click)="duplicate(row)"&gt;Duplicate&lt;/button&gt;
+          &lt;button (click)="delete(row)" class="text-red-600"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+&lt;/ng-template&gt;</code></pre>
+
+                    <div>
+                        <span class="badge primary">🎨 Custom UI design</span>
+                        <span class="badge success">⚡ Interactive elements</span>
+                        <span class="badge info">📊 Rich data visualization</span>
+                        <span class="badge warning">🔄 Complex user interactions</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance & Security -->
+            <section id="performance--security">
+                <div class="emoji-heading">
+                    <span class="emoji">⚡</span>
+                    <h2>Performance & Security</h2>
+                </div>
+
+                <div id="performance" class="section performance">
+                    <h3>3. PERFORMANCE.md - Handling 10M+ Records</h3>
+                    <p><strong>🎯 Purpose</strong>: Complete performance optimization guide for enterprise-scale datasets</p>
+
+                    <h4>📊 Performance Achievements:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Records</th>
+                                <th>Memory Usage</th>
+                                <th>Scroll Performance</th>
+                                <th>Load Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10M+</td>
+                                <td>&lt;100MB</td>
+                                <td>50+ FPS</td>
+                                <td>320ms</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>🛠️ Key Technologies:</h4>
+                    <ul>
+                        <li>✅ <strong>Virtual Scrolling</strong> - Renders only 15-20 DOM elements</li>
+                        <li>✅ <strong>Data Streaming</strong> - Intelligent chunk loading with prefetching</li>
+                        <li>✅ <strong>Server-Side Operations</strong> - Filtering, sorting, pagination on server</li>
+                        <li>✅ <strong>Memory Management</strong> - Automatic cleanup and cache eviction</li>
+                    </ul>
+
+                    <h4>🚀 Enterprise Configuration Example:</h4>
+                    <pre data-lang="typescript"><code>// For 10M+ records
+const enterpriseConfig: GridOptions = {
+  virtualScrolling: true,
+  rowHeight: 40,
+  maxRowsInDom: 15,
+
+  serverSideOperations: {
+    enabled: true,
+    blockSize: 500,
+    maxBlocksInCache: 20,
+    debounceMs: 500
+  },
+
+  streaming: {
+    enabled: true,
+    chunkSize: 500,
+    maxChunksInMemory: 20,
+    preloadChunks: 1,
+    memoryThreshold: 50
+  },
+
+  pagination: false
+};</code></pre>
+
+                    <h4>🎯 Performance Benchmarks:</h4>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-value">60 FPS</div>
+                            <div class="metric-label">1K Records</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">58 FPS</div>
+                            <div class="metric-label">100K Records</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">55 FPS</div>
+                            <div class="metric-label">1M Records</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">50 FPS</div>
+                            <div class="metric-label">10M Records</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="badge warning">📈 Large datasets (100K+ records)</span>
+                        <span class="badge primary">🏢 Enterprise applications</span>
+                        <span class="badge success">⚡ Performance optimization</span>
+                        <span class="badge info">🔧 System architecture planning</span>
+                    </div>
+                </div>
+
+                <div id="security" class="section security">
+                    <h3>4. SECURITY.md - Enterprise Security Features</h3>
+                    <p><strong>🎯 Purpose</strong>: Comprehensive security implementation guide for production environments</p>
+
+                    <h4>🛡️ Security Features:</h4>
+                    <ul>
+                        <li>✅ <strong>XSS Protection</strong> - Complete elimination of injection vulnerabilities</li>
+                        <li>✅ <strong>Military-Grade Encryption</strong> - PBKDF2 + AES-GCM for state storage</li>
+                        <li>✅ <strong>Input Validation</strong> - Multi-layered sanitization for all inputs</li>
+                        <li>✅ <strong>DoS Protection</strong> - Rate limiting and memory management</li>
+                        <li>✅ <strong>CSP Compliance</strong> - Works with strict Content Security Policies</li>
+                    </ul>
+
+                    <h4>🔐 Encryption Implementation:</h4>
+                    <pre data-lang="typescript"><code>// State encryption with PBKDF2 + AES-GCM
+private async encrypt(data: string): Promise&lt;string&gt; {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+
+  const key = await crypto.subtle.deriveKey({
+    name: 'PBKDF2',
+    salt: salt,
+    iterations: 100000,  // 100K iterations for security
+    hash: 'SHA-256',
+  }, keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+
+  const encryptedData = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    new TextEncoder().encode(data)
+  );
+
+  return btoa(JSON.stringify({ metadata, data: encryptedData }));
+}</code></pre>
+
+                    <h4>🔍 Security Audit Checklist:</h4>
+                    <ul>
+                        <li>☐ All user inputs validated and sanitized</li>
+                        <li>☐ XSS protection implemented</li>
+                        <li>☐ State encryption enabled</li>
+                        <li>☐ Server communication secured</li>
+                        <li>☐ Memory limits enforced</li>
+                        <li>☐ Error handling secured</li>
+                    </ul>
+
+                    <div>
+                        <span class="badge primary">🏢 Production deployment</span>
+                        <span class="badge warning">🔒 Security-critical applications</span>
+                        <span class="badge info">📋 Compliance requirements</span>
+                        <span class="badge success">🛡️ Enterprise security standards</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Decisions -->
+            <section id="architecture-decisions">
+                <div class="emoji-heading">
+                    <span class="emoji">🏗️</span>
+                    <h2>Architecture Decisions</h2>
+                </div>
+
+                <div id="virtual-scrolling" class="section">
+                    <h3>5. VIRTUAL_SCROLLING.md - Implementation Choices</h3>
+                    <p><strong>🎯 Purpose</strong>: Explains why manual virtual scrolling was chosen over existing directives</p>
+
+                    <h4>🤔 Decision Summary:</h4>
+                    <p>Instead of using the existing <code>VirtualScrollDirective</code>, we implemented manual virtual scrolling for these reasons:</p>
+
+                    <h4>🎯 Grid-Specific Requirements:</h4>
+                    <ul>
+                        <li>✅ <strong>Column-based rendering</strong> - Complex grid structure with headers</li>
+                        <li>✅ <strong>Data streaming integration</strong> - Coordinate with chunk loading</li>
+                        <li>✅ <strong>Performance control</strong> - Exact DOM element management</li>
+                        <li>✅ <strong>Template flexibility</strong> - Custom cell and header templates</li>
+                        <li>✅ <strong>Server-side coordination</strong> - Seamless integration with backend</li>
+                    </ul>
+
+                    <h4>📊 Comparison:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>VirtualScrollDirective</th>
+                                <th>Manual Implementation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Grid Integration</td>
+                                <td><span class="status-not-needed">❌</span> Generic, limited</td>
+                                <td><span class="status-recommended">✅</span> Perfect for grids</td>
+                            </tr>
+                            <tr>
+                                <td>Performance Control</td>
+                                <td><span class="status-not-needed">❌</span> Abstracted away</td>
+                                <td><span class="status-recommended">✅</span> Full control</td>
+                            </tr>
+                            <tr>
+                                <td>Streaming Integration</td>
+                                <td><span class="status-not-needed">❌</span> No support</td>
+                                <td><span class="status-recommended">✅</span> Native integration</td>
+                            </tr>
+                            <tr>
+                                <td>Template Flexibility</td>
+                                <td><span class="status-not-needed">❌</span> Limited</td>
+                                <td><span class="status-recommended">✅</span> Complete freedom</td>
+                            </tr>
+                            <tr>
+                                <td>Enterprise Features</td>
+                                <td><span class="status-not-needed">❌</span> Limited</td>
+                                <td><span class="status-recommended">✅</span> All features supported</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <span class="badge info">🏗️ Architecture understanding</span>
+                        <span class="badge primary">🤔 Implementation decisions</span>
+                        <span class="badge success">📚 Learning advanced patterns</span>
+                        <span class="badge warning">🔧 Custom optimization needs</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comprehensive Reference -->
+            <section id="comprehensive-reference">
+                <div class="emoji-heading">
+                    <span class="emoji">📘</span>
+                    <h2>Comprehensive Reference</h2>
+                </div>
+
+                <div id="comprehensive" class="section">
+                    <h3>6. NG-VUI-GRID.md - Complete Examples</h3>
+                    <p><strong>🎯 Purpose</strong>: Exhaustive documentation with HTML/TypeScript examples for every feature</p>
+
+                    <h4>📋 Complete Coverage:</h4>
+                    <ul>
+                        <li>✅ <strong>Basic Usage</strong> - Complete HTML templates with TypeScript</li>
+                        <li>✅ <strong>Column Definition</strong> - Full interface with all options</li>
+                        <li>✅ <strong>Custom Templates</strong> - Status badges, action buttons, progress bars</li>
+                        <li>✅ <strong>Cell Editors</strong> - All built-in editors with validation</li>
+                        <li>✅ <strong>Server-Side Examples</strong> - Complete implementation patterns</li>
+                        <li>✅ <strong>Best Practices</strong> - Performance, security, accessibility</li>
+                    </ul>
+
+                    <h4>🎨 Advanced Template Examples:</h4>
+                    <h5>Product Management Grid:</h5>
+                    <pre data-lang="html"><code>&lt;!-- Advanced Product Grid with Custom Templates --&gt;
+&lt;ng-vui-grid [rowData]="products" [columns]="columnDefs"&gt;
+
+  &lt;!-- Product Image + Info Template --&gt;
+  &lt;ng-template #productTemplate let-row="row"&gt;
+    &lt;div class="flex items-center space-x-3"&gt;
+      &lt;img [src]="row.image" class="h-12 w-12 rounded-lg object-cover"&gt;
+      &lt;div&gt;
+        &lt;div class="font-medium text-gray-900"&gt;{{ row.name }}&lt;/div&gt;
+        &lt;div class="text-sm text-gray-500"&gt;SKU: {{ row.sku }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+
+  &lt;!-- Stock Level with Progress Bar --&gt;
+  &lt;ng-template #stockTemplate let-value="value" let-row="row"&gt;
+    &lt;div class="space-y-1"&gt;
+      &lt;div class="flex justify-between text-sm"&gt;
+        &lt;span class="font-medium"&gt;{{ value || 0 }}&lt;/span&gt;
+        &lt;span class="text-gray-500"&gt;/ {{ row.maxStock || 100 }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="w-full bg-gray-200 rounded-full h-2"&gt;
+        &lt;div [style.width.%]="getStockPercentage(value, row.maxStock)"
+             [ngClass]="getStockLevelClass(value, row.maxStock)"
+             class="h-2 rounded-full transition-all duration-300"&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+
+  &lt;!-- Multi-Action Buttons --&gt;
+  &lt;ng-template #actionsTemplate let-row="row"&gt;
+    &lt;div class="flex items-center space-x-2"&gt;
+      &lt;button class="btn-icon btn-view" (click)="view(row)" title="View"&gt;👁️&lt;/button&gt;
+      &lt;button class="btn-icon btn-edit" (click)="edit(row)" title="Edit"&gt;✏️&lt;/button&gt;
+      &lt;button class="btn-icon btn-copy" (click)="duplicate(row)" title="Duplicate"&gt;📋&lt;/button&gt;
+      &lt;button class="btn-icon btn-delete" (click)="delete(row)" title="Delete"&gt;🗑️&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+
+&lt;/ng-vui-grid&gt;</code></pre>
+
+                    <div>
+                        <span class="badge info">📚 Complete reference</span>
+                        <span class="badge success">💻 Copy-paste examples</span>
+                        <span class="badge primary">🎯 Implementation guidance</span>
+                        <span class="badge warning">📖 Learning all features</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start Guide -->
+            <section id="quick-start-guide">
+                <div class="emoji-heading">
+                    <span class="emoji">🚀</span>
+                    <h2>Quick Start Guide</h2>
+                </div>
+
+                <h3>For Different Use Cases:</h3>
+
+                <div class="section">
+                    <h4>1. Small Dataset (&lt; 1K records)</h4>
+                    <pre data-lang="typescript"><code>const basicConfig: GridOptions = {
+  pagination: true,
+  paginationPageSize: 50,
+  enableSorting: true,
+  enableFiltering: true
+};</code></pre>
+                </div>
+
+                <div class="section">
+                    <h4>2. Medium Dataset (1K-100K records)</h4>
+                    <pre data-lang="typescript"><code>const mediumConfig: GridOptions = {
+  virtualScrolling: true,
+  rowHeight: 48,
+  maxRowsInDom: 25,
+  enableSorting: true,
+  pagination: false
+};</code></pre>
+                </div>
+
+                <div class="section">
+                    <h4>3. Large Dataset (100K-1M records)</h4>
+                    <pre data-lang="typescript"><code>const largeConfig: GridOptions = {
+  serverSideOperations: {
+    enabled: true,
+    blockSize: 100,
+    maxBlocksInCache: 30
+  },
+  pagination: true,
+  paginationPageSize: 100
+};</code></pre>
+                </div>
+
+                <div class="section">
+                    <h4>4. Enterprise Dataset (1M+ records)</h4>
+                    <pre data-lang="typescript"><code>const enterpriseConfig: GridOptions = {
+  virtualScrolling: true,
+  rowHeight: 48,
+  maxRowsInDom: 20,
+
+  serverSideOperations: {
+    enabled: true,
+    blockSize: 200,
+    maxBlocksInCache: 50
+  },
+
+  streaming: {
+    enabled: true,
+    chunkSize: 200,
+    maxChunksInMemory: 30,
+    enablePrefetching: true
+  },
+
+  pagination: false
+};</code></pre>
+                </div>
+            </section>
+
+            <!-- Documentation Links -->
+            <section id="documentation-links">
+                <div class="emoji-heading">
+                    <span class="emoji">🔗</span>
+                    <h2>Documentation Links</h2>
+                </div>
+
+                <div class="section">
+                    <h3>📁 File Locations</h3>
+                    <p>All documentation files are located in:</p>
+                    <pre><code>/lib/common-lib/src/ng-vui-grid/</code></pre>
+
+                    <h3>📚 Direct File Links</h3>
+                    <ul>
+                        <li><strong>README.md</strong> - Main documentation</li>
+                        <li><strong>TEMPLATES.md</strong> - Templates guide</li>
+                        <li><strong>PERFORMANCE.md</strong> - Performance optimization</li>
+                        <li><strong>SECURITY.md</strong> - Security implementation</li>
+                        <li><strong>VIRTUAL_SCROLLING.md</strong> - Architecture decisions</li>
+                        <li><strong>NG-VUI-GRID-DOCUMENTATION.md</strong> - Complete examples</li>
+                    </ul>
+
+                    <h3>🌐 HTML Documentation</h3>
+                    <ul>
+                        <li><strong><a href="ng-vui-grid.html">ng-vui-grid.html</a></strong> - Interactive HTML documentation</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Feature Matrix -->
+            <section id="feature-matrix">
+                <div class="emoji-heading">
+                    <span class="emoji">📊</span>
+                    <h2>Feature Matrix</h2>
+                </div>
+
+                <div class="feature-matrix">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Small Data</th>
+                                <th>Medium Data</th>
+                                <th>Large Data</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basic Display</td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Sorting/Filtering</td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Pagination</td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-optional">⚠️</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-not-needed">❌</span></td>
+                            </tr>
+                            <tr>
+                                <td>Virtual Scrolling</td>
+                                <td><span class="status-icon status-not-needed">❌</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Server-Side Ops</td>
+                                <td><span class="status-icon status-not-needed">❌</span></td>
+                                <td><span class="status-icon status-optional">⚠️</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Data Streaming</td>
+                                <td><span class="status-icon status-not-needed">❌</span></td>
+                                <td><span class="status-icon status-not-needed">❌</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Custom Templates</td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Security Features</td>
+                                <td><span class="status-icon status-optional">⚠️</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                            <tr>
+                                <td>Export Features</td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                                <td><span class="status-icon status-recommended">✅</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Legend</strong>: <span class="status-recommended">✅ Recommended</span> | <span class="status-optional">⚠️ Optional</span> | <span class="status-not-needed">❌ Not needed</span></p>
+                </div>
+            </section>
+
+            <!-- Quick Reference -->
+            <section>
+                <div class="emoji-heading">
+                    <span class="emoji">💡</span>
+                    <h2>Quick Reference</h2>
+                </div>
+
+                <div class="section">
+                    <h3>Most Common Questions:</h3>
+
+                    <h4>Q: How do I handle large datasets?</h4>
+                    <p>A: See PERFORMANCE.md - Use virtual scrolling + streaming for 1M+ records</p>
+
+                    <h4>Q: How do I create custom cell templates?</h4>
+                    <p>A: See TEMPLATES.md - Complete template examples</p>
+
+                    <h4>Q: Is this secure for production?</h4>
+                    <p>A: Yes! See SECURITY.md - Enterprise-grade security implemented</p>
+
+                    <h4>Q: How do I get started quickly?</h4>
+                    <p>A: See README.md - Basic usage and API reference</p>
+
+                    <h4>Q: Why manual virtual scrolling?</h4>
+                    <p>A: See VIRTUAL_SCROLLING.md - Architecture reasoning</p>
+
+                    <h4>Q: I need complete examples</h4>
+                    <p>A: See NG-VUI-GRID-DOCUMENTATION.md - Comprehensive guide</p>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <div class="emoji-heading">
+                    <span class="emoji">🎯</span>
+                    <h2>Summary</h2>
+                </div>
+
+                <div class="section">
+                    <p>The ng-vui-grid provides:</p>
+                    <ul>
+                        <li>🚀 <strong>10+ million record support</strong> with consistent performance</li>
+                        <li>🛡️ <strong>Enterprise-grade security</strong> for production environments</li>
+                        <li>🎨 <strong>Complete customization</strong> with Angular templates</li>
+                        <li>📊 <strong>Server-side operations</strong> for massive datasets</li>
+                        <li>💾 <strong>Export capabilities</strong> in multiple formats</li>
+                        <li>📱 <strong>Responsive design</strong> for all screen sizes</li>
+                        <li>📚 <strong>Comprehensive documentation</strong> for every use case</li>
+                    </ul>
+
+                    <p><strong>Start with README.md for basic usage, then explore specialized guides based on your specific needs.</strong></p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="scrollToTop()" title="Scroll to top">↑</button>
+
+    <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

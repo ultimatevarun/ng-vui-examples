@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery Component - VUI Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex min-h-screen">
+        <nav class="w-64 bg-white shadow-lg fixed h-full overflow-y-auto">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold text-gray-800 mb-8">VUI</h1>
+                <div class="space-y-2">
+                    <a href="#image-gallery" class="block py-2 px-3 text-blue-600 bg-blue-50 rounded-lg font-medium">🖼️ Image Gallery</a>
+                    <a href="file-uploader.html" class="block py-2 px-3 text-gray-600 hover:bg-gray-50 rounded-lg">📁 File Uploader</a>
+                    <a href="modal.html" class="block py-2 px-3 text-gray-600 hover:bg-gray-50 rounded-lg">📋 Modal</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-1 ml-64 p-8">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">VUI Image Gallery</h1>
+                <p class="text-xl text-gray-600 mb-8">A responsive image gallery component with lightbox, thumbnails, and navigation support.</p>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📦 Installation</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg"><code class="language-bash">npm install @vui/image-gallery</code></pre>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-4">Basic Usage</h3>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg"><code class="language-typescript">import { VuiImageGalleryComponent } from '@vui/image-gallery';
+
+@Component({
+  template: `
+    &lt;ng-vui-image-gallery
+      [images]="galleryImages"
+      [showThumbnails]="true"
+      [lightboxEnabled]="true"
+      (imageClicked)="onImageClick($event)"&gt;
+    &lt;/ng-vui-image-gallery&gt;
+  `
+})
+export class MyComponent {
+  galleryImages = [
+    { src: 'image1.jpg', alt: 'Description 1', title: 'Image 1' },
+    { src: 'image2.jpg', alt: 'Description 2', title: 'Image 2' },
+    { src: 'image3.jpg', alt: 'Description 3', title: 'Image 3' }
+  ];
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">🚀 Live Demo</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="border-2 border-gray-200 rounded-lg p-6 bg-gray-50 mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="relative group cursor-pointer" onclick="openLightbox(0)">
+                                    <img src="https://via.placeholder.com/300x200/3B82F6/ffffff?text=Image+1" 
+                                         alt="Sample 1" 
+                                         class="w-full h-48 object-cover rounded-lg transition-transform hover:scale-105">
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity rounded-lg"></div>
+                                </div>
+                                <div class="relative group cursor-pointer" onclick="openLightbox(1)">
+                                    <img src="https://via.placeholder.com/300x200/10B981/ffffff?text=Image+2" 
+                                         alt="Sample 2" 
+                                         class="w-full h-48 object-cover rounded-lg transition-transform hover:scale-105">
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity rounded-lg"></div>
+                                </div>
+                                <div class="relative group cursor-pointer" onclick="openLightbox(2)">
+                                    <img src="https://via.placeholder.com/300x200/F59E0B/ffffff?text=Image+3" 
+                                         alt="Sample 3" 
+                                         class="w-full h-48 object-cover rounded-lg transition-transform hover:scale-105">
+                                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity rounded-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="text-lg font-medium mb-2">With Lightbox Navigation</h4>
+                        <pre class="bg-gray-900 text-green-400 p-4 rounded-lg"><code class="language-typescript">@Component({
+  template: `
+    &lt;ng-vui-image-gallery
+      [images]="images"
+      [lightboxEnabled]="true"
+      [showNavigation]="true"
+      [showDots]="true"
+      [autoPlay]="false"&gt;
+    &lt;/ng-vui-image-gallery&gt;
+  `
+})
+export class GalleryExample {
+  images = [
+    { 
+      src: 'assets/images/photo1.jpg',
+      thumbnail: 'assets/images/thumb1.jpg', 
+      alt: 'Beautiful landscape',
+      title: 'Mountain View'
+    }
+  ];
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 API Reference</h2>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Property</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Type</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Default</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">images</td>
+                                        <td class="border border-gray-300 px-4 py-2">GalleryImage[]</td>
+                                        <td class="border border-gray-300 px-4 py-2">[]</td>
+                                        <td class="border border-gray-300 px-4 py-2">Array of images to display</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">lightboxEnabled</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">true</td>
+                                        <td class="border border-gray-300 px-4 py-2">Enable lightbox overlay</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">showThumbnails</td>
+                                        <td class="border border-gray-300 px-4 py-2">boolean</td>
+                                        <td class="border border-gray-300 px-4 py-2">true</td>
+                                        <td class="border border-gray-300 px-4 py-2">Show thumbnail navigation</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-2 font-mono text-sm">columns</td>
+                                        <td class="border border-gray-300 px-4 py-2">number</td>
+                                        <td class="border border-gray-300 px-4 py-2">3</td>
+                                        <td class="border border-gray-300 px-4 py-2">Number of columns in grid</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
+        <div class="relative max-w-4xl max-h-full p-4">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-2xl hover:text-gray-300">×</button>
+            <img id="lightboxImage" src="" alt="" class="max-w-full max-h-full object-contain">
+            <div class="absolute top-1/2 left-4 transform -translate-y-1/2">
+                <button onclick="previousImage()" class="text-white text-3xl hover:text-gray-300">‹</button>
+            </div>
+            <div class="absolute top-1/2 right-4 transform -translate-y-1/2">
+                <button onclick="nextImage()" class="text-white text-3xl hover:text-gray-300">›</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            'https://via.placeholder.com/800x600/3B82F6/ffffff?text=Image+1',
+            'https://via.placeholder.com/800x600/10B981/ffffff?text=Image+2',
+            'https://via.placeholder.com/800x600/F59E0B/ffffff?text=Image+3'
+        ];
+        
+        let currentImageIndex = 0;
+        
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            
+            lightboxImage.src = images[index];
+            lightbox.classList.remove('hidden');
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+        
+        function previousImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            document.getElementById('lightboxImage').src = images[currentImageIndex];
+        }
+        
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            document.getElementById('lightboxImage').src = images[currentImageIndex];
+        }
+        
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
