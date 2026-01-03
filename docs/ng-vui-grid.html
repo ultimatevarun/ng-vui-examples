@@ -3,778 +3,954 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NgVuiGrid Documentation - VUI Component Library</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <title>@ng-vui/ng-vui-grid - Angular Data Grid Component</title>
     <style>
-        .component-card {
-            transition: all 0.3s ease;
-            transform: translateY(0);
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .component-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
         }
-        .sidebar-link {
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Typography */
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+            color: #4a5568;
+        }
+
+        /* Feature list styling */
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .features-list li {
+            background: #f7fafc;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #48bb78;
+            margin-left: 0;
+        }
+
+        /* Code Styling */
+        code {
+            background: #f7fafc;
+            color: #d53f8c;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.4;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        /* Language-specific syntax highlighting */
+        .typescript { border-left: 4px solid #007acc; }
+        .html { border-left: 4px solid #e34f26; }
+        .css { border-left: 4px solid #1572b6; }
+        .bash { border-left: 4px solid #4eaa25; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        tr:hover {
+            background: #edf2f7;
+        }
+
+        /* Links */
+        a {
+            color: #667eea;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
             transition: all 0.2s ease;
         }
-        .sidebar-link:hover {
-            transform: translateX(4px);
+
+        a:hover {
+            color: #5a67d8;
+            border-bottom-color: #5a67d8;
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+
+        /* Navigation */
+        .nav-links {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
         }
-        .code-block {
-            max-height: 400px;
-            overflow-y: auto;
+
+        .nav-links h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
         }
-        .sticky-nav {
-            position: sticky;
-            top: 2rem;
-            max-height: calc(100vh - 4rem);
-            overflow-y: auto;
+
+        .nav-links ul {
+            margin-left: 1rem;
         }
-        pre[class*="language-"] {
-            background: #1e293b;
-            border-radius: 0.5rem;
+
+        .nav-links a {
+            font-weight: 500;
         }
-        code[class*="language-"] {
-            color: #e2e8f0;
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #48bb78;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
         }
-        .feature-icon {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 0.5rem;
+        }
+
+        /* Installation section */
+        .install-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .install-section h2 {
+            color: white;
+            border-left: 4px solid white;
+        }
+
+        .install-section code {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Architecture section */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .architecture-item {
+            background: #f7fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border-top: 3px solid #667eea;
+        }
+
+        .architecture-item h4 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            pre {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a67d8;
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
-    <!-- Navigation Header -->
-    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">V</span>
-                        </div>
-                        <span class="text-xl font-bold text-gray-900">VUI Components</span>
-                    </a>
+<body>
+    <div class="container">
+        <header>
+            <h1>@ng-vui/ng-vui-grid</h1>
+            <p>A powerful, feature-rich Angular 20+ data grid component with advanced template support, action columns, sorting, filtering, pagination, virtual scrolling, and export capabilities. Built with standalone components and modern Angular architecture.</p>
+        </header>
+
+        <nav class="nav-links">
+            <h3>📚 Documentation Navigation</h3>
+            <ul>
+                <li><a href="ng-vui-grid.html">Complete Grid Documentation</a> - Comprehensive API reference and examples</li>
+                <li><a href="ng-vui-grid-templates.html">Template System Guide</a> - Advanced template usage and customization</li>
+                <li><a href="ng-vui-grid-comprehensive.html">Comprehensive Feature Guide</a> - In-depth feature documentation</li>
+                <li><a href="ng-vui-grid-performance.html">Performance Guide</a> - Performance optimization techniques</li>
+                <li><a href="ng-vui-grid-virtual-scrolling.html">Virtual Scrolling Guide</a> - Virtual scrolling implementation</li>
+                <li><a href="ng-vui-grid-security.html">Security Documentation</a> - Security features and XSS protection</li>
+            </ul>
+        </nav>
+
+        <section>
+            <h2><span class="emoji">🚀</span>Features</h2>
+            <ul class="features-list">
+                <li><span class="badge">✅</span><strong>Standalone Components</strong> - Modern Angular 20+ standalone architecture</li>
+                <li><span class="badge">✅</span><strong>Custom Cell Templates</strong> - Full Angular template syntax support</li>
+                <li><span class="badge">✅</span><strong>Action Columns</strong> - Buttons, dropdowns, and interactive elements</li>
+                <li><span class="badge">✅</span><strong>Advanced Sorting</strong> - Multi-column sorting with custom comparators</li>
+                <li><span class="badge">✅</span><strong>Flexible Filtering</strong> - Built-in and custom filter types</li>
+                <li><span class="badge">✅</span><strong>Server-Side Operations</strong> - Server-side pagination, filtering, and sorting</li>
+                <li><span class="badge">✅</span><strong>Data Streaming</strong> - Real-time data streaming support</li>
+                <li><span class="badge">✅</span><strong>Virtual Scrolling</strong> - Handle large datasets efficiently (100k+ rows)</li>
+                <li><span class="badge">✅</span><strong>Security Features</strong> - Input validation and XSS protection</li>
+                <li><span class="badge">✅</span><strong>Data Export</strong> - CSV, Excel, and PDF export</li>
+                <li><span class="badge">✅</span><strong>Column Management</strong> - Show/hide, resize, reorder columns</li>
+                <li><span class="badge">✅</span><strong>Row Selection</strong> - Single and multi-select with checkboxes</li>
+                <li><span class="badge">✅</span><strong>Responsive Design</strong> - Mobile-friendly with Tailwind CSS</li>
+                <li><span class="badge">✅</span><strong>TypeScript Support</strong> - Full type safety and IntelliSense</li>
+                <li><span class="badge">✅</span><strong>State Management</strong> - Grid state persistence and restoration</li>
+            </ul>
+        </section>
+
+        <section class="install-section">
+            <h2><span class="emoji">📦</span>Installation</h2>
+            <pre class="bash"><code>npm install @ng-vui/ng-vui-grid</code></pre>
+            <p><strong>Peer Dependencies:</strong></p>
+            <ul>
+                <li>Angular 17+ (<code>@angular/core</code>, <code>@angular/common</code>, <code>@angular/forms</code>)</li>
+                <li>RxJS 6.5+ or 7+</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="emoji">🏗️</span>Architecture</h2>
+            <p>Built with modern Angular patterns:</p>
+            <div class="architecture-grid">
+                <div class="architecture-item">
+                    <h4>Standalone Components</h4>
+                    <p>No NgModules required</p>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#overview" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Overview</a>
-                    <a href="#examples" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Examples</a>
-                    <a href="#api" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">API</a>
+                <div class="architecture-item">
+                    <h4>Signal-based State</h4>
+                    <p>Reactive state management</p>
+                </div>
+                <div class="architecture-item">
+                    <h4>Feature Modules</h4>
+                    <p>Modular filtering, editing, export capabilities</p>
+                </div>
+                <div class="architecture-item">
+                    <h4>Service Architecture</h4>
+                    <p>Dedicated services for different concerns</p>
+                </div>
+                <div class="architecture-item">
+                    <h4>Type Safety</h4>
+                    <p>Full TypeScript interfaces and types</p>
                 </div>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
-            <!-- Sidebar Navigation -->
-            <div class="lg:col-span-1">
-                <div class="sticky-nav">
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Navigation</h3>
-                        <nav class="space-y-2">
-                            <a href="#overview" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Overview</a>
-                            <a href="#main-component" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Main Component</a>
-                            <a href="#column-definition" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Column Definition</a>
-                            <a href="#grid-options" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Grid Options</a>
-                            <a href="#pagination" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Pagination</a>
-                            <a href="#header-footer" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Header & Footer</a>
-                            <a href="#export-menu" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Export Menu</a>
-                            <a href="#column-selector" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Column Selector</a>
-                            <a href="#templates" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Templates</a>
-                            <a href="#virtual-scroll" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Virtual Scroll</a>
-                            <a href="#cell-editors" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Cell Editors</a>
-                            <a href="#examples" class="sidebar-link block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Examples</a>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+        <section>
+            <h2><span class="emoji">🎯</span>Basic Usage</h2>
 
-            <!-- Main Content -->
-            <div class="lg:col-span-3 mt-8 lg:mt-0">
-                <!-- Hero Section -->
-                <div class="hero-gradient rounded-xl p-8 text-white mb-8">
-                    <h1 class="text-4xl font-bold mb-4">NgVuiGrid</h1>
-                    <p class="text-xl text-blue-100 mb-6">
-                        A comprehensive, feature-rich Angular data grid component designed for enterprise applications
-                    </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div class="bg-white/10 rounded-lg p-3">
-                            <div class="text-2xl font-bold">🚀</div>
-                            <div class="text-sm">High Performance</div>
-                        </div>
-                        <div class="bg-white/10 rounded-lg p-3">
-                            <div class="text-2xl font-bold">📊</div>
-                            <div class="text-sm">Server-Side Ops</div>
-                        </div>
-                        <div class="bg-white/10 rounded-lg p-3">
-                            <div class="text-2xl font-bold">🎨</div>
-                            <div class="text-sm">Customizable</div>
-                        </div>
-                        <div class="bg-white/10 rounded-lg p-3">
-                            <div class="text-2xl font-bold">📱</div>
-                            <div class="text-sm">Responsive</div>
-                        </div>
-                    </div>
-                </div>
+            <h3>Template-Based Approach (Recommended)</h3>
+            <pre class="typescript"><code>import {
+  NgVuiGridComponent,
+  NgVuiGridColumnDirective,
+  GridOptions,
+  DEFAULT_GRID_OPTIONS
+} from '@ng-vui/ng-vui-grid';
 
-                <!-- Overview Section -->
-                <section id="overview" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
-                        <div class="prose max-w-none">
-                            <p class="text-lg text-gray-600 mb-6">
-                                NgVuiGrid is a powerful, feature-rich Angular 20+ data grid component with advanced template support,
-                                action columns, sorting, filtering, pagination, virtual scrolling, and export capabilities.
-                                Built with standalone components and modern Angular architecture.
-                            </p>
-                            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
-                                <div class="flex">
-                                    <div class="ml-3">
-                                        <p class="text-sm text-blue-700">
-                                            <strong>Recent Updates:</strong> Now supports Angular 17-20+, standalone components,
-                                            signal-based state management, and improved build architecture.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [NgVuiGridComponent, NgVuiGridColumnDirective],
+  template: `
+    &lt;ng-vui-grid
+      [rowData]="data"
+      [gridOptions]="gridOptions"
+      (gridReady)="onGridReady($event)"
+    &gt;
+      &lt;!-- Regular column --&gt;
+      &lt;ng-template ngVuiGridColumn="name" headerName="Full Name" [width]="200" let-value&gt;
+        &lt;span class="font-medium"&gt;{{ value }}&lt;/span&gt;
+      &lt;/ng-template&gt;
 
-                            <h3 class="text-lg font-semibold text-gray-900 mb-3">🏗️ Modern Architecture</h3>
-                            <ul class="list-disc pl-6 text-gray-600 space-y-1 mb-6">
-                                <li><strong>Standalone Components</strong> - No NgModules required</li>
-                                <li><strong>Signal-based State</strong> - Reactive state management</li>
-                                <li><strong>Feature Modules</strong> - Modular filtering, editing, export capabilities</li>
-                                <li><strong>Service Architecture</strong> - Dedicated services for different concerns</li>
-                                <li><strong>Type Safety</strong> - Full TypeScript interfaces and types</li>
-                            </ul>
-                        </div>
-
-                        <!-- Key Features -->
-                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">🚀</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">High Performance</h3>
-                                    <p class="text-sm text-gray-600">Virtual scrolling for large datasets</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">📊</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">Server-Side Operations</h3>
-                                    <p class="text-sm text-gray-600">Sorting, filtering, and pagination</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">🎨</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">Customizable</h3>
-                                    <p class="text-sm text-gray-600">Template support for cells and headers</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">📱</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">Responsive</h3>
-                                    <p class="text-sm text-gray-600">Mobile-friendly design</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">🔐</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">Secure</h3>
-                                    <p class="text-sm text-gray-600">Built-in XSS protection and input validation</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">💾</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">Export</h3>
-                                    <p class="text-sm text-gray-600">CSV, Excel, and PDF export capabilities</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">📡</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">Data Streaming</h3>
-                                    <p class="text-sm text-gray-600">Real-time data streaming support</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="feature-icon text-2xl font-bold">💽</div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900">State Management</h3>
-                                    <p class="text-sm text-gray-600">Grid state persistence and restoration</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Installation Section -->
-                        <div class="mt-8 bg-gray-50 rounded-lg p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">📦 Installation</h3>
-                            <div class="code-block">
-                                <pre><code class="language-bash">npm install @ng-vui/ng-vui-grid</code></pre>
-                            </div>
-                            <div class="mt-4">
-                                <h4 class="font-semibold text-gray-900 mb-2">Peer Dependencies:</h4>
-                                <ul class="text-sm text-gray-600 space-y-1">
-                                    <li>• Angular 17+ (<code>@angular/core</code>, <code>@angular/common</code>, <code>@angular/forms</code>)</li>
-                                    <li>• RxJS 6.5+ or 7+</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Main Component Section -->
-                <section id="main-component" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Main Grid Component</h2>
-
-                        <!-- Basic Usage -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Usage</h3>
-                            <p class="text-gray-600 mb-4">HTML Template:</p>
-                            <div class="code-block">
-                                <pre><code class="language-html">&lt;!-- Basic Grid Implementation --&gt;
-&lt;div class="container mx-auto p-6"&gt;
-  &lt;div class="mb-4"&gt;
-    &lt;h1 class="text-2xl font-bold text-gray-900"&gt;Employee Directory&lt;/h1&gt;
-    &lt;p class="text-gray-600"&gt;Manage your employee information&lt;/p&gt;
-  &lt;/div&gt;
-
-  &lt;!-- Basic Grid --&gt;
-  &lt;ng-vui-grid
-    [rowData]="data"
-    [columns]="columnDefs"
-    [options]="gridOptions"
-    [loading]="loading"
-    (gridReady)="onGridReady($event)"
-    (cellClicked)="onCellClicked($event)"
-    (cellValueChanged)="onCellValueChanged($event)"
-    (rowSelected)="onRowSelected($event)"
-    (exportRequested)="onExport($event)"
-    class="shadow-lg rounded-lg"&gt;
-  &lt;/ng-vui-grid&gt;
-
-  &lt;!-- Selection Info --&gt;
-  &lt;div class="mt-4 p-4 bg-blue-50 rounded-lg" *ngIf="selectedRows.length &gt; 0"&gt;
-    &lt;p class="text-blue-800"&gt;
-      {{ selectedRows.length }} row(s) selected
-    &lt;/p&gt;
-    &lt;div class="mt-2 space-x-2"&gt;
-      &lt;button class="btn btn-sm btn-primary" (click)="bulkEdit()"&gt;
-        Edit Selected
-      &lt;/button&gt;
-      &lt;button class="btn btn-sm btn-danger" (click)="bulkDelete()"&gt;
-        Delete Selected
-      &lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-                            </div>
-                        </div>
-
-                        <!-- TypeScript Implementation -->
-                        <div class="mb-8">
-                            <p class="text-gray-600 mb-4">TypeScript Component:</p>
-                            <div class="code-block">
-                                <pre><code class="language-typescript">@Component({
-  selector: 'app-employee-grid',
-  templateUrl: './employee-grid.component.html',
-  styleUrls: ['./employee-grid.component.css']
+      &lt;!-- Action column --&gt;
+      &lt;ng-template ngVuiGridColumn="actions" headerName="Actions" [width]="150" [sortable]="false" let-row="row"&gt;
+        &lt;button (click)="edit(row)" class="btn btn-sm btn-primary mr-2"&gt;Edit&lt;/button&gt;
+        &lt;button (click)="delete(row)" class="btn btn-sm btn-danger"&gt;Delete&lt;/button&gt;
+      &lt;/ng-template&gt;
+    &lt;/ng-vui-grid&gt;
+  `
 })
-export class EmployeeGridComponent {
-  loading = false;
-  selectedRows: any[] = [];
-
+export class ExampleComponent {
   data = [
-    { id: 1, name: 'John Doe', age: 30, email: 'john@example.com', department: 'Engineering' },
-    { id: 2, name: 'Jane Smith', age: 25, email: 'jane@example.com', department: 'Marketing' },
-    { id: 3, name: 'Bob Johnson', age: 35, email: 'bob@example.com', department: 'Sales' }
-  ];
-
-  columnDefs: ColumnDefinition[] = [
-    { field: 'name', headerName: 'Full Name', sortable: true, filterable: true },
-    { field: 'age', headerName: 'Age', type: 'number', width: 80 },
-    { field: 'email', headerName: 'Email', type: 'email', width: 200 },
-    { field: 'department', headerName: 'Department', sortable: true, filterable: true }
+    { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive' }
   ];
 
   gridOptions: GridOptions = {
+    ...DEFAULT_GRID_OPTIONS,
     pagination: true,
-    paginationPageSize: 10,
+    paginationPageSize: 20,
     enableSorting: true,
     enableFiltering: true,
     enableSelection: true,
     header: {
-      title: 'Employee Directory',
-      showRefresh: true,
-      showExport: true,
-      showColumnSelector: true
-    },
-    footer: {
-      showPagination: true,
-      showRowCount: true,
-      showPageSize: true,
-      pageSizes: [5, 10, 25, 50]
+      showTitle: true,
+      title: 'User Management',
+      showControls: true,
+      showColumnChooser: true,
+      showExport: true
     }
   };
+
+  onGridReady(event: GridReadyEvent) {
+    console.log('Grid is ready:', event);
+  }
+
+  edit(row: any) {
+    console.log('Edit:', row);
+  }
+
+  delete(row: any) {
+    console.log('Delete:', row);
+  }
 }</code></pre>
-                            </div>
-                        </div>
 
-                        <!-- Input Properties Table -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Input Properties</h3>
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>rowData</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>T[]</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Array of data objects to display</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>[]</code></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>columns</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>ColumnDefinition[]</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Column configuration array</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>[]</code></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>options</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>GridOptions</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Grid configuration options</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>{}</code></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>loading</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>boolean</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Shows loading indicator</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>false</code></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            <h3>Programmatic Approach</h3>
+            <pre class="typescript"><code>import { NgGridComponent, ColumnDefinition } from '@ertpl-ui/ang-grid';
 
-                        <!-- Output Events Table -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Output Events</h3>
-                            <div class="overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>gridReady</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>GridReadyEvent</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when grid is initialized</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>cellClicked</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>CellClickedEvent</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when cell is clicked</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>cellValueChanged</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>CellValueChangedEvent</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when cell value changes</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><code>rowSelected</code></td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><code>RowSelectedEvent</code></td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">Fired when row selection changes</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+@Component({
+  template: `
+    &lt;ng-grid
+      [columnDefs]="columns"
+      [rowData]="data"
+      [gridOptions]="gridOptions"
+    &gt;&lt;/ng-grid&gt;
+  `
+})
+export class ProgrammaticExample {
+  columns: ColumnDefinition[] = [
+    { field: 'name', headerName: 'Full Name', width: 200, sortable: true },
+    { field: 'email', headerName: 'Email', width: 250, filterable: true },
+    { field: 'status', headerName: 'Status', width: 120 }
+  ];
 
-                <!-- Column Definition Section -->
-                <section id="column-definition" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Column Definition</h2>
-                        <p class="text-gray-600 mb-6">
-                            The <code class="bg-gray-100 px-2 py-1 rounded">ColumnDefinition</code> interface defines the structure and behavior of grid columns.
-                        </p>
-
-                        <!-- Basic Column Properties -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Column Properties</h3>
-                            <div class="code-block">
-                                <pre><code class="language-typescript">interface ColumnDefinition {
-  field: string;                    // Data field name (required)
-  headerName?: string;              // Display name in header
-  headerTooltip?: string;           // Tooltip for header
-  visible?: boolean;                // Column visibility
-  width?: number;                   // Column width in pixels
-  minWidth?: number;                // Minimum width
-  maxWidth?: number;                // Maximum width
-  resizable?: boolean;              // Allow column resizing
-  sortable?: boolean;               // Enable sorting
-  filterable?: boolean;             // Enable filtering
-  editable?: boolean | Function;    // Enable cell editing
+  data = [...]; // Your data array
+  gridOptions = {...}; // Your grid options
 }</code></pre>
-                            </div>
-                        </div>
+        </section>
 
-                        <!-- Data Type Configuration -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Data Type Configuration</h3>
-                            <div class="code-block">
-                                <pre><code class="language-typescript">interface ColumnDefinition {
-  type?: 'text' | 'number' | 'currency' | 'percentage' | 'date' |
-         'datetime' | 'time' | 'boolean' | 'email' | 'url' | 'phone' |
-         'array' | 'object';
-
-  // Number formatting
-  numberFormat?: {
-    minimumFractionDigits?: number;
-    maximumFractionDigits?: number;
-    useGrouping?: boolean;
-  };
-
-  // Date formatting
-  dateFormat?: string;
-
-  // Currency formatting
-  currencyCode?: string;
-  currencySymbol?: string;
+        <section>
+            <h2><span class="emoji">🎨</span>Template Context</h2>
+            <p>Templates receive the following context variables:</p>
+            <pre class="typescript"><code>interface TemplateContext {
+  $implicit: any;        // The cell value
+  value: any;            // The cell value (same as $implicit)
+  row: RowData;          // The entire row data
+  column: ColumnDefinition; // Column definition
+  rowIndex: number;      // Row index
 }</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <!-- Templates Section -->
-                <section id="templates" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Custom Templates</h2>
-                        <p class="text-gray-600 mb-6">
-                            NgVuiGrid supports custom cell and header templates for complete customization of your grid display.
-                        </p>
-
-                        <!-- HTML Template Examples -->
-                        <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">HTML Template Examples</h3>
-                            <div class="code-block">
-                                <pre><code class="language-html">&lt;!-- Status Badge Template --&gt;
-&lt;ng-template #statusTemplate let-value="value" let-row="row"&gt;
-  &lt;span [ngClass]="getStatusBadgeClass(value)"
-        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"&gt;
-    &lt;span [ngClass]="getStatusDotClass(value)"
-          class="w-1.5 h-1.5 rounded-full mr-1.5"&gt;&lt;/span&gt;
-    {{ value }}
-  &lt;/span&gt;
-&lt;/ng-template&gt;
-
-&lt;!-- Action Buttons Template --&gt;
-&lt;ng-template #actionsTemplate let-row="row" let-rowIndex="rowIndex"&gt;
-  &lt;div class="flex items-center space-x-2"&gt;
-    &lt;button
-      class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
-      (click)="editItem(row, rowIndex)"&gt;
-      Edit
-    &lt;/button&gt;
-    &lt;button
-      class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200"
-      (click)="deleteItem(row, rowIndex)"&gt;
-      Delete
-    &lt;/button&gt;
+            <h3>Usage in Templates</h3>
+            <pre class="html"><code>&lt;ng-template ngVuiGridColumn="user" headerName="User Info" let-value let-row="row" let-rowIndex="rowIndex"&gt;
+  &lt;div class="flex items-center"&gt;
+    &lt;img [src]="row.avatar" class="w-8 h-8 rounded-full mr-3"&gt;
+    &lt;div&gt;
+      &lt;div class="font-medium"&gt;{{ value }}&lt;/div&gt;
+      &lt;div class="text-sm text-gray-500"&gt;Row #{{ rowIndex + 1 }}&lt;/div&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/ng-template&gt;</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        </section>
 
-                <!-- Cell Editors Section -->
-                <section id="cell-editors" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Cell Editor Components</h2>
-                        <p class="text-gray-600 mb-6">
-                            NgVuiGrid provides comprehensive inline editing capabilities with various built-in editor types and support for custom editors.
-                        </p>
+        <section>
+            <h2><span class="emoji">🔧</span>API Reference</h2>
 
-                        <!-- Built-in Editors -->
-                        <div class="grid md:grid-cols-2 gap-6 mb-8">
-                            <div class="component-card bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg">
-                                <h4 class="font-semibold text-gray-900 mb-2">Text Editor</h4>
-                                <p class="text-sm text-gray-600 mb-3">Basic text input with validation and character limits</p>
-                                <div class="code-block">
-                                    <pre><code class="language-typescript">{
-  field: 'name',
-  editable: true,
-  cellEditor: 'text',
-  cellEditorParams: {
-    maxLength: 50,
-    placeholder: 'Enter name'
+            <h3>NgGridComponent</h3>
+
+            <h4>Inputs</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>rowData</code></td>
+                        <td><code>RowData[]</code></td>
+                        <td><code>[]</code></td>
+                        <td>Array of data objects</td>
+                    </tr>
+                    <tr>
+                        <td><code>columnDefs</code></td>
+                        <td><code>ColumnDefinition[]</code></td>
+                        <td><code>[]</code></td>
+                        <td>Column definitions (programmatic)</td>
+                    </tr>
+                    <tr>
+                        <td><code>gridOptions</code></td>
+                        <td><code>GridOptions</code></td>
+                        <td><code>{}</code></td>
+                        <td>Grid configuration options</td>
+                    </tr>
+                    <tr>
+                        <td><code>loading</code></td>
+                        <td><code>boolean</code></td>
+                        <td><code>false</code></td>
+                        <td>Show loading indicator</td>
+                    </tr>
+                    <tr>
+                        <td><code>loadingTemplate</code></td>
+                        <td><code>TemplateRef</code></td>
+                        <td>-</td>
+                        <td>Custom loading template</td>
+                    </tr>
+                    <tr>
+                        <td><code>noDataTemplate</code></td>
+                        <td><code>TemplateRef</code></td>
+                        <td>-</td>
+                        <td>Custom no data template</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Outputs</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>gridReady</code></td>
+                        <td><code>GridReadyEvent</code></td>
+                        <td>Fired when grid is initialized</td>
+                    </tr>
+                    <tr>
+                        <td><code>cellClicked</code></td>
+                        <td><code>CellClickedEvent</code></td>
+                        <td>Fired when cell is clicked</td>
+                    </tr>
+                    <tr>
+                        <td><code>rowSelected</code></td>
+                        <td><code>RowSelectedEvent</code></td>
+                        <td>Fired when row selection changes</td>
+                    </tr>
+                    <tr>
+                        <td><code>sortChanged</code></td>
+                        <td><code>SortEvent[]</code></td>
+                        <td>Fired when sorting changes</td>
+                    </tr>
+                    <tr>
+                        <td><code>filterChanged</code></td>
+                        <td><code>FilterEvent</code></td>
+                        <td>Fired when filtering changes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ColumnDefinition</h3>
+            <pre class="typescript"><code>interface ColumnDefinition {
+  field: string;                    // Data field name
+  headerName?: string;              // Column header text
+  width?: number;                   // Fixed width in pixels
+  minWidth?: number;                // Minimum width
+  maxWidth?: number;                // Maximum width
+  sortable?: boolean;               // Enable sorting
+  filterable?: boolean;             // Enable filtering
+  resizable?: boolean;              // Allow column resizing
+  visible?: boolean;                // Show/hide column
+  pinned?: 'left' | 'right';       // Pin column to left/right
+  cellTemplate?: TemplateRef&lt;any&gt;;  // Custom cell template
+  headerTemplate?: TemplateRef&lt;any&gt;; // Custom header template
+  valueFormatter?: (params: any) =&gt; string; // Format cell value
+  cellClass?: string | string[];    // CSS classes for cell
+  headerClass?: string | string[];  // CSS classes for header
+}</code></pre>
+
+            <h3>GridOptions</h3>
+            <pre class="typescript"><code>interface GridOptions {
+  // Pagination
+  pagination?: boolean;             // Enable pagination
+  paginationPageSize?: number;      // Rows per page
+  paginationPageSizes?: number[];   // Available page sizes
+
+  // Sorting & Filtering
+  enableSorting?: boolean;          // Enable sorting
+  enableFiltering?: boolean;        // Enable filtering
+  multiSort?: boolean;              // Allow multi-column sorting
+
+  // Selection
+  enableSelection?: boolean;        // Enable row selection
+  selectionMode?: 'single' | 'multiple'; // Selection mode
+  showSelectionCheckbox?: boolean;  // Show selection checkboxes
+
+  // Virtual Scrolling
+  virtualScrolling?: boolean;       // Enable virtual scrolling
+  rowHeight?: number;               // Fixed row height
+
+  // Header Options
+  header?: {
+    showTitle?: boolean;            // Show grid title
+    title?: string;                 // Grid title text
+    showControls?: boolean;         // Show header controls
+    exportControls?: {              // Export options
+      enabled?: boolean;
+      showCsv?: boolean;
+      showExcel?: boolean;
+      showPdf?: boolean;
+    };
+    columnControls?: {              // Column options
+      enabled?: boolean;
+      showColumnSelector?: boolean;
+    };
+  };
+
+  // Styling
+  cssClasses?: {
+    root?: string;                  // Grid container classes
+    header?: string;                // Header classes
+    body?: string;                  // Body classes
+    row?: string;                   // Row classes
+    cell?: string;                  // Cell classes
+  };
+}</code></pre>
+        </section>
+
+        <section>
+            <h2><span class="emoji">🎯</span>Advanced Examples</h2>
+
+            <h3>Action Column with Dropdown</h3>
+            <pre class="html"><code>&lt;ng-template ngVuiGridColumn="actions" headerName="Actions" [sortable]="false" let-row="row" let-rowIndex="rowIndex"&gt;
+  &lt;div class="relative"&gt;
+    &lt;button (click)="toggleMenu(rowIndex)" class="btn btn-sm"&gt;
+      &lt;svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;
+        &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+
+    @if (openMenuIndex === rowIndex) {
+      &lt;div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10"&gt;
+        &lt;button (click)="edit(row)" class="block w-full text-left px-4 py-2 hover:bg-gray-100"&gt;Edit&lt;/button&gt;
+        &lt;button (click)="duplicate(row)" class="block w-full text-left px-4 py-2 hover:bg-gray-100"&gt;Duplicate&lt;/button&gt;
+        &lt;button (click)="delete(row)" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"&gt;Delete&lt;/button&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/ng-template&gt;</code></pre>
+
+            <h3>Status Badge Column</h3>
+            <pre class="html"><code>&lt;ng-template ngVuiGridColumn="status" headerName="Status" let-value&gt;
+  &lt;span [class]="getStatusClass(value)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"&gt;
+    {{ value }}
+  &lt;/span&gt;
+&lt;/ng-template&gt;</code></pre>
+
+            <pre class="typescript"><code>getStatusClass(status: string): string {
+  const classes = {
+    'Active': 'bg-green-100 text-green-800',
+    'Pending': 'bg-yellow-100 text-yellow-800',
+    'Inactive': 'bg-red-100 text-red-800'
+  };
+  return classes[status] || 'bg-gray-100 text-gray-800';
+}</code></pre>
+
+            <h3>Progress Bar Column</h3>
+            <pre class="html"><code>&lt;ng-template ngVuiGridColumn="progress" headerName="Progress" let-value&gt;
+  &lt;div class="flex items-center space-x-2"&gt;
+    &lt;div class="flex-1 bg-gray-200 rounded-full h-2"&gt;
+      &lt;div class="bg-violet-600 h-2 rounded-full transition-all" [style.width.%]="value"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="text-sm text-gray-600"&gt;{{ value }}%&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;</code></pre>
+
+            <h3>Image with Text Column</h3>
+            <pre class="html"><code>&lt;ng-template ngVuiGridColumn="user" headerName="User" let-row="row"&gt;
+  &lt;div class="flex items-center space-x-3"&gt;
+    &lt;img [src]="row.avatar || '/default-avatar.png'" [alt]="row.name" class="w-10 h-10 rounded-full"&gt;
+    &lt;div&gt;
+      &lt;div class="font-medium text-gray-900"&gt;{{ row.name }}&lt;/div&gt;
+      &lt;div class="text-sm text-gray-500"&gt;{{ row.email }}&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2><span class="emoji">📤</span>Data Export</h2>
+            <pre class="typescript"><code>// Component method
+export() {
+  this.gridApi?.exportDataAsCsv({
+    fileName: 'data-export.csv',
+    columnKeys: ['name', 'email', 'status'],
+    skipHeaders: false
+  });
+}
+
+// Excel export
+exportExcel() {
+  this.gridApi?.exportDataAsExcel({
+    fileName: 'data-export.xlsx',
+    sheetName: 'Data'
+  });
+}
+
+// PDF export
+exportPdf() {
+  this.gridApi?.exportDataAsPdf({
+    fileName: 'data-export.pdf',
+    title: 'Data Report'
+  });
+}</code></pre>
+        </section>
+
+        <section>
+            <h2><span class="emoji">🎨</span>Styling & Theming</h2>
+
+            <h3>Default Tailwind Classes</h3>
+            <p>The component uses Tailwind CSS by default. You can customize the appearance:</p>
+            <pre class="typescript"><code>gridOptions: GridOptions = {
+  cssClasses: {
+    root: 'rounded-lg border border-gray-200',
+    header: 'bg-gray-50 border-b',
+    body: 'bg-white',
+    row: 'hover:bg-gray-50 border-b border-gray-100',
+    cell: 'px-4 py-3'
+  }
+};</code></pre>
+
+            <h3>Custom CSS</h3>
+            <pre class="css"><code>/* Custom grid styling */
+.my-grid {
+  --grid-border-color: #e5e7eb;
+  --grid-header-bg: #f9fafb;
+  --grid-row-hover: #f3f4f6;
+}
+
+.my-grid .grid-header {
+  background: var(--grid-header-bg);
+}
+
+.my-grid .grid-row:hover {
+  background: var(--grid-row-hover);
+}</code></pre>
+        </section>
+
+        <section>
+            <h2><span class="emoji">🔌</span>Integration Examples</h2>
+
+            <h3>With Angular Reactive Forms</h3>
+            <pre class="typescript"><code>@Component({
+  template: `
+    &lt;ng-grid [rowData]="formData" [gridOptions]="options"&gt;
+      &lt;ng-template ngVuiGridColumn="isActive" headerName="Active" let-value let-row="row"&gt;
+        &lt;input type="checkbox" [checked]="value" (change)="updateField(row, 'isActive', $event.target.checked)"&gt;
+      &lt;/ng-template&gt;
+    &lt;/ng-grid&gt;
+  `
+})
+export class FormGridExample {
+  updateField(row: any, field: string, value: any) {
+    const index = this.formData.indexOf(row);
+    this.formData[index][field] = value;
+    // Update your reactive form here
   }
 }</code></pre>
-                                </div>
-                            </div>
 
-                            <div class="component-card bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg">
-                                <h4 class="font-semibold text-gray-900 mb-2">Number Editor</h4>
-                                <p class="text-sm text-gray-600 mb-3">Numeric input with min/max validation and step control</p>
-                                <div class="code-block">
-                                    <pre><code class="language-typescript">{
-  field: 'age',
-  editable: true,
-  cellEditor: 'number',
-  cellEditorParams: {
-    min: 0,
-    max: 120,
-    step: 1
+            <h3>With HTTP Service</h3>
+            <pre class="typescript"><code>@Component({
+  template: `
+    &lt;ng-grid
+      [rowData]="data$ | async"
+      [loading]="loading"
+      [gridOptions]="options"
+      (sortChanged)="onSort($event)"
+      (filterChanged)="onFilter($event)"
+    &gt;&lt;/ng-grid&gt;
+  `
+})
+export class ServerDataExample {
+  data$ = this.dataService.getData();
+  loading = false;
+
+  onSort(sorts: SortEvent[]) {
+    this.loading = true;
+    this.data$ = this.dataService.getData({ sort: sorts }).pipe(
+      finalize(() =&gt; this.loading = false)
+    );
+  }
+
+  onFilter(filter: FilterEvent) {
+    this.loading = true;
+    this.data$ = this.dataService.getData({ filter }).pipe(
+      finalize(() =&gt; this.loading = false)
+    );
   }
 }</code></pre>
-                                </div>
-                            </div>
+        </section>
 
-                            <div class="component-card bg-gradient-to-br from-purple-50 to-violet-100 p-6 rounded-lg">
-                                <h4 class="font-semibold text-gray-900 mb-2">Select Editor</h4>
-                                <p class="text-sm text-gray-600 mb-3">Dropdown selection with predefined options</p>
-                                <div class="code-block">
-                                    <pre><code class="language-typescript">{
-  field: 'department',
-  editable: true,
-  cellEditor: 'select',
-  cellEditorParams: {
-    selectOptions: [
-      { label: 'Engineering', value: 'eng' },
-      { label: 'Sales', value: 'sales' }
-    ]
-  }
-}</code></pre>
-                                </div>
-                            </div>
+        <section>
+            <h2><span class="emoji">🧪</span>Testing</h2>
+            <pre class="typescript"><code>import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgGridComponent } from '@ertpl-ui/ang-grid';
 
-                            <div class="component-card bg-gradient-to-br from-orange-50 to-amber-100 p-6 rounded-lg">
-                                <h4 class="font-semibold text-gray-900 mb-2">Date Editor</h4>
-                                <p class="text-sm text-gray-600 mb-3">Date picker with range validation and formatting</p>
-                                <div class="code-block">
-                                    <pre><code class="language-typescript">{
-  field: 'birthDate',
-  editable: true,
-  cellEditor: 'date',
-  cellEditorParams: {
-    format: 'yyyy-MM-dd',
-    min: '1900-01-01',
-    max: '2023-12-31'
-  }
-}</code></pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+describe('NgGridComponent', () => {
+  let component: NgGridComponent;
+  let fixture: ComponentFixture&lt;NgGridComponent&gt;;
 
-                <!-- Examples Section -->
-                <section id="examples" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Complete Examples</h2>
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      imports: [NgGridComponent]
+    });
+    fixture = TestBed.createComponent(NgGridComponent);
+    component = fixture.componentInstance;
+  });
 
-                        <!-- Basic Data Grid Example -->
-                        <div class="mb-10">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Basic Data Grid</h3>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <div class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                                    <div class="text-4xl mb-4">📊</div>
-                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Employee Grid Demo</h4>
-                                    <p class="text-gray-600 mb-4">Interactive employee data with sorting, filtering, and pagination</p>
-                                    <div class="grid grid-cols-3 gap-4 text-sm text-gray-600">
-                                        <div>✓ Column Sorting</div>
-                                        <div>✓ Row Selection</div>
-                                        <div>✓ Export Options</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  it('should render data correctly', () =&gt; {
+    component.rowData = [{ id: 1, name: 'Test' }];
+    fixture.detectChanges();
 
-                        <!-- Advanced Grid Example -->
-                        <div class="mb-10">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Advanced Grid with Templates</h3>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <div class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                                    <div class="text-4xl mb-4">🎨</div>
-                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Product Catalog Grid</h4>
-                                    <p class="text-gray-600 mb-4">Rich product display with custom templates, status badges, and actions</p>
-                                    <div class="grid grid-cols-3 gap-4 text-sm text-gray-600">
-                                        <div>✓ Custom Templates</div>
-                                        <div>✓ Status Badges</div>
-                                        <div>✓ Action Buttons</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    expect(fixture.nativeElement.textContent).toContain('Test');
+  });
+});</code></pre>
+        </section>
 
-                        <!-- Server-Side Grid Example -->
-                        <div class="mb-10">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Server-Side Operations</h3>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <div class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                                    <div class="text-4xl mb-4">⚡</div>
-                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Large Dataset Grid</h4>
-                                    <p class="text-gray-600 mb-4">Efficient handling of large datasets with server-side operations</p>
-                                    <div class="grid grid-cols-3 gap-4 text-sm text-gray-600">
-                                        <div>✓ Server-Side Sorting</div>
-                                        <div>✓ Server-Side Filtering</div>
-                                        <div>✓ Virtual Scrolling</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        <section>
+            <h2><span class="emoji">🤝</span>Contributing</h2>
+            <ol>
+                <li>Fork the repository</li>
+                <li>Create a feature branch: <code>git checkout -b feature/my-feature</code></li>
+                <li>Commit changes: <code>git commit -am 'Add my feature'</code></li>
+                <li>Push to branch: <code>git push origin feature/my-feature</code></li>
+                <li>Submit a pull request</li>
+            </ol>
+        </section>
 
-                <!-- Best Practices Section -->
-                <section id="best-practices" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-sm p-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Best Practices</h2>
+        <section>
+            <h2><span class="emoji">🚨</span>Recent Updates & Fixes</h2>
 
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <!-- Performance Tips -->
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-green-600">⚡ Performance</h3>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Use virtual scrolling for large datasets (1000+ rows)</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Implement server-side operations for very large datasets</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Use trackBy functions for optimal change detection</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-green-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Minimize template complexity</span>
-                                    </li>
-                                </ul>
-                            </div>
+            <h3>Angular 20+ Compatibility <span class="badge">✅</span></h3>
+            <ul>
+                <li>Fixed <code>ng build</code> issues with ng-packagr</li>
+                <li>Resolved cross-library import dependencies</li>
+                <li>Updated peer dependencies to support Angular 17-20+</li>
+                <li>Improved TypeScript compilation with strict mode</li>
+            </ul>
 
-                            <!-- Security Tips -->
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-blue-600">🔐 Security</h3>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Enable XSS protection for user-generated content</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Validate all input data</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Sanitize exported data</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Implement proper error handling</span>
-                                    </li>
-                                </ul>
-                            </div>
+            <h3>Build & Architecture Improvements <span class="badge">✅</span></h3>
+            <ul>
+                <li><strong>Standalone Components</strong>: Full migration to modern Angular architecture</li>
+                <li><strong>Signal-based State</strong>: Reactive state management implementation</li>
+                <li><strong>Fixed Import Issues</strong>: Resolved relative import problems causing build failures</li>
+                <li><strong>Enhanced Type Safety</strong>: Complete TypeScript interface coverage</li>
+            </ul>
 
-                            <!-- Accessibility Tips -->
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-purple-600">♿ Accessibility</h3>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Ensure keyboard navigation works properly</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Provide appropriate ARIA labels</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Support screen readers</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Maintain focus management</span>
-                                    </li>
-                                </ul>
-                            </div>
+            <h3>Performance & Security <span class="badge">✅</span></h3>
+            <ul>
+                <li><strong>Virtual Scrolling</strong>: Handle 10M+ records efficiently</li>
+                <li><strong>XSS Protection</strong>: Enhanced security with input validation</li>
+                <li><strong>Memory Optimization</strong>: Improved garbage collection and state management</li>
+                <li><strong>Bundle Size</strong>: Reduced bundle size with standalone components</li>
+            </ul>
+        </section>
 
-                            <!-- Styling Tips -->
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-orange-600">🎨 Styling</h3>
-                                <ul class="space-y-3">
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Use CSS custom properties for theming</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Follow consistent design patterns</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Ensure responsive design</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                        <span class="text-gray-700">Test across different screen sizes</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+        <section>
+            <h2><span class="emoji">📄</span>License</h2>
+            <p>MIT © <a href="https://github.com/ultimatevarun/ng-vui-examples">VUI</a></p>
+        </section>
+
+        <section>
+            <h2><span class="emoji">📚</span>Comprehensive Documentation</h2>
+            <p>For detailed information about specific features, see these comprehensive guides:</p>
+
+            <h3>Core Documentation</h3>
+            <ul>
+                <li><a href="ng-vui-grid.html"><strong>Complete Grid Documentation</strong></a> - Comprehensive API reference and examples</li>
+                <li><a href="ng-vui-grid-templates.html"><strong>Template System Guide</strong></a> - Advanced template usage and customization</li>
+                <li><a href="ng-vui-grid-comprehensive.html"><strong>Comprehensive Feature Guide</strong></a> - In-depth feature documentation</li>
+            </ul>
+
+            <h3>Performance & Optimization</h3>
+            <ul>
+                <li><a href="ng-vui-grid-performance.html"><strong>Performance Guide</strong></a> - Performance optimization techniques and best practices</li>
+                <li><a href="ng-vui-grid-virtual-scrolling.html"><strong>Virtual Scrolling Guide</strong></a> - Virtual scrolling implementation and configuration</li>
+            </ul>
+
+            <h3>Security & Best Practices</h3>
+            <ul>
+                <li><a href="ng-vui-grid-security.html"><strong>Security Documentation</strong></a> - Security features, XSS protection, and input validation</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="emoji">🔗</span>Related Packages</h2>
+            <ul>
+                <li><code>@ng-vui/multi-select</code> - Multi-select dropdown component</li>
+                <li><code>@ng-vui/date-picker</code> - Date picker component</li>
+                <li><code>@ng-vui/select-input</code> - Single select dropdown</li>
+                <li><code>@ng-vui/text-input</code> - Text input component</li>
+                <li><code>@ng-vui/textarea</code> - Textarea component</li>
+                <li><code>@ng-vui/auto-complete</code> - Auto complete component</li>
+            </ul>
+        </section>
+
+        <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e2e8f0; text-align: center; color: #718096;">
+            <p>Generated from README.md - Last updated: <span id="currentDate"></span></p>
+        </footer>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-gray-600">NgVuiGrid Documentation - VUI Component Library</p>
-                <p class="text-sm text-gray-500 mt-2">Built with Angular and TypeScript</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Smooth scrolling script -->
     <script>
-        // Smooth scrolling for navigation links
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
@@ -782,24 +958,46 @@ export class EmployeeGridComponent {
             });
         });
 
-        // Highlight current section in navigation
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.sidebar-link');
+        // Copy code button functionality
+        document.querySelectorAll('pre').forEach(pre => {
+            const button = document.createElement('button');
+            button.className = 'copy-btn';
+            button.textContent = 'Copy';
+            button.style.cssText = `
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                padding: 4px 8px;
+                background: #667eea;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 12px;
+                cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.2s;
+            `;
 
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
+            pre.style.position = 'relative';
+            pre.appendChild(button);
+
+            pre.addEventListener('mouseenter', () => {
+                button.style.opacity = '1';
             });
 
-            navLinks.forEach(link => {
-                link.classList.remove('bg-blue-50', 'text-blue-600');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('bg-blue-50', 'text-blue-600');
+            pre.addEventListener('mouseleave', () => {
+                button.style.opacity = '0';
+            });
+
+            button.addEventListener('click', () => {
+                const code = pre.querySelector('code');
+                if (code) {
+                    navigator.clipboard.writeText(code.textContent).then(() => {
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                        }, 2000);
+                    });
                 }
             });
         });
