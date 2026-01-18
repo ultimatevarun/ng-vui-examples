@@ -27,6 +27,16 @@
             margin: 16px 0;
             background: #f9fafb;
         }
+        .bullet-point {
+            width: 8px;
+            height: 8px;
+            background-color: #6b7280;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -69,71 +79,146 @@
                 <div class="space-y-2">
                     <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Components</h3>
 
-                    <a href="accordion-tutorial.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-chevron-down mr-3 text-gray-400"></i>
-                        Accordion
+                    <a href="accordion.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Accordion</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="auto-complete.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-search mr-3 text-gray-400"></i>
-                        Auto Complete
+                    <a href="auto-complete.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Auto Complete</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-keyboard mr-3 text-gray-400"></i>
-                        Text Input
+                    <a href="text-input.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Text Input</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-align-left mr-3 text-gray-400"></i>
-                        Textarea
+                    <a href="textarea.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Textarea</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-chevron-down mr-3 text-gray-400"></i>
-                        Select Input
+                    <a href="select-input.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Select Input</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="multi-select.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-list-ul mr-3 text-gray-400"></i>
-                        Multi Select
+                    <a href="multi-select.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Multi Select</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="#date-picker" class="sidebar-link block py-3 px-4 text-blue-600 bg-blue-50 rounded-lg font-medium">
-                        <i class="fas fa-calendar-alt mr-3 text-blue-500"></i>
-                        Date Picker
-                        <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Current</span>
+                    <a href="date-picker.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 bg-gray-50 rounded-lg transition-colors font-medium">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Date Picker</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="file-uploader.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-cloud-upload-alt mr-3 text-gray-400"></i>
-                        File Uploader
+                    <a href="file-uploader.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>File Uploader</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-images mr-3 text-gray-400"></i>
-                        Image Gallery
+                    <a href="image-gallery.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Image Gallery</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
                     </a>
 
-                    <a href="modal.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
-                        <i class="fas fa-window-restore mr-3 text-gray-400"></i>
-                        Modal
+                    <a href="modal.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>Modal</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="ng-vui-icon.html" class="sidebar-link block py-3 px-4 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point"></span>
+                            <span>SVG Icon</span>
+                            <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ready</span>
+                        </div>
+                    </a>
+
+                    <a href="ng-vui-grid.html" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>Data Grid</span>
+                            <span class="ml-auto text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Coming Soon</span>
+                        </div>
+                    </a>
+
+                    <a href="#wysiwyg-editor" class="sidebar-link block py-3 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div class="flex items-center">
+                            <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                            <span>WYSIWYG Editor</span>
+                            <span class="ml-auto text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Coming Soon</span>
+                        </div>
                     </a>
                 </div>
 
                 <div class="mt-8">
                     <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Resources</h3>
                     <div class="space-y-2 text-sm">
-                        <a href="index.html#getting-started" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
-                            <i class="fas fa-rocket mr-2"></i>Getting Started
+                        <a href="../index.html#installation" class="block text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center">
+                                <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                                <span>Installation</span>
+                            </div>
                         </a>
-                        <a href="index.html#examples" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
-                            <i class="fas fa-code mr-2"></i>Examples
+                        <a href="../index.html#getting-started" class="block text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center">
+                                <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                                <span>Getting Started</span>
+                            </div>
                         </a>
-                        <a href="https://github.com/ultimatevarun/vui" class="block text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">
-                            <i class="fab fa-github mr-2"></i>GitHub
+                        <a href="../index.html#examples" class="block text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center">
+                                <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                                <span>Examples</span>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/varun-s-26247116b/" class="block text-gray-600 hover:text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center">
+                                <span class="bullet-point" style="background-color: #9ca3af;"></span>
+                                <span>Contact</span>
+                            </div>
                         </a>
                     </div>
+                </div>
+
+                <!-- Version Info -->
+                <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <div class="text-xs text-gray-500 mb-2">Latest Version</div>
+                    <div class="text-sm font-semibold text-gray-900">v1.0.8</div>
+                    <div class="text-xs text-gray-500 mt-1">Last updated: Sep 2024</div>
                 </div>
             </div>
         </nav>
